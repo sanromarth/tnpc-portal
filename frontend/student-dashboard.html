@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Student Dashboard — Sri GCSR College Training & Placement Cell Portal">
+    <title>Student Dashboard | Sri GCSR College</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/logos/sgcsr-logo.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0B1D3A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/pwa-enhancements.css">
+</head>
+<body>
+
+<div class="dash-layout">
+
+    <aside class="dash-sidebar" id="studentSidebar">
+        <div class="sidebar-header">
+            <img src="assets/logos/sgcsr-logo.png" alt="Logo" class="sidebar-logo">
+            <h2>TNPC Portal</h2>
+            <button class="sidebar-close" onclick="document.getElementById('studentSidebar').classList.remove('open')" aria-label="Close">✕</button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" onclick="showSection('dashboard', this)">
+                <span class="nav-icon">📊</span> Dashboard
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('jobs', this)">
+                <span class="nav-icon">💼</span> Job Opportunities
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('saved', this)">
+                <span class="nav-icon">🔖</span> Saved Jobs
+                <span class="nav-badge" id="savedBadge" style="display:none;">0</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('applications', this)">
+                <span class="nav-icon">📝</span> My Applications
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('certifications', this)">
+                <span class="nav-icon">🎓</span> Certifications
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('skillgap', this)">
+                <span class="nav-icon">🎯</span> Skill Analyzer
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('trainings', this)">
+                <span class="nav-icon">📅</span> Trainings & Events
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('notifications', this)">
+                <span class="nav-icon">🔔</span> Notifications
+                <span class="nav-badge" id="sidebarNotifBadge" style="display:none;">0</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('profile', this)">
+                <span class="nav-icon">👤</span> My Profile
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('predictor', this)">
+                <span class="nav-icon">🤖</span> AI Predictor
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('skillbuild', this)">
+                <span class="nav-icon">🚀</span> SkillBuild
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span> Home</a>
+            <a href="#" class="nav-item" onclick="localStorage.clear(); window.location.href='login.html';"><span class="nav-icon">🚪</span> Logout</a>
+        </div>
+    </aside>
+
+    <main class="dash-main">
+        <div class="dash-topbar">
+            <button class="sidebar-toggle" onclick="document.getElementById('studentSidebar').classList.toggle('open')" aria-label="Menu">☰</button>
+            <h1 class="topbar-title">Student Dashboard</h1>
+            <div class="topbar-right">
+                <div class="notif-bell" onclick="showSection('notifications', document.querySelector('[onclick*=notifications]'))">
+                    🔔<span class="notif-badge" id="bellBadge" style="display:none;">0</span>
+                </div>
+                <span class="topbar-user" id="topbarName">👤 Student</span>
+            </div>
+        </div>
+
+        <div class="dash-content">
+
+            <!-- ===== DASHBOARD OVERVIEW ===== -->
+            <section class="dash-section active" id="sec-dashboard">
+                <div class="section-header">
+                    <h2>Welcome back, <span id="welcomeName">Student</span>! 👋</h2>
+                    <p class="section-subtitle">Here's your placement readiness overview</p>
+                </div>
+
+                <!-- Daily Tip Banner -->
+                <div class="tip-banner glass-card" id="dailyTip">
+                    <span class="tip-icon">💡</span>
+                    <span class="tip-text" id="tipText">Loading placement tip...</span>
+                    <button class="tip-refresh" onclick="showNextTip()" title="Next tip">↻</button>
+                </div>
+
+                <div class="overview-cards">
+                    <div class="stat-card gradient-blue">
+                        <div class="stat-icon">👤</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Profile Strength</span>
+                            <span class="stat-value counter" id="ovProfileCompletion" data-target="0">0%</span>
+                        </div>
+                        <div class="stat-progress"><div class="stat-progress-bar" id="ovProfileBar" style="width:0%"></div></div>
+                    </div>
+                    <div class="stat-card gradient-green">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Eligibility</span>
+                            <span class="stat-value" id="ovEligibility">—</span>
+                        </div>
+                    </div>
+                    <div class="stat-card gradient-gold">
+                        <div class="stat-icon">📄</div>
+                        <div class="stat-info">
+                            <span class="stat-label">Resume</span>
+                            <span class="stat-value" id="ovResume">Not Uploaded</span>
+                        </div>
+                    </div>
+                    <div class="stat-card gradient-red">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-info">
+                            <span class="stat-label">CGPA</span>
+                            <span class="stat-value" id="ovCGPA">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-grid">
+                    <div class="glass-card">
+                        <h3>📈 Application Summary</h3>
+                        <div class="app-pipeline" id="ovPipeline">
+                            <div class="pipeline-item pending"><span class="pipeline-count counter" id="ovPending" data-target="0">0</span><span class="pipeline-label">Pending</span></div>
+                            <div class="pipeline-arrow">→</div>
+                            <div class="pipeline-item shortlisted"><span class="pipeline-count counter" id="ovShortlisted" data-target="0">0</span><span class="pipeline-label">Shortlisted</span></div>
+                            <div class="pipeline-arrow">→</div>
+                            <div class="pipeline-item accepted"><span class="pipeline-count counter" id="ovAccepted" data-target="0">0</span><span class="pipeline-label">Selected</span></div>
+                        </div>
+                    </div>
+                    <div class="glass-card">
+                        <h3>💼 Quick Stats</h3>
+                        <div class="quick-stats-grid">
+                            <div class="qs-item"><span class="qs-value counter" id="ovActiveJobs" data-target="0">0</span><span class="qs-label">Active Jobs</span></div>
+                            <div class="qs-item"><span class="qs-value counter" id="ovTotalApps" data-target="0">0</span><span class="qs-label">Applied</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- College Placement Snapshot -->
+                <div class="glass-card mt-20">
+                    <h3>🏆 College Placement Snapshot (Latest Batch)</h3>
+                    <div class="overview-cards" style="margin-top:12px;">
+                        <div class="stat-card glass-card-mini"><div class="stat-info"><span class="stat-label">Placement Rate</span><span class="stat-value" id="collegePlacementRate">—</span></div></div>
+                        <div class="stat-card glass-card-mini"><div class="stat-info"><span class="stat-label">Highest CTC</span><span class="stat-value" id="collegeHighCTC">—</span></div></div>
+                        <div class="stat-card glass-card-mini"><div class="stat-info"><span class="stat-label">Avg CTC</span><span class="stat-value" id="collegeAvgCTC">—</span></div></div>
+                        <div class="stat-card glass-card-mini"><div class="stat-info"><span class="stat-label">Companies</span><span class="stat-value" id="collegeCompanies">—</span></div></div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Deadlines -->
+                <div class="glass-card mt-20">
+                    <h3>⏰ Upcoming Deadlines</h3>
+                    <div id="upcomingDeadlines"><div class="loading-state">Loading...</div></div>
+                </div>
+
+                <div class="glass-card mt-20">
+                    <h3>🆕 Latest Job Openings</h3>
+                    <div class="job-preview-grid" id="ovRecentJobs">
+                        <div class="loading-state">Loading jobs...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== JOBS ===== -->
+            <section class="dash-section" id="sec-jobs">
+                <div class="section-header">
+                    <h2>💼 Job Opportunities</h2>
+                    <div class="filter-bar">
+                        <input type="text" id="jobSearch" placeholder="Search company or role..." oninput="filterJobs()">
+                        <select id="jobTypeFilter" onchange="filterJobs()">
+                            <option value="all">All Types</option>
+                            <option value="Full-time">Full-time</option>
+                            <option value="Internship">Internship</option>
+                            <option value="Part-time">Part-time</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="jobs-grid" id="allJobsGrid">
+                    <div class="loading-state">Loading jobs...</div>
+                </div>
+            </section>
+
+            <!-- ===== SAVED JOBS ===== -->
+            <section class="dash-section" id="sec-saved">
+                <div class="section-header">
+                    <h2>🔖 Saved Jobs</h2>
+                    <p class="section-subtitle">Your bookmarked job opportunities</p>
+                </div>
+                <div class="jobs-grid" id="savedJobsGrid">
+                    <div class="empty-state">No saved jobs yet. Browse jobs and bookmark the ones you like!</div>
+                </div>
+            </section>
+
+            <!-- ===== APPLICATIONS ===== -->
+            <section class="dash-section" id="sec-applications">
+                <div class="section-header">
+                    <h2>📝 My Applications</h2>
+                    <p class="section-subtitle">Track your application status in real-time</p>
+                </div>
+                <div class="app-tracker" id="appTracker">
+                    <div class="loading-state">Loading applications...</div>
+                </div>
+            </section>
+
+            <!-- ===== CERTIFICATIONS ===== -->
+            <section class="dash-section" id="sec-certifications">
+                <div class="section-header">
+                    <h2>🎓 My Certifications</h2>
+                    <p class="section-subtitle">IBM SkillsBuild & Industry-Recognized Certifications</p>
+                </div>
+                <div class="cert-table-wrap">
+                    <table class="premium-table" id="certTable">
+                        <thead>
+                            <tr><th>S.No</th><th>Course</th><th>Completion Date</th><th>Status</th></tr>
+                        </thead>
+                        <tbody id="certBody">
+                            <tr><td colspan="4" class="loading-state">Loading certifications...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ===== SKILL GAP ANALYZER ===== -->
+            <section class="dash-section" id="sec-skillgap">
+                <div class="section-header">
+                    <h2>🎯 Skill Gap Analyzer</h2>
+                    <p class="section-subtitle">See what skills top companies need and where you stand</p>
+                </div>
+
+                <div class="glass-card">
+                    <h3>🧠 Your Skills</h3>
+                    <div class="skills-showcase" id="yourSkills">
+                        <span class="empty-state">Update your profile to add skills</span>
+                    </div>
+                </div>
+
+                <div class="glass-card mt-20">
+                    <h3>📊 Skills Most in Demand (Based on Active Jobs)</h3>
+                    <div id="demandedSkills"><div class="loading-state">Analyzing job requirements...</div></div>
+                </div>
+
+                <div class="glass-card mt-20">
+                    <h3>❌ Skills You're Missing</h3>
+                    <div id="missingSkills"><div class="loading-state">Analyzing...</div></div>
+                </div>
+
+                <div class="glass-card mt-20">
+                    <h3>✅ Skills You Already Have</h3>
+                    <div id="matchingSkills"><div class="loading-state">Analyzing...</div></div>
+                </div>
+
+                <div class="glass-card mt-20">
+                    <h3>📈 Your Skill Match Score</h3>
+                    <div class="skill-score-container" id="skillScore">
+                        <div class="skill-score-bar"><div class="skill-score-fill" id="skillScoreFill" style="width:0%"></div></div>
+                        <span class="skill-score-text" id="skillScoreText">0%</span>
+                    </div>
+                    <p class="skill-score-hint" id="skillScoreHint">Add more skills to improve your match score</p>
+                </div>
+            </section>
+
+            <!-- ===== TRAININGS ===== -->
+            <section class="dash-section" id="sec-trainings">
+                <div class="section-header">
+                    <h2>📅 Trainings & Placement Calendar</h2>
+                    <p class="section-subtitle">Upcoming drives, workshops & training sessions</p>
+                </div>
+                <div class="trainings-grid" id="trainingsGrid">
+                    <div class="loading-state">Loading trainings...</div>
+                </div>
+            </section>
+
+            <!-- ===== NOTIFICATIONS ===== -->
+            <section class="dash-section" id="sec-notifications">
+                <div class="section-header">
+                    <h2>🔔 Notifications & Announcements</h2>
+                    <button class="btn-sm" onclick="markAllRead()">Mark all read</button>
+                </div>
+                <div class="notif-list" id="notifList">
+                    <div class="loading-state">Loading notifications...</div>
+                </div>
+            </section>
+
+            <!-- ===== PROFILE ===== -->
+            <section class="dash-section" id="sec-profile">
+                <div class="section-header">
+                    <h2>👤 My Profile</h2>
+                    <p class="section-subtitle">Keep your profile updated for better placement opportunities</p>
+                </div>
+
+                <!-- Profile Strength Meter -->
+                <div class="glass-card mb-20">
+                    <h3>💪 Profile Strength</h3>
+                    <div class="strength-meter">
+                        <div class="strength-gauge">
+                            <svg viewBox="0 0 200 100" class="strength-svg">
+                                <path d="M 20 90 A 80 80 0 0 1 180 90" fill="none" stroke="#1a2332" stroke-width="12" stroke-linecap="round"/>
+                                <path d="M 20 90 A 80 80 0 0 1 180 90" fill="none" stroke-width="12" stroke-linecap="round" id="strengthArc"
+                                    stroke-dasharray="251.3" stroke-dashoffset="251.3" stroke="url(#strengthGrad)"/>
+                                <defs><linearGradient id="strengthGrad"><stop offset="0%" stop-color="#C62828"/><stop offset="50%" stop-color="#FBC02D"/><stop offset="100%" stop-color="#2e7d32"/></linearGradient></defs>
+                            </svg>
+                            <div class="strength-value" id="strengthValue">0%</div>
+                        </div>
+                        <div class="strength-tips" id="strengthTips"></div>
+                    </div>
+                </div>
+
+                <form class="profile-form glass-card" id="profileEditForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="profName" placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="profEmail" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" id="profPhone" placeholder="Mobile number">
+                        </div>
+                        <div class="form-group">
+                            <label>Register Number</label>
+                            <input type="text" id="profRegNo" placeholder="e.g. 22A51A0501">
+                        </div>
+                        <div class="form-group">
+                            <label>Course</label>
+                            <select id="profCourse" onchange="updateSpecializations('profCourse','profSpecialization')">
+                                <option value="">Select Course</option>
+                                <option value="B.Sc">B.Sc</option>
+                                <option value="BCA">BCA</option>
+                                <option value="B.Com">B.Com</option>
+                                <option value="BBA">BBA</option>
+                                <option value="MBA">MBA</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Specialization / Group</label>
+                            <select id="profSpecialization">
+                                <option value="">Select Specialization</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Batch</label>
+                            <input type="text" id="profBatch" placeholder="e.g. 2022-2026">
+                        </div>
+                        <div class="form-group">
+                            <label>CGPA</label>
+                            <input type="number" id="profCGPA" step="0.01" min="0" max="10" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label>10th Percentage</label>
+                            <input type="number" id="profTenth" step="0.01" min="0" max="100" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label>12th Percentage</label>
+                            <input type="number" id="profTwelfth" step="0.01" min="0" max="100" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label>Backlogs</label>
+                            <input type="number" id="profBacklogs" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Skills (comma separated)</label>
+                            <input type="text" id="profSkills" placeholder="e.g. Python, Java, HTML, React">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Resume URL (Google Drive / LinkedIn)</label>
+                            <input type="url" id="profResume" placeholder="https://drive.google.com/...">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">💾 Save Profile</button>
+                        <span id="profileSaveStatus"></span>
+                    </div>
+                </form>
+            </section>
+
+            <!-- ===== AI PREDICTOR ===== -->
+            <section class="dash-section" id="sec-predictor">
+                <div class="section-header">
+                    <h2>🤖 AI Placement Predictor</h2>
+                    <p class="section-subtitle">Get an AI-powered estimate of your placement chances</p>
+                </div>
+                <div class="predictor-card glass-card">
+                    <div class="predictor-inputs" id="predictorInputs">
+                        <div class="form-group">
+                            <label>CGPA</label>
+                            <input type="number" id="predCGPA" step="0.01" min="0" max="10" placeholder="Enter CGPA">
+                        </div>
+                        <div class="form-group">
+                            <label>No. of Skills</label>
+                            <input type="number" id="predSkills" min="0" placeholder="How many skills?">
+                        </div>
+                        <div class="form-group">
+                            <label>Certifications</label>
+                            <input type="number" id="predCerts" min="0" placeholder="IBM/ICT certs count">
+                        </div>
+                        <div class="form-group">
+                            <label>Backlogs</label>
+                            <input type="number" id="predBacklogs" min="0" placeholder="Active backlogs">
+                        </div>
+                        <div class="form-group">
+                            <label>Internships</label>
+                            <input type="number" id="predInternships" min="0" placeholder="Completed internships">
+                        </div>
+                        <div class="form-group">
+                            <label>Projects</label>
+                            <input type="number" id="predProjects" min="0" placeholder="Projects completed">
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="calculatePrediction()">🔮 Predict My Chances</button>
+                    <div class="predictor-result" id="predictorResult" style="display:none;">
+                        <div class="pred-gauge">
+                            <svg viewBox="0 0 120 120" class="pred-circle">
+                                <circle cx="60" cy="60" r="54" fill="none" stroke="#1a2332" stroke-width="8"/>
+                                <circle cx="60" cy="60" r="54" fill="none" stroke-width="8" stroke-linecap="round"
+                                    id="predCircle" stroke-dasharray="339.3" stroke-dashoffset="339.3"
+                                    transform="rotate(-90 60 60)"/>
+                            </svg>
+                            <span class="pred-percent" id="predPercent">0%</span>
+                        </div>
+                        <div class="pred-label" id="predLabel"></div>
+                        <div class="pred-tips" id="predTips"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== SKILLBUILD ===== -->
+            <section class="dash-section" id="sec-skillbuild">
+                <div class="section-header">
+                    <h2>🚀 SkillBuild — Free Learning Resources</h2>
+                    <p class="section-subtitle">Top platforms to boost your skills and get placed faster</p>
+                </div>
+
+                <div class="sb-category">
+                    <h3 class="sb-cat-title">💼 Job Simulations & Virtual Internships</h3>
+                    <div class="sb-grid">
+                        <a href="https://www.theforage.com" target="_blank" class="sb-card">
+                            <div class="sb-icon">🧭</div>
+                            <div class="sb-info">
+                                <h4>Forage</h4>
+                                <p>Free virtual work experience programs from top companies like JPMorgan, BCG, Accenture & more. Great for resumes!</p>
+                                <div class="sb-tags"><span>Free</span><span>Virtual Internship</span><span>Certificate</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sb-category">
+                    <h3 class="sb-cat-title">📚 Online Courses & Certifications</h3>
+                    <div class="sb-grid">
+                        <a href="https://www.coursera.org" target="_blank" class="sb-card">
+                            <div class="sb-icon">🎓</div>
+                            <div class="sb-info">
+                                <h4>Coursera</h4>
+                                <p>World-class courses from Google, IBM, Meta & top universities. Free to audit, with paid certificates.</p>
+                                <div class="sb-tags"><span>Free Audit</span><span>Google Certs</span><span>University Courses</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                        <a href="https://www.linkedin.com/learning" target="_blank" class="sb-card">
+                            <div class="sb-icon">💼</div>
+                            <div class="sb-info">
+                                <h4>LinkedIn Learning</h4>
+                                <p>Professional development courses in business, tech & creative skills. Certificates directly on your LinkedIn profile.</p>
+                                <div class="sb-tags"><span>Free Trial</span><span>LinkedIn Badge</span><span>Professional</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                        <a href="https://www.freecodecamp.org" target="_blank" class="sb-card">
+                            <div class="sb-icon">💻</div>
+                            <div class="sb-info">
+                                <h4>freeCodeCamp</h4>
+                                <p>Learn to code for free. Full-stack curriculum covering HTML, CSS, JavaScript, Python, Data Science & more.</p>
+                                <div class="sb-tags"><span>100% Free</span><span>Full Stack</span><span>Hands-on Projects</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                        <a href="https://www.mygreatlearning.com/academy" target="_blank" class="sb-card">
+                            <div class="sb-icon">📊</div>
+                            <div class="sb-info">
+                                <h4>Great Learning Academy</h4>
+                                <p>Free courses in Data Science, AI, Cloud Computing, Cybersecurity with completion certificates.</p>
+                                <div class="sb-tags"><span>Free</span><span>Certificate</span><span>AI & Data</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                        <a href="https://swayam.gov.in" target="_blank" class="sb-card">
+                            <div class="sb-icon">🇮🇳</div>
+                            <div class="sb-info">
+                                <h4>SWAYAM</h4>
+                                <p>Government of India's free online education platform. Courses from IITs, IIMs & top Indian universities with NPTEL integration.</p>
+                                <div class="sb-tags"><span>Free</span><span>Govt of India</span><span>NPTEL</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                        <a href="https://www.ibm.com/skillsbuild" target="_blank" class="sb-card">
+                            <div class="sb-icon">🔵</div>
+                            <div class="sb-info">
+                                <h4>IBM SkillsBuild</h4>
+                                <p>Free learning platform by IBM covering AI, Cybersecurity, Cloud & professional skills with digital badges.</p>
+                                <div class="sb-tags"><span>Free</span><span>IBM Badge</span><span>AI & Cloud</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                        <a href="https://www.udemy.com" target="_blank" class="sb-card">
+                            <div class="sb-icon">🎬</div>
+                            <div class="sb-info">
+                                <h4>Udemy</h4>
+                                <p>Massive library of affordable courses. Watch for frequent sales — courses drop to ₹299-499. Covers everything.</p>
+                                <div class="sb-tags"><span>Affordable</span><span>Wide Range</span><span>Sales Often</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sb-category">
+                    <h3 class="sb-cat-title">🧑‍💻 Coding Practice & DSA</h3>
+                    <div class="sb-grid">
+                        <a href="https://leetcode.com" target="_blank" class="sb-card">
+                            <div class="sb-icon">⚡</div>
+                            <div class="sb-info">
+                                <h4>LeetCode</h4>
+                                <p>The #1 platform for coding interview prep. Practice 2500+ problems, participate in contests & get hired at FAANG.</p>
+                                <div class="sb-tags"><span>Free Tier</span><span>DSA</span><span>Interview Prep</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                        <a href="https://www.geeksforgeeks.org" target="_blank" class="sb-card">
+                            <div class="sb-icon">🟢</div>
+                            <div class="sb-info">
+                                <h4>GeeksforGeeks</h4>
+                                <p>India's largest CS learning hub. DSA, System Design, company-wise interview experiences & placement preparation.</p>
+                                <div class="sb-tags"><span>Free</span><span>Indian Focus</span><span>Company-wise Prep</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                        <a href="https://www.hackerrank.com" target="_blank" class="sb-card">
+                            <div class="sb-icon">🏅</div>
+                            <div class="sb-info">
+                                <h4>HackerRank</h4>
+                                <p>Practice coding, earn skill badges & get noticed by recruiters. Many companies use HackerRank for hiring tests.</p>
+                                <div class="sb-tags"><span>Free</span><span>Skill Badges</span><span>Recruiter Access</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sb-category">
+                    <h3 class="sb-cat-title">📄 Resume & Career Tools</h3>
+                    <div class="sb-grid">
+                        <a href="https://www.kickresume.com" target="_blank" class="sb-card">
+                            <div class="sb-icon">📝</div>
+                            <div class="sb-info">
+                                <h4>Kickresume</h4>
+                                <p>AI-powered resume builder with 35+ ATS-friendly templates. Create professional resumes in minutes.</p>
+                                <div class="sb-tags"><span>Freemium</span><span>AI Resume</span><span>ATS-Friendly</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                        <a href="https://novoresume.com" target="_blank" class="sb-card">
+                            <div class="sb-icon">✨</div>
+                            <div class="sb-info">
+                                <h4>Novoresume</h4>
+                                <p>Sleek, modern resume templates with content suggestions. Perfect for freshers and experienced professionals.</p>
+                                <div class="sb-tags"><span>Free Tier</span><span>Modern Design</span><span>Cover Letter</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sb-category">
+                    <h3 class="sb-cat-title">🏛️ Government & Scholarship Programs</h3>
+                    <div class="sb-grid">
+                        <a href="https://internshala.com" target="_blank" class="sb-card">
+                            <div class="sb-icon">🎯</div>
+                            <div class="sb-info">
+                                <h4>Internshala</h4>
+                                <p>India's #1 internship & training platform. Find internships, online training, and fresher jobs.</p>
+                                <div class="sb-tags"><span>Free</span><span>Internships</span><span>Fresher Jobs</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                        <a href="https://www.ncs.gov.in" target="_blank" class="sb-card">
+                            <div class="sb-icon">🇮🇳</div>
+                            <div class="sb-info">
+                                <h4>National Career Service (NCS)</h4>
+                                <p>Government of India employment portal. Free job matching, career counseling & skill development programs.</p>
+                                <div class="sb-tags"><span>Free</span><span>Govt Portal</span><span>Career Counseling</span></div>
+                            </div>
+                            <span class="sb-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="glass-card mt-20" style="text-align:center;">
+                    <p style="color:rgba(255,255,255,0.5);font-size:13px;">💡 <strong>Pro Tip:</strong> Complete at least 2-3 certifications and build 1-2 projects from these platforms before placement season to stand out!</p>
+                </div>
+            </section>
+
+        </div>
+    </main>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/student-dashboard.js"></script>
+<script src="js/pwa.js" defer></script>
+</body>
+</html>

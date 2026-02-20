@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Top Corporate Partners | Sri GCSR College</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/logos/sgcsr-logo.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0B1D3A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/pwa-enhancements.css">
+  <style>
+    .corporates-hero {
+      background: linear-gradient(135deg, #0B1D3A 0%, #1e4f9a 100%);
+      color: #fff;
+      padding: 80px 20px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .corporates-hero::before {
+      content: "";
+      position: absolute;
+      right: -80px; top: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(251,192,45,0.15), transparent 70%);
+      border-radius: 50%;
+    }
+    .corporates-hero h1 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .corporates-hero p {
+      font-size: 16px;
+      opacity: 0.85;
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .corporates-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 50px 20px 80px;
+    }
+    .tier-section {
+      margin-bottom: 50px;
+    }
+    .tier-heading {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0B1D3A;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tier-heading::after {
+      content: "";
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #e5e7eb, transparent);
+    }
+    .tier-heading .tier-badge {
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tier-badge.platinum { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); color: #1e293b; }
+    .tier-badge.gold { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; }
+    .tier-badge.silver { background: linear-gradient(135deg, #f1f5f9, #e2e8f0); color: #475569; }
+
+    .corp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .corp-card {
+      background: #fff;
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e5e7eb;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .corp-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .corp-card.platinum::before { background: linear-gradient(90deg, #94a3b8, #475569, #94a3b8); }
+    .corp-card.gold::before { background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24); }
+    .corp-card.silver::before { background: linear-gradient(90deg, #cbd5e1, #9ca3af, #cbd5e1); }
+
+    .corp-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    }
+    .corp-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0B1D3A;
+      margin-bottom: 6px;
+    }
+    .corp-card .corp-type {
+      font-size: 13px;
+      color: #6b7280;
+      text-transform: capitalize;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .corp-card .corp-desc {
+      font-size: 14px;
+      color: #4b5563;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .corp-card .corp-location {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+    .corp-card .corp-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: #1e4f9a;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .corp-card .corp-link:hover {
+      color: #C62828;
+      transform: translateX(3px);
+    }
+    .empty-message {
+      text-align: center;
+      padding: 60px 20px;
+      color: #9ca3af;
+      font-size: 16px;
+    }
+    @media (max-width: 768px) {
+      .corporates-hero h1 { font-size: 28px; }
+      .corp-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-strip">
+Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved by UGC
+</div>
+
+<header class="navbar" id="navbar">
+  <div class="nav-left">
+    <img src="assets/logos/sgcsr-logo.png" class="college-logo" alt="Sri GCSR College Logo">
+    <div>
+      <h2>Sri GCSR College</h2>
+      <p>Training & Placement Cell</p>
+    </div>
+  </div>
+  <div class="hamburger" id="hamburger" role="button" aria-label="Toggle navigation menu" aria-expanded="false" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+  <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <div class="dropdown" id="certDropdown">
+      <a href="#" id="certToggle">Certificate Programs <span class="arrow">▾</span></a>
+      <div class="dropdown-menu">
+        <a href="certifications.html">IBM Certifications</a>
+        <a href="certifications.html">ICT Certifications</a>
+      </div>
+    </div>
+    <a href="placements.html">Placements</a>
+    <a href="mous.html">MoUs</a>
+    <a href="recruiter.html">Recruiters</a>
+    <a href="contact.html">Contact</a>
+    <button id="loginBtn" type="button" class="btn-yellow">Login</button>
+    <button id="registerBtn" type="button" class="btn-outline">Register</button>
+  </nav>
+  <img src="assets/logos/gmr-logo.png" class="gmr-logo" alt="GMR Group Logo">
+</header>
+
+<section class="corporates-hero">
+  <h1>Top Corporate Partners</h1>
+  <p>Our institutional collaborations with leading universities, colleges, and corporate organizations driving excellence in education and placements.</p>
+</section>
+
+<div class="corporates-content" id="corporatesContent">
+  <div class="empty-message" id="loadingMsg">Loading corporate partners...</div>
+</div>
+
+<footer class="premium-footer">
+<div class="footer-grid container">
+  <div class="footer-col">
+    <h3>Sri GCSR College</h3>
+    <p>Training & Placement Cell, Rajam, Vizianagaram District, Andhra Pradesh - 532127</p>
+  </div>
+  <div class="footer-col">
+    <h3>Quick Links</h3>
+    <a href="about.html">About Us</a>
+    <a href="placements.html">Placements</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-col">
+    <h3>Programs</h3>
+    <a href="certifications.html">IBM Certifications</a>
+    <a href="certifications.html">ICT Academy</a>
+    <a href="mous.html">MoU Partners</a>
+    <a href="recruiter.html">Recruiters</a>
+  </div>
+  <div class="footer-col">
+    <h3>Contact</h3>
+    <p>👤 TPO: Visweswara Rao Ch</p>
+    <p>📧 placements@srigcsrcollege.org</p>
+    <p>📞 86399 18230, 08941-251336</p>
+    <p>🌐 <a href="https://www.srigcsrcollege.org" target="_blank" rel="noopener">www.srigcsrcollege.org</a></p>
+  </div>
+</div>
+<div class="footer-bottom">
+  <p>© 2026 Sri GCSR College | All Rights Reserved | Designed for Excellence</p>
+</div>
+</footer>
+<script src="js/api.js"></script>
+<script src="js/main.js" defer></script>
+<script>
+async function loadCorporates() {
+  try {
+    const res = await fetch(`${API_BASE}/api/top-corporates`);
+    const corporates = await res.json();
+    const container = document.getElementById('corporatesContent');
+
+    if (!corporates.length) {
+      container.innerHTML = '<div class="empty-message">No corporate partners listed yet. Check back soon!</div>';
+      return;
+    }
+
+    const tiers = ['platinum', 'gold', 'silver'];
+    const tierLabels = { platinum: '🏆 Platinum Partners', gold: '🥇 Gold Partners', silver: '🥈 Silver Partners' };
+    const tierIcons = { company: '🏢', university: '🎓', college: '🏫' };
+
+    let html = '';
+    tiers.forEach(tier => {
+      const items = corporates.filter(c => c.tier === tier);
+      if (items.length === 0) return;
+
+      html += `
+        <div class="tier-section">
+          <h2 class="tier-heading">
+            ${tierLabels[tier]}
+            <span class="tier-badge ${tier}">${tier}</span>
+          </h2>
+          <div class="corp-grid">
+            ${items.map(corp => `
+              <div class="corp-card ${tier}">
+                <h3>${corp.name}</h3>
+                <p class="corp-type">${tierIcons[corp.type] || '🏢'} ${corp.type}</p>
+                ${corp.description ? `<p class="corp-desc">${corp.description}</p>` : ''}
+                ${corp.location ? `<p class="corp-location">📍 ${corp.location}</p>` : ''}
+                ${corp.website ? `<a class="corp-link" href="${corp.website}" target="_blank">Visit Website →</a>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+  } catch (e) {
+    document.getElementById('corporatesContent').innerHTML =
+      '<div class="empty-message">Failed to load corporate partners. Please try again later.</div>';
+  }
+}
+
+loadCorporates();
+
+document.addEventListener("DOMContentLoaded", function() {
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    if (loginBtn) loginBtn.addEventListener("click", () => window.location.href = "login.html");
+    if (registerBtn) registerBtn.addEventListener("click", () => window.location.href = "register.html");
+});
+</script>
+<script src="js/pwa.js" defer></script>
+</body>
+</html>

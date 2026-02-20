@@ -1,0 +1,54 @@
+{
+  "name": "TNPC Portal — Sri GCSR College",
+  "short_name": "TNPC Portal",
+  "description": "Training & Placement Cell Portal — Sri GCSR College, Rajam. Browse jobs, track placements, and explore certification programs.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#0B1D3A",
+  "background_color": "#f0f2f7",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/logos/sgcsr-logo.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "business"],
+  "lang": "en",
+  "dir": "ltr",
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Placements",
+      "short_name": "Placements",
+      "url": "/placements.html",
+      "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Certifications",
+      "short_name": "Certs",
+      "url": "/certifications.html",
+      "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "url": "/contact.html",
+      "icons": [{ "src": "assets/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

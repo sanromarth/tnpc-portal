@@ -1,0 +1,217 @@
+@media all and (display-mode: standalone) {
+  .top-strip {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+
+  .navbar {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+
+  body {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: contain;
+  }
+
+  .premium-footer {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  -webkit-overflow-scrolling: touch;
+  touch-action: manipulation;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-tap-highlight-color: transparent;
+}
+
+input, select, textarea, button {
+  font-size: 16px;
+  touch-action: manipulation;
+}
+
+a, button {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  cursor: pointer;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.hero, .page-header, .corporates-hero, .mou-hero, .cert-hero {
+  -webkit-touch-callout: none;
+}
+
+.btn-red, .btn-yellow, .btn-outline, .btn-outline-hero,
+.btn-admin, .btn-apply, .btn-predict, .btn-success-sm, .btn-danger-sm,
+.pwa-btn-install {
+  -webkit-appearance: none;
+  appearance: none;
+  transition: transform 0.15s ease, box-shadow 0.25s ease;
+}
+
+.btn-red:active, .btn-yellow:active, .btn-outline:active,
+.btn-admin:active, .btn-apply:active, .btn-predict:active {
+  transform: scale(0.97);
+}
+
+.stat-card, .job-card, .app-card, .corporate-card, .about-card,
+.mou-card, .feature-card, .contact-card, .cert-card, .recruiter-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .stat-card:hover, .job-card:hover, .app-card:hover,
+  .corporate-card:hover, .about-card:hover, .mou-card:hover,
+  .feature-card:hover, .contact-card:hover, .cert-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .stat-card:active, .job-card:active, .app-card:active,
+  .corporate-card:active, .about-card:active, .mou-card:active,
+  .feature-card:active, .contact-card:active, .cert-card:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-search-input {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 10px;
+  }
+
+  #jobsManageSection > div:first-child,
+  #applicationsManageSection > div:first-child,
+  #studentsManageSection > div:first-child {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .students-table {
+    font-size: 13px;
+  }
+
+  .students-table th, .students-table td {
+    padding: 10px 12px;
+  }
+
+  .predictor-container {
+    max-width: 100%;
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100% !important;
+  }
+
+  .predictor-card {
+    border-radius: 12px;
+  }
+
+  .predictor-form {
+    padding: 0 16px 16px;
+  }
+
+  .predictor-input-group input {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .btn-predict {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .prediction-result h3 {
+    font-size: 40px;
+  }
+
+  .prediction-result p {
+    font-size: 13px;
+  }
+
+  .welcome {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .chart-box {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .dashboard-content {
+    padding: 12px;
+  }
+
+  .topbar {
+    padding: 12px 14px;
+  }
+
+  .topbar h2 {
+    font-size: 14px;
+  }
+
+  .stat-card {
+    padding: 18px;
+  }
+
+  .stat-card p {
+    font-size: 22px;
+  }
+
+  .welcome h1 {
+    font-size: 18px;
+  }
+
+  .predictor-header h3 {
+    font-size: 17px;
+  }
+}

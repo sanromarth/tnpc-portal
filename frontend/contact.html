@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Contact the Training & Placement Cell at Sri GCSR College, Rajam. Reach our TPO, faculty coordinators, and placement team.">
+<title>Contact Us | Training & Placement Cell — Sri GCSR College</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/logos/sgcsr-logo.png" type="image/png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0B1D3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/pwa-enhancements.css">
+<style>
+.contact-hero{background:linear-gradient(135deg,#0B1D3A 0%,#122a52 40%,#1a3a6a 100%);padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden}
+.contact-hero::before{content:'';position:absolute;top:-40%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(251,192,45,0.06) 0%,transparent 70%);border-radius:50%}
+.contact-hero::after{content:'';position:absolute;bottom:-40%;left:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(30,79,154,0.08) 0%,transparent 70%);border-radius:50%}
+.contact-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;color:#fff;margin-bottom:12px;position:relative;z-index:1}
+.contact-hero h1 span{background:linear-gradient(135deg,#FBC02D,#ef6c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.contact-hero p{font-size:16px;color:rgba(255,255,255,0.6);max-width:600px;margin:0 auto;line-height:1.6;position:relative;z-index:1}
+.contact-hero .hero-badges{display:flex;justify-content:center;gap:12px;margin-top:20px;flex-wrap:wrap;position:relative;z-index:1}
+.hero-badge{padding:6px 16px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.04);backdrop-filter:blur(8px)}
+
+.contact-body{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* TNPC Officers Section */
+.officers-section{padding:50px 0 30px}
+.officers-section h2{font-size:24px;font-weight:800;color:#fff;text-align:center;margin-bottom:8px}
+.officers-section .sec-sub{text-align:center;color:rgba(255,255,255,0.45);font-size:13px;margin-bottom:30px}
+.officers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.officer-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:28px 24px;text-align:center;transition:all 0.35s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
+.officer-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1e4f9a,#FBC02D);opacity:0;transition:opacity 0.3s}
+.officer-card:hover{transform:translateY(-5px);border-color:rgba(30,79,154,0.3);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.officer-card:hover::before{opacity:1}
+.officer-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#1e4f9a,#0d47a1);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px;border:3px solid rgba(255,255,255,0.1);box-shadow:0 4px 16px rgba(30,79,154,0.3)}
+.officer-card h4{font-size:17px;font-weight:700;color:#fff;margin-bottom:4px}
+.officer-role{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#FBC02D;margin-bottom:12px}
+.officer-contact{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.officer-contact a,.officer-contact span{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s}
+.officer-contact a:hover{color:#64b5f6}
+
+/* Contact Info Grid */
+.info-section{padding:30px 0 40px}
+.info-section h2{font-size:22px;font-weight:800;color:#fff;text-align:center;margin-bottom:30px}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:40px}
+.info-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:24px 20px;text-align:center;transition:all 0.3s ease}
+.info-card:hover{transform:translateY(-3px);border-color:rgba(30,79,154,0.25);box-shadow:0 8px 28px rgba(0,0,0,0.2)}
+.info-icon{font-size:32px;margin-bottom:10px;display:block}
+.info-card h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.3px}
+.info-card p{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6}
+.info-card a{color:#64b5f6;text-decoration:none;transition:color 0.2s}
+.info-card a:hover{color:#FBC02D}
+
+/* Map + Form Layout */
+.map-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:50px}
+.map-container{border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);min-height:400px;position:relative}
+.map-container iframe{width:100%;height:100%;border:0;filter:brightness(0.85) contrast(1.1) saturate(0.8)}
+.map-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,15,26,0.95));padding:20px;z-index:2}
+.map-overlay h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:4px}
+.map-overlay p{color:rgba(255,255,255,0.5);font-size:12px}
+
+.inquiry-form-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:32px 28px}
+.inquiry-form-card h3{font-size:20px;font-weight:700;color:#fff;margin-bottom:6px}
+.inquiry-form-card .form-sub{color:rgba(255,255,255,0.4);font-size:13px;margin-bottom:24px}
+.inquiry-form{display:flex;flex-direction:column;gap:14px}
+.inquiry-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.inquiry-form input,.inquiry-form select,.inquiry-form textarea{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;transition:all 0.25s;width:100%}
+.inquiry-form input::placeholder,.inquiry-form textarea::placeholder{color:rgba(255,255,255,0.3)}
+.inquiry-form input:focus,.inquiry-form select:focus,.inquiry-form textarea:focus{outline:none;border-color:rgba(30,79,154,0.5);box-shadow:0 0 0 3px rgba(30,79,154,0.15);background:rgba(255,255,255,0.07)}
+.inquiry-form select option{background:#0B1D3A;color:#fff}
+.inquiry-form textarea{resize:vertical;min-height:100px}
+.submit-btn{background:linear-gradient(135deg,#1e4f9a,#2962aa);color:#fff;border:none;padding:14px 28px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.3s;font-family:'Inter',sans-serif;letter-spacing:0.3px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(30,79,154,0.4)}
+
+/* Social Links */
+.social-strip{padding:30px 0 20px;text-align:center}
+.social-strip h3{font-size:16px;color:#fff;font-weight:700;margin-bottom:16px}
+.social-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.social-link{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:20px;text-decoration:none;transition:all 0.3s}
+.social-link:hover{transform:translateY(-3px);background:rgba(30,79,154,0.2);border-color:rgba(30,79,154,0.3);box-shadow:0 6px 20px rgba(0,0,0,0.25)}
+
+@media(max-width:768px){
+    .map-form-grid{grid-template-columns:1fr}
+    .map-container{min-height:250px}
+    .officers-grid{grid-template-columns:1fr}
+    .inquiry-form .form-row{grid-template-columns:1fr}
+    .contact-hero{padding:60px 20px 40px}
+}
+</style>
+</head>
+<body>
+
+<div class="top-strip">
+Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved by UGC
+</div>
+
+<header class="navbar" id="navbar">
+<div class="nav-left">
+<img src="assets/logos/sgcsr-logo.png" class="college-logo" alt="Sri GCSR College Logo">
+<div>
+  <h2>Sri GCSR College</h2>
+  <p>Training & Placement Cell</p>
+</div>
+</div>
+<div class="hamburger" id="hamburger" role="button" aria-label="Toggle navigation menu" aria-expanded="false" tabindex="0">
+<span></span><span></span><span></span>
+</div>
+<nav class="nav-links" id="navLinks" aria-label="Main navigation">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <div class="dropdown" id="certDropdown">
+    <a href="#" id="certToggle">Certificate Programs <span class="arrow">▾</span></a>
+    <div class="dropdown-menu">
+      <a href="certifications.html">IBM Certifications</a>
+      <a href="certifications.html">ICT Certifications</a>
+    </div>
+  </div>
+  <a href="placements.html">Placements</a>
+  <a href="mous.html">MoUs</a>
+  <a href="recruiter.html">Recruiters</a>
+  <a href="contact.html" class="active">Contact</a>
+  <button id="loginBtn" type="button" class="btn-yellow">Login</button>
+  <button id="registerBtn" type="button" class="btn-outline">Register</button>
+</nav>
+<img src="assets/logos/gmr-logo.png" class="gmr-logo" alt="GMR Group Logo">
+</header>
+
+<!-- HERO -->
+<section class="contact-hero">
+    <h1>Get in Touch with <span>TNPC</span></h1>
+    <p>The Training & Placement Cell at Sri GCSR College is committed to bridging the gap between academia and industry. Reach out to us for placements, internships, campus drives, or any career-related queries.</p>
+    <div class="hero-badges">
+        <span class="hero-badge">🏛️ NAAC B++ Accredited</span>
+        <span class="hero-badge">🤝 60+ Corporate Partners</span>
+        <span class="hero-badge">🎓 95% Placement Assistance</span>
+    </div>
+</section>
+
+<div class="contact-body">
+
+    <!-- TNPC Officers -->
+    <section class="officers-section fade-in">
+        <h2>👥 Meet the Placement Team</h2>
+        <p class="sec-sub">Our dedicated team is here to guide you through your career journey</p>
+        <div class="officers-grid">
+            <div class="officer-card">
+                <div class="officer-avatar">👤</div>
+                <h4>Visweswara Rao Ch</h4>
+                <div class="officer-role">Training & Placement Officer</div>
+                <div class="officer-contact">
+                    <a href="tel:+918639918230">📞 86399 18230</a>
+                    <a href="mailto:placements@srigcsrcollege.org">📧 placements@srigcsrcollege.org</a>
+                </div>
+            </div>
+            <div class="officer-card">
+                <div class="officer-avatar">🏫</div>
+                <h4>Principal</h4>
+                <div class="officer-role">College Administration</div>
+                <div class="officer-contact">
+                    <a href="tel:+918941251336">📞 08941-251336</a>
+                    <a href="mailto:principal@srigcsrcollege.org">📧 principal@srigcsrcollege.org</a>
+                </div>
+            </div>
+            <div class="officer-card">
+                <div class="officer-avatar">💼</div>
+                <h4>Corporate Relations</h4>
+                <div class="officer-role">Industry Connect & MoUs</div>
+                <div class="officer-contact">
+                    <a href="mailto:placements@srigcsrcollege.org">📧 placements@srigcsrcollege.org</a>
+                    <span>🤝 For campus drives & partnerships</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information Cards -->
+    <section class="info-section fade-in">
+        <h2>📋 Contact Information</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <span class="info-icon">📍</span>
+                <h4>Campus Address</h4>
+                <p>Sri GCSR College, Rajam<br>Vizianagaram District<br>Andhra Pradesh - 532127</p>
+            </div>
+            <div class="info-card">
+                <span class="info-icon">📞</span>
+                <h4>Phone Numbers</h4>
+                <p><a href="tel:+918639918230">86399 18230</a> (TPO)<br><a href="tel:+918941251336">08941-251336</a> (Office)</p>
+            </div>
+            <div class="info-card">
+                <span class="info-icon">📧</span>
+                <h4>Email Addresses</h4>
+                <p><a href="mailto:placements@srigcsrcollege.org">placements@srigcsrcollege.org</a><br><a href="mailto:principal@srigcsrcollege.org">principal@srigcsrcollege.org</a></p>
+            </div>
+            <div class="info-card">
+                <span class="info-icon">🌐</span>
+                <h4>Website</h4>
+                <p><a href="https://www.srigcsrcollege.org" target="_blank">www.srigcsrcollege.org</a></p>
+            </div>
+            <div class="info-card">
+                <span class="info-icon">🕐</span>
+                <h4>Office Hours</h4>
+                <p>Monday – Friday<br>9:00 AM – 5:00 PM<br>Saturday: 9:00 AM – 1:00 PM</p>
+            </div>
+            <div class="info-card">
+                <span class="info-icon">🚀</span>
+                <h4>For Recruiters</h4>
+                <p>Schedule campus drives, request student profiles, or initiate MoU partnerships.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map + Inquiry Form -->
+    <section class="fade-in">
+        <div class="map-form-grid">
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3776.7!2d83.638!3d18.452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3c1d4c1b6f09af%3A0x0!2sRajam%2C+Andhra+Pradesh!5e0!3m2!1sen!2sin!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Sri GCSR College Location"></iframe>
+                <div class="map-overlay">
+                    <h4>📍 Sri GCSR College, Rajam</h4>
+                    <p>Vizianagaram District, Andhra Pradesh - 532127</p>
+                </div>
+            </div>
+            <div class="inquiry-form-card">
+                <h3>📩 Send an Inquiry</h3>
+                <p class="form-sub">We'll get back to you within 24 hours</p>
+                <form class="inquiry-form" onsubmit="event.preventDefault(); showToast('Your inquiry has been sent! We will respond shortly.', 'success'); this.reset();">
+                    <div class="form-row">
+                        <input type="text" placeholder="Full Name *" required>
+                        <input type="email" placeholder="Email Address *" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="tel" placeholder="Phone Number">
+                        <select>
+                            <option value="">Inquiry Type</option>
+                            <option value="placement">Placement Inquiry</option>
+                            <option value="campus-drive">Campus Drive Request</option>
+                            <option value="internship">Internship Opportunity</option>
+                            <option value="mou">MoU / Partnership</option>
+                            <option value="student">Student Query</option>
+                            <option value="general">General Inquiry</option>
+                        </select>
+                    </div>
+                    <input type="text" placeholder="Subject *" required>
+                    <textarea rows="5" placeholder="Your message... *" required></textarea>
+                    <button type="submit" class="submit-btn">🚀 Send Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Links -->
+    <section class="social-strip fade-in">
+        <h3>Connect With Us</h3>
+        <div class="social-links">
+            <a href="https://www.srigcsrcollege.org" target="_blank" class="social-link" title="Website">🌐</a>
+            <a href="mailto:placements@srigcsrcollege.org" class="social-link" title="Email">📧</a>
+            <a href="tel:+918639918230" class="social-link" title="Call">📞</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+            <a href="#" class="social-link" title="Instagram">📸</a>
+            <a href="#" class="social-link" title="YouTube">▶️</a>
+        </div>
+    </section>
+</div>
+
+<footer class="premium-footer">
+<div class="footer-grid container">
+  <div class="footer-col">
+    <h3>Sri GCSR College</h3>
+    <p>Training & Placement Cell, Rajam, Vizianagaram District, Andhra Pradesh - 532127</p>
+  </div>
+  <div class="footer-col">
+    <h3>Quick Links</h3>
+    <a href="about.html">About Us</a>
+    <a href="placements.html">Placements</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-col">
+    <h3>Programs</h3>
+    <a href="certifications.html">IBM Certifications</a>
+    <a href="certifications.html">ICT Academy</a>
+    <a href="mous.html">MoU Partners</a>
+    <a href="recruiter.html">Recruiters</a>
+  </div>
+  <div class="footer-col">
+    <h3>Contact</h3>
+    <p>👤 TPO: Visweswara Rao Ch</p>
+    <p>📧 placements@srigcsrcollege.org</p>
+    <p>📞 86399 18230, 08941-251336</p>
+    <p>🌐 <a href="https://www.srigcsrcollege.org" target="_blank" rel="noopener">www.srigcsrcollege.org</a></p>
+  </div>
+</div>
+<div class="footer-bottom">
+  <p>© 2026 Sri GCSR College | All Rights Reserved | Designed for Excellence</p>
+</div>
+</footer>
+<script src="js/api.js" defer></script>
+<script src="js/main.js" defer></script>
+<script src="js/animations.js" defer></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("loginBtn").addEventListener("click", function() { window.location.href = "login.html"; });
+    document.getElementById("registerBtn").addEventListener("click", function() { window.location.href = "register.html"; });
+});
+</script>
+<script src="js/pwa.js" defer></script>
+</body>
+</html>
