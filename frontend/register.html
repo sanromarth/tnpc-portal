@@ -16,6 +16,29 @@
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
     <link rel="stylesheet" href="css/auth.css">
     <link rel="stylesheet" href="css/pwa-enhancements.css">
+    <style>
+        .otp-section { display: none; }
+        .otp-section.active { display: block; }
+        .reg-section.hidden { display: none; }
+        .otp-input-group { display: flex; gap: 8px; justify-content: center; margin: 20px 0; }
+        .otp-input-group input {
+            width: 48px; height: 56px; text-align: center; font-size: 24px; font-weight: 700;
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px; color: #FBC02D; font-family: 'Inter', sans-serif;
+            transition: all 0.25s;
+        }
+        .otp-input-group input:focus {
+            outline: none; border-color: rgba(30,79,154,0.5);
+            box-shadow: 0 0 0 3px rgba(30,79,154,0.2); background: rgba(255,255,255,0.1);
+        }
+        .step-indicator { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
+        .step-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.15); transition: all 0.3s; }
+        .step-dot.active { background: #FBC02D; transform: scale(1.2); }
+        .step-dot.done { background: #2e7d32; }
+        .timer-text { color: rgba(255,255,255,0.4); font-size: 13px; text-align: center; margin-top: 8px; }
+        .resend-btn { background: none; border: none; color: #64b5f6; cursor: pointer; font-size: 13px; text-decoration: underline; font-family: 'Inter', sans-serif; }
+        .resend-btn:disabled { color: rgba(255,255,255,0.2); cursor: not-allowed; text-decoration: none; }
+    </style>
 </head>
 <body>
 
@@ -35,27 +58,53 @@
 
     <h2>Create Account</h2>
 
+    <div class="step-indicator">
+        <div class="step-dot active" id="regDot1"></div>
+        <div class="step-dot" id="regDot2"></div>
+    </div>
+
     <div id="errorMsg" class="error-msg"></div>
 
-    <form id="registerForm">
-      <div class="input-group">
-        <span class="input-icon">👤</span>
-        <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
-      </div>
-      <div class="input-group">
-        <span class="input-icon">📧</span>
-        <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
-      </div>
-      <div class="input-group">
-        <span class="input-icon">🔒</span>
-        <input type="password" name="password" id="regPassword" placeholder="Password (min 6 characters)" required minlength="6" autocomplete="new-password">
-        <button type="button" class="password-toggle" onclick="togglePassword('regPassword', this)" aria-label="Toggle password visibility">👁</button>
-      </div>
-      <div class="password-strength" id="passwordStrength">
-        <div class="password-strength-bar" id="strengthBar"></div>
-      </div>
-      <button type="submit">Register</button>
-    </form>
+    <!-- Step 1: Registration Form -->
+    <div class="reg-section" id="regStep1">
+        <form id="registerForm">
+          <div class="input-group">
+            <span class="input-icon">👤</span>
+            <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
+          </div>
+          <div class="input-group">
+            <span class="input-icon">📧</span>
+            <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
+          </div>
+          <div class="input-group">
+            <span class="input-icon">🔒</span>
+            <input type="password" name="password" id="regPassword" placeholder="Password (min 6 characters)" required minlength="6" autocomplete="new-password">
+            <button type="button" class="password-toggle" onclick="togglePassword('regPassword', this)" aria-label="Toggle password visibility">👁</button>
+          </div>
+          <div class="password-strength" id="passwordStrength">
+            <div class="password-strength-bar" id="strengthBar"></div>
+          </div>
+          <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <!-- Step 2: OTP Verification -->
+    <div class="otp-section" id="regStep2">
+        <p style="color:rgba(255,255,255,0.5);font-size:14px;text-align:center;margin-bottom:8px;">Enter the 6-digit code sent to<br><strong id="otpEmailDisplay" style="color:#FBC02D;"></strong></p>
+        <div class="otp-input-group" id="regOtpGroup">
+            <input type="text" maxlength="1" class="reg-otp-digit" data-index="0" inputmode="numeric" autocomplete="one-time-code">
+            <input type="text" maxlength="1" class="reg-otp-digit" data-index="1" inputmode="numeric">
+            <input type="text" maxlength="1" class="reg-otp-digit" data-index="2" inputmode="numeric">
+            <input type="text" maxlength="1" class="reg-otp-digit" data-index="3" inputmode="numeric">
+            <input type="text" maxlength="1" class="reg-otp-digit" data-index="4" inputmode="numeric">
+            <input type="text" maxlength="1" class="reg-otp-digit" data-index="5" inputmode="numeric">
+        </div>
+        <div class="timer-text" id="regTimerText">Resend available in <span id="regCountdown">60</span>s</div>
+        <div style="text-align:center;margin-top:8px;">
+            <button class="resend-btn" id="regResendBtn" disabled onclick="regResendOTP()">Resend OTP</button>
+        </div>
+        <button type="button" id="verifyRegOTPBtn" style="width:100%;margin-top:16px;padding:14px;background:linear-gradient(135deg,#1e4f9a,#2962aa);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.3s;">Verify & Complete Registration</button>
+    </div>
 
     <p class="auth-link">
       Already have an account? <a href="login.html">Login here</a>
@@ -70,13 +119,8 @@
 <script>
 function togglePassword(inputId, btn) {
     const input = document.getElementById(inputId);
-    if (input.type === "password") {
-        input.type = "text";
-        btn.textContent = "🙈";
-    } else {
-        input.type = "password";
-        btn.textContent = "👁";
-    }
+    if (input.type === "password") { input.type = "text"; btn.textContent = "🙈"; }
+    else { input.type = "password"; btn.textContent = "👁"; }
 }
 const regPassword = document.getElementById("regPassword");
 const strengthBar = document.getElementById("strengthBar");
@@ -84,17 +128,10 @@ if (regPassword && strengthBar) {
     regPassword.addEventListener("input", function() {
         const val = this.value;
         strengthBar.className = "password-strength-bar";
-        if (val.length === 0) {
-            strengthBar.style.width = "0";
-            return;
-        }
-        if (val.length < 6) {
-            strengthBar.classList.add("weak");
-        } else if (val.length < 10 || !/[A-Z]/.test(val) || !/[0-9]/.test(val)) {
-            strengthBar.classList.add("medium");
-        } else {
-            strengthBar.classList.add("strong");
-        }
+        if (val.length === 0) { strengthBar.style.width = "0"; return; }
+        if (val.length < 6) { strengthBar.classList.add("weak"); }
+        else if (val.length < 10 || !/[A-Z]/.test(val) || !/[0-9]/.test(val)) { strengthBar.classList.add("medium"); }
+        else { strengthBar.classList.add("strong"); }
     });
 }
 </script>

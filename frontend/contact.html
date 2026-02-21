@@ -15,82 +15,129 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/premium.css">
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/pwa-enhancements.css">
 <style>
-.contact-hero{background:linear-gradient(135deg,#0B1D3A 0%,#122a52 40%,#1a3a6a 100%);padding:80px 24px 60px;text-align:center;position:relative;overflow:hidden}
-.contact-hero::before{content:'';position:absolute;top:-40%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(251,192,45,0.06) 0%,transparent 70%);border-radius:50%}
-.contact-hero::after{content:'';position:absolute;bottom:-40%;left:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(30,79,154,0.08) 0%,transparent 70%);border-radius:50%}
-.contact-hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;color:#fff;margin-bottom:12px;position:relative;z-index:1}
-.contact-hero h1 span{background:linear-gradient(135deg,#FBC02D,#ef6c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.contact-hero p{font-size:16px;color:rgba(255,255,255,0.6);max-width:600px;margin:0 auto;line-height:1.6;position:relative;z-index:1}
-.contact-hero .hero-badges{display:flex;justify-content:center;gap:12px;margin-top:20px;flex-wrap:wrap;position:relative;z-index:1}
-.hero-badge{padding:6px 16px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.04);backdrop-filter:blur(8px)}
-
-.contact-body{max-width:1200px;margin:0 auto;padding:0 24px}
-
-/* TNPC Officers Section */
-.officers-section{padding:50px 0 30px}
-.officers-section h2{font-size:24px;font-weight:800;color:#fff;text-align:center;margin-bottom:8px}
-.officers-section .sec-sub{text-align:center;color:rgba(255,255,255,0.45);font-size:13px;margin-bottom:30px}
-.officers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
-.officer-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:28px 24px;text-align:center;transition:all 0.35s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
-.officer-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1e4f9a,#FBC02D);opacity:0;transition:opacity 0.3s}
-.officer-card:hover{transform:translateY(-5px);border-color:rgba(30,79,154,0.3);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
-.officer-card:hover::before{opacity:1}
-.officer-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#1e4f9a,#0d47a1);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px;border:3px solid rgba(255,255,255,0.1);box-shadow:0 4px 16px rgba(30,79,154,0.3)}
-.officer-card h4{font-size:17px;font-weight:700;color:#fff;margin-bottom:4px}
-.officer-role{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#FBC02D;margin-bottom:12px}
-.officer-contact{display:flex;flex-direction:column;gap:8px;margin-top:10px}
-.officer-contact a,.officer-contact span{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s}
-.officer-contact a:hover{color:#64b5f6}
-
-/* Contact Info Grid */
-.info-section{padding:30px 0 40px}
-.info-section h2{font-size:22px;font-weight:800;color:#fff;text-align:center;margin-bottom:30px}
-.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:40px}
-.info-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:24px 20px;text-align:center;transition:all 0.3s ease}
-.info-card:hover{transform:translateY(-3px);border-color:rgba(30,79,154,0.25);box-shadow:0 8px 28px rgba(0,0,0,0.2)}
-.info-icon{font-size:32px;margin-bottom:10px;display:block}
-.info-card h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.3px}
-.info-card p{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6}
-.info-card a{color:#64b5f6;text-decoration:none;transition:color 0.2s}
-.info-card a:hover{color:#FBC02D}
-
-/* Map + Form Layout */
-.map-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:50px}
-.map-container{border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);min-height:400px;position:relative}
-.map-container iframe{width:100%;height:100%;border:0;filter:brightness(0.85) contrast(1.1) saturate(0.8)}
-.map-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,15,26,0.95));padding:20px;z-index:2}
-.map-overlay h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:4px}
-.map-overlay p{color:rgba(255,255,255,0.5);font-size:12px}
-
-.inquiry-form-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:32px 28px}
-.inquiry-form-card h3{font-size:20px;font-weight:700;color:#fff;margin-bottom:6px}
-.inquiry-form-card .form-sub{color:rgba(255,255,255,0.4);font-size:13px;margin-bottom:24px}
-.inquiry-form{display:flex;flex-direction:column;gap:14px}
-.inquiry-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.inquiry-form input,.inquiry-form select,.inquiry-form textarea{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;transition:all 0.25s;width:100%}
-.inquiry-form input::placeholder,.inquiry-form textarea::placeholder{color:rgba(255,255,255,0.3)}
-.inquiry-form input:focus,.inquiry-form select:focus,.inquiry-form textarea:focus{outline:none;border-color:rgba(30,79,154,0.5);box-shadow:0 0 0 3px rgba(30,79,154,0.15);background:rgba(255,255,255,0.07)}
-.inquiry-form select option{background:#0B1D3A;color:#fff}
-.inquiry-form textarea{resize:vertical;min-height:100px}
-.submit-btn{background:linear-gradient(135deg,#1e4f9a,#2962aa);color:#fff;border:none;padding:14px 28px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.3s;font-family:'Inter',sans-serif;letter-spacing:0.3px}
-.submit-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(30,79,154,0.4)}
-
-/* Social Links */
-.social-strip{padding:30px 0 20px;text-align:center}
-.social-strip h3{font-size:16px;color:#fff;font-weight:700;margin-bottom:16px}
-.social-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
-.social-link{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:20px;text-decoration:none;transition:all 0.3s}
-.social-link:hover{transform:translateY(-3px);background:rgba(30,79,154,0.2);border-color:rgba(30,79,154,0.3);box-shadow:0 6px 20px rgba(0,0,0,0.25)}
-
-@media(max-width:768px){
-    .map-form-grid{grid-template-columns:1fr}
-    .map-container{min-height:250px}
-    .officers-grid{grid-template-columns:1fr}
-    .inquiry-form .form-row{grid-template-columns:1fr}
-    .contact-hero{padding:60px 20px 40px}
+.contact-hero {
+  background: linear-gradient(135deg, #0B1D3A 0%, #1e4f9a 60%, #C62828 100%);
+  color: white; padding: 80px 20px 60px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.contact-hero::before {
+  content: ""; position: absolute; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(251,192,45,0.1), transparent 70%);
+  top: -120px; right: -100px; border-radius: 50%;
+}
+.contact-hero h1 { font-size: 36px; font-weight: 800; margin-bottom: 10px; position: relative; z-index: 1; }
+.contact-hero p { font-size: 16px; opacity: 0.8; position: relative; z-index: 1; max-width: 520px; margin: 0 auto; }
+.contact-container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 60px; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px; }
+.contact-info-cards { display: flex; flex-direction: column; gap: 16px; }
+.info-card {
+  background: white; border-radius: 16px; padding: 24px; display: flex; gap: 16px; align-items: flex-start;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e5e7eb;
+  transition: all 0.3s; cursor: default;
+}
+.info-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+.info-icon {
+  width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.info-icon.blue { background: rgba(30,79,154,0.1); }
+.info-icon.red { background: rgba(198,40,40,0.1); }
+.info-icon.gold { background: rgba(251,192,45,0.1); }
+.info-icon.green { background: rgba(46,125,50,0.1); }
+.info-content h3 { font-size: 16px; font-weight: 700; color: #0B1D3A; margin: 0 0 4px; }
+.info-content p { font-size: 14px; color: #6b7280; margin: 0; line-height: 1.6; }
+.info-content a { color: #1e4f9a; text-decoration: none; font-weight: 500; }
+.info-content a:hover { text-decoration: underline; }
+.contact-form-card {
+  background: white; border-radius: 16px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  border: 1px solid #e5e7eb;
+}
+.contact-form-card h2 { font-size: 22px; font-weight: 700; color: #0B1D3A; margin: 0 0 6px; }
+.contact-form-card .subtitle { font-size: 14px; color: #6b7280; margin: 0 0 24px; }
+.contact-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.contact-form .form-group { margin-bottom: 0; }
+.contact-form label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+.contact-form input, .contact-form select, .contact-form textarea {
+  width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 14px;
+  font-family: 'Inter', sans-serif; transition: all 0.25s; background: #fafafa; box-sizing: border-box;
+}
+.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
+  outline: none; border-color: #1e4f9a; box-shadow: 0 0 0 3px rgba(30,79,154,0.12); background: white;
+}
+.contact-form textarea { resize: vertical; min-height: 100px; }
+.contact-form button {
+  width: 100%; padding: 14px; background: linear-gradient(135deg, #1e4f9a, #0B1D3A);
+  color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif; margin-top: 8px;
+}
+.contact-form button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(11,29,58,0.3); }
+.faq-section { margin-top: 50px; }
+.faq-section h2 { text-align: center; font-size: 28px; font-weight: 800; color: #0B1D3A; margin-bottom: 8px; }
+.faq-section .subtitle { text-align: center; color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 900px; margin: 0 auto; }
+.faq-item {
+  background: white; border-radius: 14px; border: 1px solid #e5e7eb; overflow: hidden;
+  transition: all 0.3s; box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+.faq-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.faq-question {
+  padding: 18px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  font-size: 14px; font-weight: 600; color: #0B1D3A; user-select: none;
+}
+.faq-question .arrow { transition: transform 0.3s; font-size: 12px; color: #9ca3af; }
+.faq-item.open .faq-question .arrow { transform: rotate(180deg); }
+.faq-answer {
+  max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease;
+  padding: 0 20px; color: #6b7280; font-size: 13px; line-height: 1.7;
+}
+.faq-item.open .faq-answer { max-height: 200px; padding: 0 20px 18px; }
+.quick-connect {
+  position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; flex-direction: column; gap: 12px; align-items: flex-end;
+}
+.qc-btn {
+  width: 52px; height: 52px; border-radius: 50%; border: none; cursor: pointer;
+  font-size: 22px; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: all 0.3s;
+  transform: scale(0); animation: qcPop 0.4s forwards;
+}
+.qc-btn:nth-child(1) { animation-delay: 0.1s; }
+.qc-btn:nth-child(2) { animation-delay: 0.2s; }
+.qc-btn:nth-child(3) { animation-delay: 0.3s; }
+.qc-btn:hover { transform: scale(1.1) !important; }
+.qc-whatsapp { background: #25D366; color: white; }
+.qc-call { background: #1e4f9a; color: white; }
+.qc-email { background: #C62828; color: white; }
+@keyframes qcPop { to { transform: scale(1); } }
+.team-section { margin-top: 50px; }
+.team-section h2 { text-align: center; font-size: 28px; font-weight: 800; color: #0B1D3A; margin-bottom: 8px; }
+.team-section .subtitle { text-align: center; color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+.team-card {
+  background: white; border-radius: 16px; padding: 28px 20px; text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e5e7eb; transition: all 0.3s;
+}
+.team-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+.team-avatar { width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 12px; display: flex;
+  align-items: center; justify-content: center; font-size: 28px;
+}
+.team-card h3 { font-size: 16px; font-weight: 700; color: #0B1D3A; margin: 0 0 4px; }
+.team-card .role { font-size: 12px; color: #6b7280; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+.team-card .team-contact { margin-top: 12px; font-size: 13px; color: #1e4f9a; text-decoration: none; display: block; }
+.form-success { display: none; text-align: center; padding: 40px 20px; }
+.form-success .success-icon { font-size: 48px; margin-bottom: 12px; animation: bounce 0.5s; }
+.form-success h3 { color: #0B1D3A; font-size: 20px; margin: 0 0 8px; }
+.form-success p { color: #6b7280; font-size: 14px; }
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@media (max-width: 768px) {
+  .contact-grid { grid-template-columns: 1fr; }
+  .faq-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .contact-form .form-row { grid-template-columns: 1fr; }
+  .contact-hero h1 { font-size: 26px; }
 }
 </style>
 </head>
@@ -122,7 +169,6 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
     </div>
   </div>
   <a href="placements.html">Placements</a>
-  <a href="top-corporates.html">Top Corporates</a>
   <a href="mous.html">MoUs</a>
   <a href="recruiter.html">Recruiters</a>
   <a href="contact.html" class="active">Contact</a>
@@ -132,141 +178,163 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 <img src="assets/logos/gmr-logo.png" class="gmr-logo" alt="GMR Group Logo">
 </header>
 
-<!-- HERO -->
 <section class="contact-hero">
-    <h1>Get in Touch with <span>TNPC</span></h1>
-    <p>The Training & Placement Cell at Sri GCSR College is committed to bridging the gap between academia and industry. Reach out to us for placements, internships, campus drives, or any career-related queries.</p>
-    <div class="hero-badges">
-        <span class="hero-badge">🏛️ NAAC B++ Accredited</span>
-        <span class="hero-badge">🤝 60+ Corporate Partners</span>
-        <span class="hero-badge">🎓 95% Placement Assistance</span>
-    </div>
+  <h1>Get In Touch</h1>
+  <p>We'd love to hear from you. Reach out to our Training & Placement Cell for queries, partnerships, or recruitment opportunities.</p>
 </section>
 
-<div class="contact-body">
+<div class="contact-container">
 
-    <!-- TNPC Officers -->
-    <section class="officers-section fade-in">
-        <h2>👥 Meet the Placement Team</h2>
-        <p class="sec-sub">Our dedicated team is here to guide you through your career journey</p>
-        <div class="officers-grid">
-            <div class="officer-card">
-                <div class="officer-avatar">👤</div>
-                <h4>Visweswara Rao Ch</h4>
-                <div class="officer-role">Training & Placement Officer</div>
-                <div class="officer-contact">
-                    <a href="tel:+918639918230">📞 86399 18230</a>
-                    <a href="mailto:placements@srigcsrcollege.org">📧 placements@srigcsrcollege.org</a>
-                </div>
-            </div>
-            <div class="officer-card">
-                <div class="officer-avatar">🏫</div>
-                <h4>Principal</h4>
-                <div class="officer-role">College Administration</div>
-                <div class="officer-contact">
-                    <a href="tel:+918941251336">📞 08941-251336</a>
-                    <a href="mailto:principal@srigcsrcollege.org">📧 principal@srigcsrcollege.org</a>
-                </div>
-            </div>
-            <div class="officer-card">
-                <div class="officer-avatar">💼</div>
-                <h4>Corporate Relations</h4>
-                <div class="officer-role">Industry Connect & MoUs</div>
-                <div class="officer-contact">
-                    <a href="mailto:placements@srigcsrcollege.org">📧 placements@srigcsrcollege.org</a>
-                    <span>🤝 For campus drives & partnerships</span>
-                </div>
-            </div>
+  <div class="contact-grid">
+    <div class="contact-info-cards">
+      <div class="info-card fade-in">
+        <div class="info-icon blue">📍</div>
+        <div class="info-content">
+          <h3>Visit Us</h3>
+          <p>Sri GCSR College, Rajam<br>Vizianagaram District, AP - 532127</p>
         </div>
-    </section>
+      </div>
+      <div class="info-card fade-in">
+        <div class="info-icon red">📞</div>
+        <div class="info-content">
+          <h3>Call Us</h3>
+          <p><a href="tel:+918639918230">86399 18230</a> • <a href="tel:+918941251336">08941-251336</a></p>
+        </div>
+      </div>
+      <div class="info-card fade-in">
+        <div class="info-icon gold">📧</div>
+        <div class="info-content">
+          <h3>Email Us</h3>
+          <p><a href="mailto:placements@srigcsrcollege.org">placements@srigcsrcollege.org</a></p>
+        </div>
+      </div>
+      <div class="info-card fade-in">
+        <div class="info-icon green">🕐</div>
+        <div class="info-content">
+          <h3>Office Hours</h3>
+          <p>Mon – Sat: 9:00 AM – 5:00 PM<br>Sunday: Closed</p>
+        </div>
+      </div>
+      <div class="info-card fade-in">
+        <div class="info-icon blue">🌐</div>
+        <div class="info-content">
+          <h3>Website</h3>
+          <p><a href="https://www.srigcsrcollege.org" target="_blank" rel="noopener">www.srigcsrcollege.org</a></p>
+        </div>
+      </div>
+    </div>
 
-    <!-- Contact Information Cards -->
-    <section class="info-section fade-in">
-        <h2>📋 Contact Information</h2>
-        <div class="info-grid">
-            <div class="info-card">
-                <span class="info-icon">📍</span>
-                <h4>Campus Address</h4>
-                <p>Sri GCSR College, Rajam<br>Vizianagaram District<br>Andhra Pradesh - 532127</p>
-            </div>
-            <div class="info-card">
-                <span class="info-icon">📞</span>
-                <h4>Phone Numbers</h4>
-                <p><a href="tel:+918639918230">86399 18230</a> (TPO)<br><a href="tel:+918941251336">08941-251336</a> (Office)</p>
-            </div>
-            <div class="info-card">
-                <span class="info-icon">📧</span>
-                <h4>Email Addresses</h4>
-                <p><a href="mailto:placements@srigcsrcollege.org">placements@srigcsrcollege.org</a><br><a href="mailto:principal@srigcsrcollege.org">principal@srigcsrcollege.org</a></p>
-            </div>
-            <div class="info-card">
-                <span class="info-icon">🌐</span>
-                <h4>Website</h4>
-                <p><a href="https://www.srigcsrcollege.org" target="_blank">www.srigcsrcollege.org</a></p>
-            </div>
-            <div class="info-card">
-                <span class="info-icon">🕐</span>
-                <h4>Office Hours</h4>
-                <p>Monday – Friday<br>9:00 AM – 5:00 PM<br>Saturday: 9:00 AM – 1:00 PM</p>
-            </div>
-            <div class="info-card">
-                <span class="info-icon">🚀</span>
-                <h4>For Recruiters</h4>
-                <p>Schedule campus drives, request student profiles, or initiate MoU partnerships.</p>
-            </div>
+    <div class="contact-form-card fade-in">
+      <h2>Send a Message</h2>
+      <p class="subtitle">Fill out the form and we'll get back to you within 24 hours</p>
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contactName">Full Name *</label>
+            <input type="text" id="contactName" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="contactEmail">Email *</label>
+            <input type="email" id="contactEmail" placeholder="your@email.com" required>
+          </div>
         </div>
-    </section>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contactPhone">Phone</label>
+            <input type="tel" id="contactPhone" placeholder="Your phone number">
+          </div>
+          <div class="form-group">
+            <label for="contactSubject">Subject *</label>
+            <select id="contactSubject" required>
+              <option value="">Select Subject</option>
+              <option value="placement">Placement Inquiry</option>
+              <option value="recruitment">Recruitment Partnership</option>
+              <option value="certification">Certification Programs</option>
+              <option value="mou">MoU / Partnership</option>
+              <option value="callback">Request Callback</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:16px;">
+          <label for="contactMessage">Message *</label>
+          <textarea id="contactMessage" placeholder="Write your message here..." required></textarea>
+        </div>
+        <button type="submit">Send Message</button>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon">✅</div>
+        <h3>Message Sent!</h3>
+        <p>Thank you for reaching out. We'll respond within 24 hours.</p>
+      </div>
+    </div>
+  </div>
 
-    <!-- Map + Inquiry Form -->
-    <section class="fade-in">
-        <div class="map-form-grid">
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3776.7!2d83.638!3d18.452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3c1d4c1b6f09af%3A0x0!2sRajam%2C+Andhra+Pradesh!5e0!3m2!1sen!2sin!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Sri GCSR College Location"></iframe>
-                <div class="map-overlay">
-                    <h4>📍 Sri GCSR College, Rajam</h4>
-                    <p>Vizianagaram District, Andhra Pradesh - 532127</p>
-                </div>
-            </div>
-            <div class="inquiry-form-card">
-                <h3>📩 Send an Inquiry</h3>
-                <p class="form-sub">We'll get back to you within 24 hours</p>
-                <form class="inquiry-form" onsubmit="event.preventDefault(); showToast('Your inquiry has been sent! We will respond shortly.', 'success'); this.reset();">
-                    <div class="form-row">
-                        <input type="text" placeholder="Full Name *" required>
-                        <input type="email" placeholder="Email Address *" required>
-                    </div>
-                    <div class="form-row">
-                        <input type="tel" placeholder="Phone Number">
-                        <select>
-                            <option value="">Inquiry Type</option>
-                            <option value="placement">Placement Inquiry</option>
-                            <option value="campus-drive">Campus Drive Request</option>
-                            <option value="internship">Internship Opportunity</option>
-                            <option value="mou">MoU / Partnership</option>
-                            <option value="student">Student Query</option>
-                            <option value="general">General Inquiry</option>
-                        </select>
-                    </div>
-                    <input type="text" placeholder="Subject *" required>
-                    <textarea rows="5" placeholder="Your message... *" required></textarea>
-                    <button type="submit" class="submit-btn">🚀 Send Inquiry</button>
-                </form>
-            </div>
-        </div>
-    </section>
+  <!-- Team Section -->
+  <section class="team-section fade-in">
+    <h2>Our Placement Team</h2>
+    <p class="subtitle">Meet the people behind your career success</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar" style="background:rgba(30,79,154,0.1);">👤</div>
+        <h3>Visweswara Rao Ch</h3>
+        <span class="role">Training & Placement Officer</span>
+        <a class="team-contact" href="tel:+918639918230">📞 86399 18230</a>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:rgba(198,40,40,0.1);">👩‍🏫</div>
+        <h3>Faculty Coordinator</h3>
+        <span class="role">Dept. of Computer Science</span>
+        <a class="team-contact" href="mailto:placements@srigcsrcollege.org">📧 Email</a>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:rgba(46,125,50,0.1);">👨‍💼</div>
+        <h3>Industry Relations</h3>
+        <span class="role">Corporate Partnerships</span>
+        <a class="team-contact" href="mailto:placements@srigcsrcollege.org">📧 Email</a>
+      </div>
+    </div>
+  </section>
 
-    <!-- Social Links -->
-    <section class="social-strip fade-in">
-        <h3>Connect With Us</h3>
-        <div class="social-links">
-            <a href="https://www.srigcsrcollege.org" target="_blank" class="social-link" title="Website">🌐</a>
-            <a href="mailto:placements@srigcsrcollege.org" class="social-link" title="Email">📧</a>
-            <a href="tel:+918639918230" class="social-link" title="Call">📞</a>
-            <a href="#" class="social-link" title="LinkedIn">💼</a>
-            <a href="#" class="social-link" title="Instagram">📸</a>
-            <a href="#" class="social-link" title="YouTube">▶️</a>
-        </div>
-    </section>
+  <!-- FAQ Section -->
+  <section class="faq-section fade-in">
+    <h2>Frequently Asked Questions</h2>
+    <p class="subtitle">Quick answers to common placement queries</p>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">Who is eligible for campus placements? <span class="arrow">▾</span></div>
+        <div class="faq-answer">Students with CGPA ≥ 6.0 and no active backlogs are eligible for campus placement drives. All degree programs are covered.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">How do I register for placement drives? <span class="arrow">▾</span></div>
+        <div class="faq-answer">Register on the TNPC Portal using your college email. Complete your profile with academic details, and you'll be notified of upcoming drives.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">What companies visit the campus? <span class="arrow">▾</span></div>
+        <div class="faq-answer">50+ companies including TCS, Infosys, Cognizant, Capgemini, Mahindra, GMR Group, Hetero, and many more visit annually for recruitment.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">Are certifications mandatory? <span class="arrow">▾</span></div>
+        <div class="faq-answer">While not mandatory, IBM SkillBuild and ICT Academy certifications significantly boost your resume and provide a competitive edge in placements.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">What is the average package offered? <span class="arrow">▾</span></div>
+        <div class="faq-answer">The average CTC ranges from 2.5-3.5 LPA with the highest package being 6.5 LPA. Packages vary by company and role.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">How can recruiters partner with us? <span class="arrow">▾</span></div>
+        <div class="faq-answer">Recruiters can reach out via the contact form or email placements@srigcsrcollege.org. We welcome both on-campus and virtual recruitment drives.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Quick Connect Floating Buttons -->
+<div class="quick-connect">
+  <a href="https://wa.me/918639918230" target="_blank" class="qc-btn qc-whatsapp" title="WhatsApp">💬</a>
+  <a href="tel:+918639918230" class="qc-btn qc-call" title="Call Now">📞</a>
+  <a href="mailto:placements@srigcsrcollege.org" class="qc-btn qc-email" title="Email">✉️</a>
 </div>
 
 <footer class="premium-footer">
@@ -301,9 +369,33 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
   <p>© 2026 Sri GCSR College | All Rights Reserved | Designed for Excellence</p>
 </div>
 </footer>
+
 <script src="js/api.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/animations.js" defer></script>
+<script>
+function toggleFAQ(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains("open");
+    document.querySelectorAll(".faq-item").forEach(f => f.classList.remove("open"));
+    if (!isOpen) item.classList.add("open");
+}
+
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const form = this;
+    const btn = form.querySelector("button[type='submit']");
+    btn.disabled = true;
+    btn.textContent = "Sending...";
+    
+    setTimeout(() => {
+        form.style.display = "none";
+        document.querySelector(".contact-form-card .subtitle").style.display = "none";
+        document.querySelector(".contact-form-card h2").style.display = "none";
+        document.getElementById("formSuccess").style.display = "block";
+    }, 1200);
+});
+</script>
 <script src="js/pwa.js" defer></script>
 </body>
 </html>

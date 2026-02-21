@@ -30,7 +30,7 @@ async function loginUser(email, password) {
         const data = await response.json();
 
         if (!response.ok) {
-            return { success: false, message: data.message };
+            return { success: false, message: data.message, requiresVerification: data.requiresVerification };
         }
 
         localStorage.setItem("token", data.token);

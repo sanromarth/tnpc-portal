@@ -1,0 +1,567 @@
+/* ============================================
+   PREMIUM UPGRADE — Global Enhancements
+   ============================================ */
+
+/* === SMOOTH SCROLL === */
+html {
+    scroll-behavior: smooth;
+}
+
+/* === SELECTION STYLING === */
+::selection {
+    background: rgba(251, 192, 45, 0.3);
+    color: #fff;
+}
+
+/* === PREMIUM SCROLLBAR === */
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: rgba(11, 29, 58, 0.05); }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #1e4f9a, #C62828);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #2962aa, #e53935); }
+
+/* === GLOW TEXT UTILITIES === */
+.glow-gold { text-shadow: 0 0 20px rgba(251, 192, 45, 0.3); }
+.glow-blue { text-shadow: 0 0 20px rgba(30, 79, 154, 0.3); }
+
+/* === GRADIENT TEXT === */
+.gradient-text {
+    background: linear-gradient(135deg, #FBC02D, #e53935, #1e4f9a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* === ENHANCED TOP STRIP === */
+.top-strip {
+    background: linear-gradient(90deg, #C62828 0%, #e53935 40%, #C62828 100%);
+    background-size: 200% 100%;
+    animation: stripShimmer 8s linear infinite;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 8px 15px;
+}
+
+@keyframes stripShimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* === NAVBAR PREMIUM === */
+.navbar {
+    background: linear-gradient(180deg, rgba(11, 29, 58, 0.98), rgba(11, 29, 58, 0.92));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(251, 192, 45, 0.08);
+}
+
+.navbar.scrolled {
+    background: rgba(11, 29, 58, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(251, 192, 45, 0.05);
+}
+
+.nav-links a {
+    position: relative;
+    padding: 6px 2px;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #FBC02D, #e53935);
+    border-radius: 2px;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active::after { width: 100%; }
+
+.nav-links a:hover {
+    color: #FBC02D;
+    text-shadow: 0 0 12px rgba(251, 192, 45, 0.2);
+}
+
+/* === PREMIUM BUTTONS === */
+.btn-yellow {
+    background: linear-gradient(135deg, #FBC02D, #f9a825);
+    box-shadow: 0 2px 12px rgba(251, 192, 45, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-yellow::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-yellow:hover::before { left: 100%; }
+
+.btn-yellow:hover {
+    box-shadow: 0 6px 24px rgba(251, 192, 45, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-red {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-red::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.5s;
+}
+
+.btn-red:hover::before { left: 100%; }
+
+.btn-red:hover {
+    box-shadow: 0 12px 40px rgba(198, 40, 40, 0.4);
+}
+
+/* === HERO PREMIUM === */
+.hero {
+    min-height: 90vh;
+}
+
+.hero::before {
+    background: linear-gradient(135deg, rgba(11, 29, 58, 0.95) 0%, rgba(30, 79, 154, 0.6) 50%, rgba(198, 40, 40, 0.5) 100%);
+}
+
+.hero h1 {
+    font-size: 48px;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    text-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+}
+
+.hero p {
+    font-size: 17px;
+    letter-spacing: 0.2px;
+}
+
+.hero-content {
+    max-width: 780px;
+}
+
+/* === STAT BOXES PREMIUM === */
+.stat-box {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fb 100%);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    position: relative;
+}
+
+.stat-box::before {
+    height: 4px;
+    background: linear-gradient(90deg, #1e4f9a, #C62828, #FBC02D);
+    background-size: 200% 100%;
+    animation: gradientSlide 4s linear infinite;
+}
+
+@keyframes gradientSlide {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+.stat-box:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+.stat-box h2 {
+    background: linear-gradient(135deg, #C62828, #e53935, #FBC02D);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 42px;
+}
+
+/* === FEATURE CARDS PREMIUM === */
+.feature-card {
+    background: linear-gradient(135deg, #ffffff, #f8f9fc);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    position: relative;
+}
+
+.feature-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1e4f9a, #FBC02D);
+    border-radius: 3px;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feature-card:hover::after { width: 60%; }
+
+.feature-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    font-size: 48px;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* === GMR SECTION PREMIUM === */
+.gmr-section {
+    background: linear-gradient(135deg, #0B1D3A 0%, #122a52 40%, #1e4f9a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.gmr-section::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(251, 192, 45, 0.06), transparent 70%);
+    top: -200px;
+    right: -100px;
+    border-radius: 50%;
+}
+
+.gmr-section h2 {
+    font-size: 32px;
+    background: linear-gradient(90deg, #fff, #FBC02D);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* === RECRUITER CAROUSEL PREMIUM === */
+.recruiter-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.recruiter-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(30, 79, 154, 0.3), transparent);
+}
+
+.carousel-track img {
+    filter: grayscale(100%) brightness(0.6);
+    opacity: 0.4;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.carousel-track img:hover {
+    filter: grayscale(0%) brightness(1);
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+/* === CTA SECTION PREMIUM === */
+.cta-section {
+    background: linear-gradient(135deg, #0B1D3A 0%, #1e4f9a 50%, #C62828 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(251, 192, 45, 0.08), transparent 70%);
+    top: -200px;
+    left: -100px;
+    border-radius: 50%;
+    animation: floatOrb 10s ease-in-out infinite alternate;
+}
+
+.cta-section::after {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(198, 40, 40, 0.1), transparent 70%);
+    bottom: -150px;
+    right: -50px;
+    border-radius: 50%;
+    animation: floatOrb 8s ease-in-out infinite alternate-reverse;
+}
+
+/* === PREMIUM FOOTER === */
+.premium-footer {
+    background: linear-gradient(180deg, #0B1D3A 0%, #071224 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.premium-footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(251, 192, 45, 0.3), transparent);
+}
+
+.footer-col h3 {
+    position: relative;
+    display: inline-block;
+}
+
+.footer-col h3::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background: linear-gradient(90deg, #FBC02D, #C62828);
+    border-radius: 2px;
+}
+
+.footer-col a:hover {
+    color: #FBC02D;
+    transform: translateX(6px);
+}
+
+/* === PAGE HEADER PREMIUM === */
+.page-header {
+    background: linear-gradient(135deg, #0B1D3A 0%, #122a52 40%, #1e4f9a 70%, rgba(198, 40, 40, 0.3) 100%);
+    padding: 80px 20px 65px;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(251, 192, 45, 0.06), transparent 70%);
+    top: -200px;
+    right: -100px;
+    border-radius: 50%;
+}
+
+.page-header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.page-header p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 16px;
+    max-width: 600px;
+    margin: 8px auto 0;
+}
+
+/* === CARD PREMIUM EFFECTS === */
+.mou-card, .about-card, .cert-card, .contact-card {
+    background: linear-gradient(135deg, #ffffff, #fafbfd);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.mou-card::before, .about-card::before, .cert-card::before {
+    background: linear-gradient(90deg, #1e4f9a, #C62828, #FBC02D);
+    background-size: 200% 100%;
+    animation: gradientSlide 5s linear infinite;
+}
+
+.mou-card:hover, .about-card:hover, .cert-card:hover, .contact-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+/* === CERT BADGE GLOW === */
+.cert-badge.ibm {
+    background: linear-gradient(135deg, rgba(30, 79, 154, 0.12), rgba(30, 79, 154, 0.06));
+    border: 1px solid rgba(30, 79, 154, 0.15);
+    box-shadow: 0 0 12px rgba(30, 79, 154, 0.1);
+}
+
+.cert-badge.ict {
+    background: linear-gradient(135deg, rgba(198, 40, 40, 0.12), rgba(198, 40, 40, 0.06));
+    border: 1px solid rgba(198, 40, 40, 0.15);
+    box-shadow: 0 0 12px rgba(198, 40, 40, 0.1);
+}
+
+/* === TABLE PREMIUM === */
+th {
+    background: linear-gradient(135deg, #0B1D3A, #1e4f9a);
+    letter-spacing: 0.8px;
+}
+
+tr:hover {
+    background: rgba(30, 79, 154, 0.04);
+}
+
+/* === SECTION HEADING PREMIUM === */
+.section-heading {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.section-heading::after {
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, #1e4f9a, #FBC02D, #C62828);
+}
+
+.section-title::after {
+    background: linear-gradient(90deg, #1e4f9a, #FBC02D, #C62828);
+}
+
+/* === FADE-IN ENHANCED === */
+.fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === SKILL TAGS PREMIUM === */
+.skill-tag {
+    background: linear-gradient(135deg, rgba(30, 79, 154, 0.08), rgba(30, 79, 154, 0.04));
+    border: 1px solid rgba(30, 79, 154, 0.12);
+    transition: all 0.25s;
+}
+
+.skill-tag:hover {
+    background: rgba(30, 79, 154, 0.15);
+    transform: translateY(-1px);
+}
+
+/* === DROPDOWN PREMIUM === */
+.dropdown-menu {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+
+.dropdown-menu a:hover {
+    background: linear-gradient(90deg, rgba(30, 79, 154, 0.04), transparent);
+    color: #1e4f9a;
+}
+
+/* === BADGE PREMIUM === */
+.badge {
+    letter-spacing: 0.3px;
+    transition: all 0.2s;
+}
+
+.badge-success {
+    background: linear-gradient(135deg, rgba(46, 125, 50, 0.12), rgba(46, 125, 50, 0.06));
+    border: 1px solid rgba(46, 125, 50, 0.15);
+}
+
+.badge-danger {
+    background: linear-gradient(135deg, rgba(198, 40, 40, 0.12), rgba(198, 40, 40, 0.06));
+    border: 1px solid rgba(198, 40, 40, 0.15);
+}
+
+.badge-warning {
+    background: linear-gradient(135deg, rgba(249, 168, 37, 0.12), rgba(249, 168, 37, 0.06));
+    border: 1px solid rgba(249, 168, 37, 0.15);
+}
+
+.badge-info {
+    background: linear-gradient(135deg, rgba(30, 79, 154, 0.12), rgba(30, 79, 154, 0.06));
+    border: 1px solid rgba(30, 79, 154, 0.15);
+}
+
+/* === LOADING SHIMMER === */
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.loading-shimmer {
+    background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+/* === HOVER LIFT UTILITY === */
+.hover-lift {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+}
+.hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+/* === SCROLL TO TOP BUTTON === */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy, #0B1D3A), var(--navy-mid, #1e4f9a));
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 20px rgba(11, 29, 58, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-top-btn:hover {
+    background: linear-gradient(135deg, var(--navy-mid, #1e4f9a), var(--crimson, #C62828));
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(30, 79, 154, 0.4);
+}

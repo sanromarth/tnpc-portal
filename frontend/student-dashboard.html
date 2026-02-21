@@ -15,6 +15,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/premium-dashboard.css">
     <link rel="stylesheet" href="css/pwa-enhancements.css">
 </head>
 <body>
@@ -74,6 +75,12 @@
             </a>
             <a href="#" class="nav-item" onclick="showSection('skillbuild', this)">
                 <span class="nav-icon">🚀</span> SkillBuild
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('studyplanner', this)">
+                <span class="nav-icon">📖</span> Study Planner
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('goals', this)">
+                <span class="nav-icon">🎯</span> Goal Tracker
             </a>
         </nav>
         <div class="sidebar-footer">
@@ -794,6 +801,57 @@
                         <div class="loading-state">Loading profile data...</div>
                     </div>
                 </div>
+            </section>
+
+            <!-- Study Planner -->
+            <section class="dash-section" id="sec-studyplanner">
+                <div class="section-header"><h2>📖 Study Planner</h2></div>
+                <div class="stats-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="glass-card" style="text-align:center;">
+                        <h3>🍅 Pomodoro Timer</h3>
+                        <div id="pomodoroDisplay" style="font-size:48px;font-weight:800;color:#FBC02D;margin:20px 0;">25:00</div>
+                        <p id="pomodoroLabel" style="color:rgba(255,255,255,0.5);margin-bottom:16px;">Focus Session</p>
+                        <div style="display:flex;gap:12px;justify-content:center;">
+                            <button class="btn-primary btn-sm" id="pomodoroStartBtn" onclick="togglePomodoro()">▶ Start</button>
+                            <button class="btn-ghost btn-sm" onclick="resetPomodoro()">↻ Reset</button>
+                        </div>
+                        <div style="display:flex;gap:10px;justify-content:center;margin-top:16px;">
+                            <span style="background:rgba(251,192,45,0.15);color:#FBC02D;padding:4px 12px;border-radius:20px;font-size:12px;cursor:pointer;" onclick="setPomodoroTime(25)">25m</span>
+                            <span style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);padding:4px 12px;border-radius:20px;font-size:12px;cursor:pointer;" onclick="setPomodoroTime(45)">45m</span>
+                            <span style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);padding:4px 12px;border-radius:20px;font-size:12px;cursor:pointer;" onclick="setPomodoroTime(5)">5m Break</span>
+                        </div>
+                        <p style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.4);">Sessions today: <strong id="pomodoroCount" style="color:#FBC02D;">0</strong></p>
+                    </div>
+                    <div class="glass-card">
+                        <h3>📝 Today's Tasks</h3>
+                        <form onsubmit="addStudyTask(event)" style="display:flex;gap:8px;margin:16px 0;">
+                            <input type="text" id="studyTaskInput" placeholder="Add a study task..." style="flex:1;padding:10px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;">
+                            <button type="submit" class="btn-primary btn-sm">+</button>
+                        </form>
+                        <div id="studyTaskList" style="max-height:280px;overflow-y:auto;"></div>
+                        <p style="text-align:center;margin-top:12px;font-size:12px;color:rgba(255,255,255,0.3);">Tasks are saved locally on your device</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Goal Tracker -->
+            <section class="dash-section" id="sec-goals">
+                <div class="section-header"><h2>🎯 Goal Tracker</h2></div>
+                <div class="glass-card">
+                    <h3>Set Your Placement Goals</h3>
+                    <form onsubmit="addGoal(event)" style="display:grid;grid-template-columns:1fr 1fr auto;gap:12px;margin:16px 0;align-items:end;">
+                        <div>
+                            <label style="display:block;font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:4px;">Goal</label>
+                            <input type="text" id="goalInput" placeholder="e.g., Complete AWS Certification" required style="width:100%;padding:10px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;box-sizing:border-box;">
+                        </div>
+                        <div>
+                            <label style="display:block;font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:4px;">Target Date</label>
+                            <input type="date" id="goalDate" required style="width:100%;padding:10px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;box-sizing:border-box;">
+                        </div>
+                        <button type="submit" class="btn-primary btn-sm" style="height:42px;">Add Goal</button>
+                    </form>
+                </div>
+                <div id="goalsList" style="margin-top:16px;display:grid;gap:12px;"></div>
             </section>
 
         </div>

@@ -310,6 +310,164 @@ function printResume() {
     setTimeout(() => { win.print(); }, 500);
 }
 
+// ===== STUDY PLANNER =====
+let pomodoroTimer = null;
+let pomodoroSeconds = 25 * 60;
+let pomodoroRunning = false;
+let pomodoroSessions = parseInt(localStorage.getItem('pomodoroSessions') || '0');
+
+function updatePomodoroDisplay() {
+    const mins = Math.floor(pomodoroSeconds / 60);
+    const secs = pomodoroSeconds % 60;
+    const el = document.getElementById('pomodoroDisplay');
+    if (el) el.textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+}
+
+function togglePomodoro() {
+    const btn = document.getElementById('pomodoroStartBtn');
+    if (pomodoroRunning) {
+        clearInterval(pomodoroTimer);
+        pomodoroRunning = false;
+        if (btn) btn.textContent = '▶ Start';
+    } else {
+        pomodoroRunning = true;
+        if (btn) btn.textContent = '⏸ Pause';
+        pomodoroTimer = setInterval(() => {
+            pomodoroSeconds--;
+            updatePomodoroDisplay();
+            if (pomodoroSeconds <= 0) {
+                clearInterval(pomodoroTimer);
+                pomodoroRunning = false;
+                pomodoroSessions++;
+                localStorage.setItem('pomodoroSessions', pomodoroSessions);
+                const countEl = document.getElementById('pomodoroCount');
+                if (countEl) countEl.textContent = pomodoroSessions;
+                if (btn) btn.textContent = '▶ Start';
+                showToast('🍅 Pomodoro complete! Take a break.', 'success');
+                pomodoroSeconds = 25 * 60;
+                updatePomodoroDisplay();
+            }
+        }, 1000);
+    }
+}
+
+function resetPomodoro() {
+    clearInterval(pomodoroTimer);
+    pomodoroRunning = false;
+    pomodoroSeconds = 25 * 60;
+    updatePomodoroDisplay();
+    const btn = document.getElementById('pomodoroStartBtn');
+    if (btn) btn.textContent = '▶ Start';
+}
+
+function setPomodoroTime(mins) {
+    clearInterval(pomodoroTimer);
+    pomodoroRunning = false;
+    pomodoroSeconds = mins * 60;
+    updatePomodoroDisplay();
+    const btn = document.getElementById('pomodoroStartBtn');
+    if (btn) btn.textContent = '▶ Start';
+    const label = document.getElementById('pomodoroLabel');
+    if (label) label.textContent = mins <= 5 ? 'Break Time' : 'Focus Session';
+}
+
+function loadStudyTasks() {
+    const tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
+    const el = document.getElementById('studyTaskList');
+    if (!el) return;
+    if (!tasks.length) {
+        el.innerHTML = '<div style="text-align:center;padding:20px;color:rgba(255,255,255,0.3);font-size:13px;">No tasks yet. Add one above!</div>';
+        return;
+    }
+    el.innerHTML = tasks.map((t, i) => `
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;background:rgba(255,255,255,${t.done?'0.03':'0.06'});border-radius:10px;margin-bottom:6px;transition:all 0.2s;">
+            <input type="checkbox" ${t.done?'checked':''} onchange="toggleStudyTask(${i})" style="width:18px;height:18px;cursor:pointer;accent-color:#FBC02D;">
+            <span style="flex:1;font-size:14px;color:${t.done?'rgba(255,255,255,0.3)':'rgba(255,255,255,0.8)'};${t.done?'text-decoration:line-through;':''}">${t.text}</span>
+            <button onclick="removeStudyTask(${i})" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:16px;">✕</button>
+        </div>
+    `).join('');
+}
+
+function addStudyTask(e) {
+    e.preventDefault();
+    const input = document.getElementById('studyTaskInput');
+    const text = input.value.trim();
+    if (!text) return;
+    const tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
+    tasks.unshift({ text, done: false });
+    localStorage.setItem('studyTasks', JSON.stringify(tasks));
+    input.value = '';
+    loadStudyTasks();
+}
+
+function toggleStudyTask(idx) {
+    const tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
+    if (tasks[idx]) tasks[idx].done = !tasks[idx].done;
+    localStorage.setItem('studyTasks', JSON.stringify(tasks));
+    loadStudyTasks();
+}
+
+function removeStudyTask(idx) {
+    const tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
+    tasks.splice(idx, 1);
+    localStorage.setItem('studyTasks', JSON.stringify(tasks));
+    loadStudyTasks();
+}
+
+// ===== GOAL TRACKER =====
+function loadGoals() {
+    const goals = JSON.parse(localStorage.getItem('placementGoals') || '[]');
+    const el = document.getElementById('goalsList');
+    if (!el) return;
+    if (!goals.length) {
+        el.innerHTML = '<div class="glass-card" style="text-align:center;color:rgba(255,255,255,0.3);">No goals set yet. Add your first placement goal above!</div>';
+        return;
+    }
+    el.innerHTML = goals.map((g, i) => {
+        const target = new Date(g.date);
+        const today = new Date();
+        const daysLeft = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+        const statusColor = g.done ? '#2e7d32' : daysLeft < 0 ? '#C62828' : daysLeft < 7 ? '#FBC02D' : 'rgba(255,255,255,0.3)';
+        const statusText = g.done ? '✅ Completed' : daysLeft < 0 ? '⚠️ Overdue' : `${daysLeft} days left`;
+        return `
+        <div class="glass-card" style="display:flex;align-items:center;gap:16px;${g.done?'opacity:0.6;':''}">
+            <input type="checkbox" ${g.done?'checked':''} onchange="toggleGoal(${i})" style="width:22px;height:22px;cursor:pointer;accent-color:#FBC02D;flex-shrink:0;">
+            <div style="flex:1;">
+                <h4 style="font-size:15px;font-weight:600;color:${g.done?'rgba(255,255,255,0.4)':'#fff'};margin:0 0 4px;${g.done?'text-decoration:line-through;':''}">${g.text}</h4>
+                <span style="font-size:12px;color:${statusColor};">${statusText} • Target: ${target.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</span>
+            </div>
+            <button onclick="removeGoal(${i})" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:18px;">🗑</button>
+        </div>`;
+    }).join('');
+}
+
+function addGoal(e) {
+    e.preventDefault();
+    const input = document.getElementById('goalInput');
+    const date = document.getElementById('goalDate');
+    if (!input.value.trim() || !date.value) return;
+    const goals = JSON.parse(localStorage.getItem('placementGoals') || '[]');
+    goals.push({ text: input.value.trim(), date: date.value, done: false });
+    localStorage.setItem('placementGoals', JSON.stringify(goals));
+    input.value = ''; date.value = '';
+    loadGoals();
+    showToast('Goal added!', 'success');
+}
+
+function toggleGoal(idx) {
+    const goals = JSON.parse(localStorage.getItem('placementGoals') || '[]');
+    if (goals[idx]) goals[idx].done = !goals[idx].done;
+    localStorage.setItem('placementGoals', JSON.stringify(goals));
+    loadGoals();
+}
+
+function removeGoal(idx) {
+    const goals = JSON.parse(localStorage.getItem('placementGoals') || '[]');
+    goals.splice(idx, 1);
+    localStorage.setItem('placementGoals', JSON.stringify(goals));
+    loadGoals();
+}
+
 if (typeof showSection === 'function') {
     const origShowSection = showSection;
     showSection = function(section, navEl) {
@@ -318,6 +476,8 @@ if (typeof showSection === 'function') {
         if (section === "achievements") loadAchievements();
         if (section === "calendar") loadCalendar();
         if (section === "resume") renderResume();
+        if (section === "studyplanner") { loadStudyTasks(); const c = document.getElementById('pomodoroCount'); if(c) c.textContent = pomodoroSessions; }
+        if (section === "goals") loadGoals();
     };
 }
 

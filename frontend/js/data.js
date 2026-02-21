@@ -40,17 +40,6 @@ async function getStudentStats() {
     return apiGet("/api/student-stats");
 }
 
-async function getTopCorporates() {
-    return apiGet("/api/top-corporates");
-}
-
-async function addTopCorporate(data) {
-    return apiPost("/api/top-corporates", data);
-}
-
-async function deleteTopCorporate(id) {
-    return apiDelete(`/api/top-corporates/${id}`);
-}
 
 async function getStudents(params = {}) {
     const query = new URLSearchParams(params).toString();

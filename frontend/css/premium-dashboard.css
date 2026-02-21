@@ -1,0 +1,302 @@
+/* ============================================
+   PREMIUM DASHBOARD UPGRADE
+   ============================================ */
+
+/* === SIDEBAR PREMIUM === */
+.dash-sidebar {
+    background: linear-gradient(180deg, #0B1D3A 0%, #0d2240 40%, #122a52 100%);
+    border-right: 1px solid rgba(251, 192, 45, 0.06);
+}
+
+.sidebar-header {
+    position: relative;
+}
+
+.sidebar-header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 18px;
+    right: 18px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(251, 192, 45, 0.15), transparent);
+}
+
+.sidebar-nav .nav-item {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 12px;
+}
+
+.sidebar-nav .nav-item:hover {
+    background: linear-gradient(135deg, rgba(30, 79, 154, 0.12), rgba(30, 79, 154, 0.04));
+    transform: translateX(4px);
+}
+
+.sidebar-nav .nav-item.active {
+    background: linear-gradient(135deg, rgba(30, 79, 154, 0.3), rgba(198, 40, 40, 0.08));
+    box-shadow: 0 4px 20px rgba(30, 79, 154, 0.15), inset 0 0 0 1px rgba(30, 79, 154, 0.1);
+}
+
+.sidebar-nav .nav-item.active::before {
+    width: 4px;
+    background: linear-gradient(180deg, #FBC02D, #e53935, #1e4f9a);
+    border-radius: 0 4px 4px 0;
+}
+
+/* === TOPBAR PREMIUM === */
+.dash-topbar {
+    background: linear-gradient(90deg, rgba(11, 29, 58, 0.8), rgba(18, 42, 82, 0.6));
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(251, 192, 45, 0.05);
+}
+
+.topbar-title {
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.8));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* === STAT CARDS PREMIUM === */
+.stat-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+}
+
+.stat-card::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent 70%);
+    pointer-events: none;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.gradient-blue {
+    background: linear-gradient(135deg, #0d47a1 0%, #1565c0 50%, #1976d2 100%);
+    border: 1px solid rgba(25, 118, 210, 0.3);
+}
+
+.gradient-green {
+    background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 50%, #388e3c 100%);
+    border: 1px solid rgba(56, 142, 60, 0.3);
+}
+
+.gradient-gold {
+    background: linear-gradient(135deg, #e65100 0%, #ef6c00 50%, #f57c00 100%);
+    border: 1px solid rgba(245, 124, 0, 0.3);
+}
+
+.gradient-red {
+    background: linear-gradient(135deg, #b71c1c 0%, #c62828 50%, #d32f2f 100%);
+    border: 1px solid rgba(211, 47, 47, 0.3);
+}
+
+.stat-value {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* === GLASS CARD PREMIUM === */
+.glass-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 18px;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+    border-color: rgba(251, 192, 45, 0.1);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.glass-card h3 {
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.85));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* === JOB CARD PREMIUM === */
+.job-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.job-card::before {
+    background: linear-gradient(90deg, #1e4f9a, #FBC02D, #C62828);
+    background-size: 200% 100%;
+    animation: gradientSlide 4s linear infinite;
+}
+
+.job-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(30, 79, 154, 0.25);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes gradientSlide {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+/* === DASHBOARD SECTION TRANSITIONS === */
+.dash-section {
+    animation: sectionSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes sectionSlideIn {
+    from { opacity: 0; transform: translateY(16px) scale(0.99); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.section-header h2 {
+    background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.8));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+/* === PIPELINE PREMIUM === */
+.pipeline-item {
+    border-radius: 14px;
+    transition: all 0.3s;
+}
+
+.pipeline-item:hover {
+    transform: scale(1.08);
+}
+
+/* === BTN PRIMARY PREMIUM === */
+.btn-primary {
+    background: linear-gradient(135deg, #1e4f9a 0%, #2962aa 50%, #3674c0 100%);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(30, 79, 154, 0.2);
+}
+
+.btn-primary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+    transition: left 0.5s;
+}
+
+.btn-primary:hover::before { left: 100%; }
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(30, 79, 154, 0.4);
+}
+
+/* === BADGE CARD PREMIUM === */
+.badge-card {
+    border-radius: 18px;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.badge-card.earned {
+    background: linear-gradient(135deg, rgba(251, 192, 45, 0.06), rgba(46, 125, 50, 0.04), rgba(30, 79, 154, 0.04));
+    border-color: rgba(251, 192, 45, 0.2);
+    box-shadow: 0 0 20px rgba(251, 192, 45, 0.05);
+}
+
+.badge-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* === PREMIUM SCROLLBAR FOR DASHBOARD === */
+.dash-sidebar::-webkit-scrollbar { width: 4px; }
+.dash-sidebar::-webkit-scrollbar-track { background: transparent; }
+.dash-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(251, 192, 45, 0.2);
+    border-radius: 10px;
+}
+
+/* === NOTIF PREMIUM === */
+.notif-item {
+    border-radius: 14px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.notif-item:hover {
+    transform: translateX(4px);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.notif-item.unread {
+    border-left: 3px solid;
+    border-image: linear-gradient(180deg, #FBC02D, #e53935) 1;
+}
+
+/* === TRAINING CARD PREMIUM === */
+.training-card {
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.training-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* === APP CARD PREMIUM === */
+.app-card {
+    border-radius: 14px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.app-card:hover {
+    transform: translateX(4px);
+    border-color: rgba(30, 79, 154, 0.2);
+}
+
+/* === STATUS PILL GLOW === */
+.status-accepted { box-shadow: 0 0 8px rgba(46, 125, 50, 0.15); }
+.status-rejected { box-shadow: 0 0 8px rgba(198, 40, 40, 0.15); }
+.status-shortlisted { box-shadow: 0 0 8px rgba(30, 79, 154, 0.15); }
+.status-pending { box-shadow: 0 0 8px rgba(251, 192, 45, 0.15); }
+
+/* === FORM INPUT PREMIUM === */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: rgba(251, 192, 45, 0.3);
+    box-shadow: 0 0 0 3px rgba(251, 192, 45, 0.08), 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* === QUICK ACTION PREMIUM === */
+.qa-btn {
+    border-radius: 14px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.qa-btn:hover {
+    background: linear-gradient(135deg, rgba(30, 79, 154, 0.15), rgba(251, 192, 45, 0.05));
+    border-color: rgba(30, 79, 154, 0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+}
+
+.qa-icon {
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+}

@@ -14,6 +14,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
   <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/premium-dashboard.css">
   <link rel="stylesheet" href="css/pwa-enhancements.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -54,9 +55,6 @@
       </a>
       <a href="#" class="nav-item" onclick="showAdminSection('trainings', this)">
         <span class="nav-icon">📅</span> Trainings
-      </a>
-      <a href="#" class="nav-item" onclick="showAdminSection('corporates', this)">
-        <span class="nav-icon">🏢</span> Corporates
       </a>
       <a href="#" class="nav-item" onclick="showAdminSection('announcements', this)">
         <span class="nav-icon">📢</span> Announcements
@@ -113,9 +111,7 @@
             <button class="qa-btn" onclick="showAdminSection('applications', document.querySelector('[onclick*=applications]'))">
               <span class="qa-icon">📋</span>Review Apps
             </button>
-            <button class="qa-btn" onclick="showAdminSection('corporates', document.querySelector('[onclick*=corporates]'))">
-              <span class="qa-icon">🏢</span>Corporates
-            </button>
+
           </div>
         </div>
 
@@ -317,25 +313,7 @@
         </div>
       </section>
 
-      <!-- ===== CORPORATES ===== -->
-      <section class="dash-section" id="sec-corporates">
-        <div class="section-header"><h2>🏢 Top Corporate Partners</h2></div>
-        <form class="profile-form glass-card" id="addCorporateForm">
-          <div class="form-grid">
-            <div class="form-group"><label>Company Name *</label><input type="text" id="corpName" required></div>
-            <div class="form-group"><label>Type</label>
-              <select id="corpType"><option value="MNC">MNC</option><option value="Startup">Startup</option><option value="Government">Government</option><option value="NGO">NGO</option></select>
-            </div>
-            <div class="form-group"><label>Logo URL</label><input type="url" id="corpLogo"></div>
-            <div class="form-group full-width"><label>Description</label><textarea id="corpDesc" rows="2"></textarea></div>
-          </div>
-          <div class="form-actions"><button type="submit" class="btn-primary">➕ Add Corporate</button></div>
-        </form>
-        <div class="glass-card mt-20">
-          <h3>📋 Partners List</h3>
-          <div id="corporatesList"><div class="loading-state">Loading...</div></div>
-        </div>
-      </section>
+
 
       <!-- ===== ANNOUNCEMENTS ===== -->
       <section class="dash-section" id="sec-announcements">
