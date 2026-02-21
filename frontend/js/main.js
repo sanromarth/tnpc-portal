@@ -58,6 +58,32 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    if (token && role) {
+        if (loginBtn) {
+            loginBtn.textContent = "Dashboard";
+            loginBtn.className = "btn-yellow";
+            loginBtn.onclick = () => { window.location.href = role === "admin" ? "admin-dashboard.html" : "student-dashboard.html"; };
+        }
+        if (registerBtn) {
+            registerBtn.textContent = "Logout";
+            registerBtn.className = "btn-outline";
+            registerBtn.onclick = () => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("role");
+                localStorage.removeItem("userName");
+                localStorage.removeItem("userId");
+                window.location.reload();
+            };
+        }
+    } else {
+        if (loginBtn) loginBtn.onclick = () => { window.location.href = "login.html"; };
+        if (registerBtn) registerBtn.onclick = () => { window.location.href = "register.html"; };
+    }
+
     
     const scrollTopBtn = document.createElement("button");
     scrollTopBtn.className = "scroll-top-btn";

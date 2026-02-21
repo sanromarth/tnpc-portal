@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn.disabled) return;
 
         const name = form.name.value.trim();
         const email = form.email.value.trim();
@@ -24,23 +26,41 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const result = await registerUser({ name, email, password });
+        submitBtn.disabled = true;
+        const origText = submitBtn.textContent;
+        submitBtn.textContent = "Registering...";
+        submitBtn.style.opacity = "0.7";
 
-        if (!result.success) {
-            if (errorMsg) {
-                errorMsg.textContent = result.message || "Registration failed.";
-                errorMsg.classList.add("show");
-            } else {
-                alert(result.message);
+        try {
+            const result = await registerUser({ name, email, password });
+
+            if (!result.success) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = origText;
+                submitBtn.style.opacity = "1";
+                if (errorMsg) {
+                    errorMsg.textContent = result.message || "Registration failed.";
+                    errorMsg.classList.add("show");
+                } else {
+                    alert(result.message);
+                }
+                return;
             }
-            return;
-        }
 
-        
-        showToast("Registration successful! Redirecting to login...", "success");
-        setTimeout(() => {
-            window.location.href = "login.html";
-        }, 1500);
+            submitBtn.textContent = "Redirecting...";
+            showToast("Registration successful! Redirecting to login...", "success");
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 1500);
+        } catch (err) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = origText;
+            submitBtn.style.opacity = "1";
+            if (errorMsg) {
+                errorMsg.textContent = "Something went wrong. Please try again.";
+                errorMsg.classList.add("show");
+            }
+        }
     });
 });
 

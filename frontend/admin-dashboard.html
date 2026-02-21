@@ -61,6 +61,18 @@
       <a href="#" class="nav-item" onclick="showAdminSection('announcements', this)">
         <span class="nav-icon">📢</span> Announcements
       </a>
+      <a href="#" class="nav-item" onclick="showAdminSection('insights', this)">
+        <span class="nav-icon">📊</span> Deep Insights
+      </a>
+      <a href="#" class="nav-item" onclick="showAdminSection('companyTracker', this)">
+        <span class="nav-icon">🏢</span> Company Tracker
+      </a>
+      <a href="#" class="nav-item" onclick="showAdminSection('activityLog', this)">
+        <span class="nav-icon">📜</span> Activity Log
+      </a>
+      <a href="#" class="nav-item" onclick="showAdminSection('courseMatrix', this)">
+        <span class="nav-icon">📈</span> Course Matrix
+      </a>
     </nav>
     <div class="sidebar-footer">
       <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span> Home</a>
@@ -350,6 +362,96 @@
         </div>
       </section>
 
+      <!-- ===== DEEP INSIGHTS ===== -->
+      <section class="dash-section" id="sec-insights">
+        <div class="section-header"><h2>📊 Deep Placement Insights</h2></div>
+
+        <div class="glass-card mb-20">
+          <h3>🏥 Placement Health Score</h3>
+          <div class="health-score-container" id="healthScoreContainer">
+            <div class="health-score-circle" id="healthScoreCircle">
+              <span class="health-score-value" id="healthScoreValue">—</span>
+              <span class="health-score-label">Health</span>
+            </div>
+            <div class="health-breakdown" id="healthBreakdown"></div>
+          </div>
+        </div>
+
+        <div class="glass-card mb-20">
+          <h3>🧠 Top Skills Across Students</h3>
+          <div id="topSkillsChart"><div class="loading-state">Analyzing skills...</div></div>
+        </div>
+
+        <div class="glass-card mb-20">
+          <h3>📊 Funnel Conversion Rates</h3>
+          <div id="funnelConversion"><div class="loading-state">Calculating...</div></div>
+        </div>
+
+        <div class="glass-card">
+          <h3>📈 Batch-wise Comparison</h3>
+          <div class="table-wrap"><table class="premium-table" id="batchCompareTable">
+            <thead><tr><th>Batch</th><th>Students</th><th>Placed</th><th>Rate</th><th>Highest CTC</th><th>Avg CTC</th></tr></thead>
+            <tbody id="batchCompareBody"><tr><td colspan="6" class="loading-state">Loading...</td></tr></tbody>
+          </table></div>
+        </div>
+      </section>
+
+      <!-- ===== COMPANY TRACKER ===== -->
+      <section class="dash-section" id="sec-companyTracker">
+        <div class="section-header"><h2>🏢 Company Engagement Tracker</h2></div>
+        <div class="glass-card mb-20">
+          <h3>📋 Company-wise Application Metrics</h3>
+          <div class="table-wrap"><table class="premium-table">
+            <thead><tr><th>Company</th><th>Role</th><th>Applications</th><th>Shortlisted</th><th>Selected</th><th>Rejected</th><th>Success Rate</th></tr></thead>
+            <tbody id="companyTrackerBody"><tr><td colspan="7" class="loading-state">Loading...</td></tr></tbody>
+          </table></div>
+        </div>
+      </section>
+
+      <!-- ===== ACTIVITY LOG ===== -->
+      <section class="dash-section" id="sec-activityLog">
+        <div class="section-header">
+          <h2>📜 System Activity Log</h2>
+          <button class="btn-sm" onclick="loadActivityLog()">🔄 Refresh</button>
+        </div>
+        <div class="activity-feed glass-card" id="activityFeed">
+          <div class="loading-state">Loading activity...</div>
+        </div>
+      </section>
+
+      <!-- ===== COURSE PERFORMANCE MATRIX ===== -->
+      <section class="dash-section" id="sec-courseMatrix">
+        <div class="section-header"><h2>📈 Course Performance Matrix</h2></div>
+        <div class="glass-card">
+          <div class="table-wrap"><table class="premium-table heatmap-table" id="courseMatrixTable">
+            <thead><tr><th>Course</th><th>Students</th><th>Placed</th><th>Rate</th><th>Avg CGPA</th><th>Top Skills</th><th>Grade</th></tr></thead>
+            <tbody id="courseMatrixBody"><tr><td colspan="7" class="loading-state">Loading...</td></tr></tbody>
+          </table></div>
+        </div>
+      </section>
+
+      <!-- ===== BULK ACTIONS ===== -->
+      <div class="glass-card mt-20 bulk-actions-panel" id="bulkActionsPanel" style="display:none;position:fixed;bottom:24px;right:24px;z-index:200;max-width:360px">
+        <h3>📧 Bulk Actions</h3>
+        <div class="qa-grid" style="grid-template-columns:1fr 1fr">
+          <button class="qa-btn" onclick="bulkRemindUnprofiled()"><span class="qa-icon">📬</span>Remind Unprofiled</button>
+          <button class="qa-btn" onclick="bulkExportReady()"><span class="qa-icon">📥</span>Export Ready</button>
+          <button class="qa-btn" onclick="bulkDeadlineAlert()"><span class="qa-icon">⏰</span>Deadline Alert</button>
+          <button class="qa-btn" onclick="closeBulkPanel()"><span class="qa-icon">✕</span>Close</button>
+        </div>
+      </div>
+
+      <!-- Quick Student View Modal -->
+      <div class="student-modal-overlay" id="studentModalOverlay" style="display:none" onclick="closeStudentModal()">
+        <div class="student-modal glass-card" onclick="event.stopPropagation()">
+          <div class="student-modal-header">
+            <h3>👤 Student Profile</h3>
+            <button class="sidebar-close" onclick="closeStudentModal()" style="display:block">✕</button>
+          </div>
+          <div id="studentModalContent"><div class="loading-state">Loading...</div></div>
+        </div>
+      </div>
+
     </div>
   </main>
 </div>
@@ -357,6 +459,7 @@
 <script src="js/api.js"></script>
 <script src="js/data.js"></script>
 <script src="js/admin-dashboard.js"></script>
+<script src="js/admin-features.js"></script>
 <script src="js/pwa.js" defer></script>
 </body>
 </html>

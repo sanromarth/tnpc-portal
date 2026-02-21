@@ -1,5 +1,11 @@
-async function getJobs() {
-    return apiGet("/api/jobs");
+async function getJobs(params = {}) {
+    const query = new URLSearchParams(params).toString();
+    const result = await apiGet(`/api/jobs${query ? '?' + query : ''}`);
+    return result.jobs || result;
+}
+
+async function withdrawApplication(appId) {
+    return apiDelete(`/api/applications/${appId}`);
 }
 
 async function createJob(jobData) {

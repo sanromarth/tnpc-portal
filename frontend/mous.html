@@ -52,6 +52,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
     </div>
   </div>
   <a href="placements.html">Placements</a>
+  <a href="top-corporates.html">Top Corporates</a>
   <a href="mous.html" class="active">MoUs</a>
   <a href="recruiter.html">Recruiters</a>
   <a href="contact.html">Contact</a>
@@ -296,8 +297,8 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
   <div class="footer-col">
     <h3>Contact</h3>
     <p>👤 TPO: Visweswara Rao Ch</p>
-    <p>📧 placements@srigcsrcollege.org</p>
-    <p>📞 86399 18230, 08941-251336</p>
+    <p>📧 <a href="mailto:placements@srigcsrcollege.org" style="color:rgba(255,255,255,0.6);text-decoration:none;">placements@srigcsrcollege.org</a></p>
+    <p>📞 <a href="tel:+918639918230" style="color:rgba(255,255,255,0.6);text-decoration:none;">86399 18230</a>, <a href="tel:+918941251336" style="color:rgba(255,255,255,0.6);text-decoration:none;">08941-251336</a></p>
     <p>🌐 <a href="https://www.srigcsrcollege.org" target="_blank" rel="noopener">www.srigcsrcollege.org</a></p>
   </div>
 </div>
@@ -306,15 +307,11 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 </div>
 </footer>
 
+<script src="js/api.js" defer></script>
 <script src="js/main.js" defer></script>
 <script src="js/animations.js" defer></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-
-    const loginBtn = document.getElementById("loginBtn");
-    const registerBtn = document.getElementById("registerBtn");
-    if (loginBtn) loginBtn.addEventListener("click", () => window.location.href = "login.html");
-    if (registerBtn) registerBtn.addEventListener("click", () => window.location.href = "register.html");
     const counters = document.querySelectorAll('.mou-counter');
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {

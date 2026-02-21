@@ -2,6 +2,9 @@
   .gmr-logo {
     display: none;
   }
+  .navbar {
+    flex-wrap: nowrap;
+  }
 
   .charts-section {
     grid-template-columns: 1fr;
@@ -79,6 +82,10 @@
 
   .nav-links.active {
     display: flex;
+  }
+
+  .gmr-logo {
+    display: none;
   }
 
   .nav-links a {
@@ -612,7 +619,12 @@
 
   .gmr-section img {
     height: 60px;
+    padding: 10px 16px;
   }
+}
+
+html, body {
+  overflow-x: hidden;
 }
 @media (max-width: 360px) {
   .navbar {

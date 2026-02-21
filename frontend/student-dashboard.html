@@ -60,6 +60,18 @@
             <a href="#" class="nav-item" onclick="showSection('predictor', this)">
                 <span class="nav-icon">🤖</span> AI Predictor
             </a>
+            <a href="#" class="nav-item" onclick="showSection('interview', this)">
+                <span class="nav-icon">📝</span> Interview Prep
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('achievements', this)">
+                <span class="nav-icon">🏅</span> Achievements
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('calendar', this)">
+                <span class="nav-icon">📆</span> Calendar
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('resume', this)">
+                <span class="nav-icon">📄</span> Resume Builder
+            </a>
             <a href="#" class="nav-item" onclick="showSection('skillbuild', this)">
                 <span class="nav-icon">🚀</span> SkillBuild
             </a>
@@ -147,6 +159,34 @@
                             <div class="qs-item"><span class="qs-value counter" id="ovActiveJobs" data-target="0">0</span><span class="qs-label">Active Jobs</span></div>
                             <div class="qs-item"><span class="qs-value counter" id="ovTotalApps" data-target="0">0</span><span class="qs-label">Applied</span></div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Peer Comparison Widget -->
+                <div class="glass-card mt-20 peer-comparison-widget">
+                    <h3>📊 Your Standing Among Peers</h3>
+                    <div class="peer-grid" id="peerComparisonGrid">
+                        <div class="peer-stat">
+                            <div class="peer-rank-circle" id="peerRankCircle">
+                                <span class="peer-rank-text" id="peerRankText">—</span>
+                                <span class="peer-rank-label">Percentile</span>
+                            </div>
+                        </div>
+                        <div class="peer-details">
+                            <div class="peer-metric"><span class="peer-metric-label">Your CGPA</span><span class="peer-metric-value" id="peerYourCGPA">—</span></div>
+                            <div class="peer-metric"><span class="peer-metric-label">Batch Avg</span><span class="peer-metric-value" id="peerBatchAvg">—</span></div>
+                            <div class="peer-metric"><span class="peer-metric-label">Your Skills</span><span class="peer-metric-value" id="peerYourSkills">—</span></div>
+                            <div class="peer-metric"><span class="peer-metric-label">Batch Avg Skills</span><span class="peer-metric-value" id="peerBatchAvgSkills">—</span></div>
+                            <div class="peer-metric"><span class="peer-metric-label">Profile Rank</span><span class="peer-metric-value" id="peerProfileRank">—</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Salary Insights Widget -->
+                <div class="glass-card mt-20">
+                    <h3>💰 Salary Insights (From Active Jobs)</h3>
+                    <div class="salary-insights-grid" id="salaryInsightsGrid">
+                        <div class="loading-state">Analyzing salary data...</div>
                     </div>
                 </div>
 
@@ -617,6 +657,145 @@
                 </div>
             </section>
 
+            <!-- ===== INTERVIEW PREP HUB ===== -->
+            <section class="dash-section" id="sec-interview">
+                <div class="section-header">
+                    <h2>📝 Interview Preparation Hub</h2>
+                    <p class="section-subtitle">Company-wise question banks & practice your way to success</p>
+                </div>
+
+                <div class="interview-filter-bar glass-card mb-20">
+                    <select id="interviewCategory" onchange="filterInterviewQuestions()">
+                        <option value="all">All Categories</option>
+                        <option value="hr">HR Questions</option>
+                        <option value="technical">Technical</option>
+                        <option value="aptitude">Aptitude & Logical</option>
+                        <option value="coding">Coding Problems</option>
+                        <option value="gd">Group Discussion Topics</option>
+                    </select>
+                    <select id="interviewCompany" onchange="filterInterviewQuestions()">
+                        <option value="all">All Companies</option>
+                        <option value="TCS">TCS</option>
+                        <option value="Infosys">Infosys</option>
+                        <option value="Wipro">Wipro</option>
+                        <option value="Cognizant">Cognizant</option>
+                        <option value="Capgemini">Capgemini</option>
+                        <option value="Accenture">Accenture</option>
+                        <option value="IBM">IBM</option>
+                        <option value="HCL">HCL</option>
+                    </select>
+                    <select id="interviewDifficulty" onchange="filterInterviewQuestions()">
+                        <option value="all">All Levels</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+
+                <div class="glass-card mb-20">
+                    <h3>📋 Pre-Interview Checklist</h3>
+                    <div class="interview-checklist" id="interviewChecklist"></div>
+                </div>
+
+                <div class="interview-questions-grid" id="interviewQuestionsGrid"></div>
+
+                <div class="glass-card mt-20">
+                    <h3>⚡ Quick Quiz Mode</h3>
+                    <p class="section-subtitle">Test yourself with random questions</p>
+                    <div class="quiz-container" id="quizContainer">
+                        <div class="quiz-question glass-card" id="quizQuestion"></div>
+                        <div class="quiz-options" id="quizOptions"></div>
+                        <div class="quiz-actions">
+                            <button class="btn-primary btn-sm" onclick="startQuiz()">🎲 New Question</button>
+                            <span class="quiz-score" id="quizScore">Score: 0/0</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== ACHIEVEMENTS & BADGES ===== -->
+            <section class="dash-section" id="sec-achievements">
+                <div class="section-header">
+                    <h2>🏅 Achievements & Badges</h2>
+                    <p class="section-subtitle">Track your placement readiness milestones</p>
+                </div>
+
+                <div class="achievements-summary glass-card mb-20">
+                    <div class="ach-summary-stat">
+                        <span class="ach-summary-value" id="achUnlocked">0</span>
+                        <span class="ach-summary-label">Unlocked</span>
+                    </div>
+                    <div class="ach-summary-stat">
+                        <span class="ach-summary-value" id="achTotal">0</span>
+                        <span class="ach-summary-label">Total</span>
+                    </div>
+                    <div class="ach-summary-stat">
+                        <span class="ach-summary-value" id="achProgress">0%</span>
+                        <span class="ach-summary-label">Progress</span>
+                    </div>
+                    <div class="ach-progress-bar"><div class="ach-progress-fill" id="achProgressBar"></div></div>
+                </div>
+
+                <div class="badges-grid" id="badgesGrid"></div>
+            </section>
+
+            <!-- ===== PLACEMENT CALENDAR ===== -->
+            <section class="dash-section" id="sec-calendar">
+                <div class="section-header">
+                    <h2>📆 Placement Calendar</h2>
+                    <p class="section-subtitle">Visual calendar of all placement events & deadlines</p>
+                </div>
+
+                <div class="calendar-controls glass-card mb-20">
+                    <button class="btn-sm" onclick="changeCalendarMonth(-1)">◀ Prev</button>
+                    <h3 id="calendarMonthTitle">February 2026</h3>
+                    <button class="btn-sm" onclick="changeCalendarMonth(1)">Next ▶</button>
+                </div>
+
+                <div class="calendar-legend mb-20">
+                    <span class="cal-legend-item"><span class="cal-dot cal-dot-drive"></span>Placement Drive</span>
+                    <span class="cal-legend-item"><span class="cal-dot cal-dot-training"></span>Training</span>
+                    <span class="cal-legend-item"><span class="cal-dot cal-dot-workshop"></span>Workshop</span>
+                    <span class="cal-legend-item"><span class="cal-dot cal-dot-deadline"></span>Deadline</span>
+                    <span class="cal-legend-item"><span class="cal-dot cal-dot-other"></span>Other</span>
+                </div>
+
+                <div class="calendar-grid glass-card" id="calendarGrid">
+                    <div class="cal-header">Sun</div><div class="cal-header">Mon</div><div class="cal-header">Tue</div>
+                    <div class="cal-header">Wed</div><div class="cal-header">Thu</div><div class="cal-header">Fri</div>
+                    <div class="cal-header">Sat</div>
+                    <div id="calendarDays"></div>
+                </div>
+
+                <div class="glass-card mt-20">
+                    <h3>📋 Events This Month</h3>
+                    <div id="calendarEventsList"><div class="empty-state">No events this month</div></div>
+                </div>
+            </section>
+
+            <!-- ===== QUICK RESUME BUILDER ===== -->
+            <section class="dash-section" id="sec-resume">
+                <div class="section-header">
+                    <h2>📄 Quick Resume Builder</h2>
+                    <p class="section-subtitle">Auto-generate a professional resume from your profile data</p>
+                </div>
+
+                <div class="resume-actions glass-card mb-20">
+                    <select id="resumeTemplate" onchange="renderResume()">
+                        <option value="classic">Classic Template</option>
+                        <option value="modern">Modern Template</option>
+                        <option value="minimal">Minimal Template</option>
+                    </select>
+                    <button class="btn-primary btn-sm" onclick="printResume()">🖨️ Print / Save as PDF</button>
+                </div>
+
+                <div class="resume-preview-container">
+                    <div class="resume-preview" id="resumePreview">
+                        <div class="loading-state">Loading profile data...</div>
+                    </div>
+                </div>
+            </section>
+
         </div>
     </main>
 </div>
@@ -624,6 +803,7 @@
 <script src="js/api.js"></script>
 <script src="js/data.js"></script>
 <script src="js/student-dashboard.js"></script>
+<script src="js/student-features.js"></script>
 <script src="js/pwa.js" defer></script>
 </body>
 </html>

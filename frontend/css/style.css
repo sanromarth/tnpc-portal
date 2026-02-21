@@ -93,7 +93,13 @@ a { text-decoration: none; color: inherit; }
 }
 
 .college-logo { height: 50px; }
-.gmr-logo { height: 42px; }
+.gmr-logo {
+  height: 42px;
+  background: #fff;
+  padding: 6px 14px;
+  border-radius: 10px;
+  object-fit: contain;
+}
 
 .nav-left h2 {
   font-size: 18px;
@@ -532,10 +538,13 @@ a { text-decoration: none; color: inherit; }
 
 .gmr-section img {
   height: 100px;
-  opacity: 0.9;
   transition: all 0.3s var(--ease);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 16px 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
-.gmr-section img:hover { opacity: 1; transform: scale(1.05); }
+.gmr-section img:hover { transform: scale(1.05); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); }
 .recruiter-section {
   background: var(--bg);
   padding: 80px 0 90px;
