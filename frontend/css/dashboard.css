@@ -145,6 +145,10 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0a0f1a;color:#e0e0e0;m
 
 .inline-select{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 8px;color:#fff;font-size:12px;cursor:pointer;font-family:inherit}
 .inline-select option{background:#0B1D3A}
+.btn-ghost{background:none;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);padding:6px 16px;border-radius:8px;font-size:12px;cursor:pointer;transition:all 0.2s;font-family:inherit}
+.btn-ghost:hover{background:rgba(255,255,255,0.06);color:#fff;border-color:rgba(255,255,255,0.25)}
+.btn-outline-sm{background:none;border:1px solid rgba(30,79,154,0.3);color:#64b5f6;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;transition:all 0.2s;font-family:inherit}
+.btn-outline-sm:hover{background:rgba(30,79,154,0.15);border-color:rgba(30,79,154,0.5)}
 
 /* === FILTER BAR === */
 .filter-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}

@@ -1,0 +1,1175 @@
+/* ============================================
+   MOBILE DASHBOARD — Premium PWA Experience
+   ============================================ */
+
+/* === SIDEBAR MOBILE OVERLAY === */
+@media (max-width: 900px) {
+    .dash-sidebar {
+        width: 280px;
+        z-index: 200;
+    }
+
+    .dash-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .dash-sidebar.open ~ .dash-main::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        z-index: 150;
+        animation: fadeBackdrop 0.3s ease;
+    }
+
+    @keyframes fadeBackdrop {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* Larger touch targets for sidebar nav */
+    .sidebar-nav .nav-item {
+        padding: 14px 16px;
+        min-height: 48px;
+        font-size: 15px;
+        gap: 12px;
+        border-radius: 12px;
+        margin-bottom: 4px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .sidebar-nav .nav-item:active {
+        background: rgba(30, 79, 154, 0.25);
+        transform: scale(0.98);
+    }
+
+    .nav-icon {
+        font-size: 18px;
+        width: 24px;
+    }
+
+    .sidebar-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        font-size: 18px;
+        background: rgba(255, 255, 255, 0.06);
+        transition: all 0.2s;
+    }
+
+    .sidebar-close:active {
+        background: rgba(198, 40, 40, 0.2);
+        transform: scale(0.95);
+    }
+
+    .sidebar-footer .nav-item {
+        padding: 12px 14px;
+        min-height: 44px;
+        font-size: 14px;
+    }
+}
+
+/* === TOPBAR MOBILE === */
+@media (max-width: 900px) {
+    .dash-topbar {
+        padding: 12px 16px;
+        gap: 10px;
+    }
+
+    .sidebar-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.06);
+        font-size: 20px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .sidebar-toggle:active {
+        background: rgba(255, 255, 255, 0.12);
+        transform: scale(0.95);
+    }
+
+    .topbar-title {
+        font-size: 15px;
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .topbar-user {
+        display: none;
+    }
+
+    .notif-bell {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.06);
+    }
+}
+
+/* === CONTENT AREA MOBILE === */
+@media (max-width: 768px) {
+    .dash-content {
+        padding: 14px 12px;
+    }
+
+    .section-header {
+        margin-bottom: 16px;
+    }
+
+    .section-header h2 {
+        font-size: 20px;
+    }
+
+    .section-subtitle {
+        font-size: 12px;
+    }
+}
+
+/* === STAT CARDS MOBILE === */
+@media (max-width: 768px) {
+    .overview-cards {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 16px 14px;
+        border-radius: 14px;
+        gap: 10px;
+    }
+
+    .stat-icon {
+        font-size: 22px;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .stat-label {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .overview-cards {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .stat-card {
+        flex-direction: row;
+        padding: 14px;
+    }
+}
+
+/* === GLASS CARDS MOBILE === */
+@media (max-width: 768px) {
+    .glass-card {
+        padding: 18px 16px;
+        border-radius: 14px;
+    }
+
+    .glass-card h3 {
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+}
+
+/* === JOB CARDS MOBILE === */
+@media (max-width: 768px) {
+    .job-preview-grid,
+    .jobs-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .job-card {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .job-role {
+        font-size: 15px;
+    }
+
+    .job-meta {
+        gap: 8px;
+        font-size: 11px;
+    }
+
+    .job-card-footer {
+        flex-wrap: wrap;
+    }
+
+    .job-card-footer .btn-primary,
+    .job-card-footer .btn-sm {
+        flex: 1;
+        text-align: center;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* === APPLICATION CARDS MOBILE === */
+@media (max-width: 768px) {
+    .app-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 16px;
+    }
+
+    .app-card .status-pill {
+        align-self: flex-start;
+    }
+}
+
+/* === PIPELINE MOBILE === */
+@media (max-width: 768px) {
+    .app-pipeline {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .pipeline-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .pipeline-count {
+        font-size: 24px;
+    }
+
+    .pipeline-label {
+        font-size: 12px;
+    }
+
+    .pipeline-arrow {
+        transform: rotate(90deg);
+        font-size: 16px;
+    }
+
+    /* Placement funnel */
+    .placement-funnel {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .funnel-step {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .funnel-count {
+        font-size: 26px;
+    }
+
+    .funnel-arrow {
+        transform: rotate(90deg);
+        font-size: 14px;
+    }
+}
+
+/* === TABLES MOBILE === */
+@media (max-width: 768px) {
+    .table-wrap,
+    .cert-table-wrap {
+        border-radius: 12px;
+        margin: 0 -8px;
+        width: calc(100% + 16px);
+    }
+
+    .premium-table th {
+        padding: 10px 12px;
+        font-size: 11px;
+    }
+
+    .premium-table td {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .inline-select {
+        padding: 6px 10px;
+        font-size: 12px;
+        min-height: 36px;
+    }
+}
+
+/* === FORMS MOBILE === */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px 14px;
+        font-size: 16px;
+        border-radius: 12px;
+        min-height: 48px;
+    }
+
+    .form-group label {
+        font-size: 11px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .form-actions .btn-primary {
+        width: 100%;
+        min-height: 48px;
+        font-size: 15px;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .filter-bar input,
+    .filter-bar select {
+        width: 100%;
+        min-height: 44px;
+        font-size: 15px;
+        border-radius: 12px;
+    }
+}
+
+/* Font-size 16px for inputs prevents iOS zoom on focus */
+@media (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="tel"],
+    input[type="url"],
+    input[type="date"],
+    input[type="search"],
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* === BUTTONS MOBILE === */
+@media (max-width: 768px) {
+    .btn-primary {
+        min-height: 44px;
+        border-radius: 12px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-primary:active {
+        transform: scale(0.97);
+        box-shadow: 0 2px 8px rgba(30, 79, 154, 0.3);
+    }
+
+    .btn-danger {
+        min-height: 36px;
+        padding: 8px 14px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-danger:active {
+        transform: scale(0.97);
+    }
+
+    .qa-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .qa-btn {
+        padding: 14px 8px;
+        font-size: 11px;
+        min-height: 80px;
+        border-radius: 12px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .qa-btn:active {
+        transform: scale(0.95);
+        background: rgba(30, 79, 154, 0.2);
+    }
+
+    .qa-icon {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 400px) {
+    .qa-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* === CHARTS MOBILE === */
+@media (max-width: 768px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .charts-grid .glass-card {
+        padding: 16px 12px;
+    }
+}
+
+/* === NOTIFICATIONS MOBILE === */
+@media (max-width: 768px) {
+    .notif-list {
+        gap: 6px;
+    }
+
+    .notif-item {
+        padding: 14px;
+        border-radius: 12px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .notif-item:active {
+        background: rgba(255, 255, 255, 0.08);
+        transform: scale(0.99);
+    }
+
+    .notif-body strong {
+        font-size: 13px;
+    }
+
+    .notif-body p {
+        font-size: 12px;
+    }
+}
+
+/* === CALENDAR MOBILE === */
+@media (max-width: 768px) {
+    .calendar-grid {
+        gap: 1px;
+    }
+
+    .cal-header {
+        font-size: 10px;
+        padding: 8px 2px;
+    }
+
+    .cal-day {
+        min-height: 42px;
+        padding: 6px 2px;
+        border-radius: 6px;
+    }
+
+    .cal-day-num {
+        font-size: 12px;
+    }
+
+    .cal-dots .cal-dot {
+        width: 4px;
+        height: 4px;
+    }
+
+    .calendar-controls {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .calendar-controls h3 {
+        font-size: 16px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .calendar-controls .btn-sm {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .calendar-legend {
+        font-size: 10px;
+        gap: 8px;
+    }
+}
+
+/* === INTERVIEW PREP MOBILE === */
+@media (max-width: 768px) {
+    .interview-filter-bar {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .interview-filter-bar select {
+        width: 100%;
+        min-height: 44px;
+        font-size: 15px;
+        border-radius: 12px;
+    }
+
+    .interview-questions-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .interview-card {
+        min-height: 120px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .interview-card:active {
+        transform: scale(0.98);
+    }
+
+    .iq-question {
+        font-size: 14px;
+    }
+
+    .quiz-options {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .quiz-opt {
+        padding: 14px 16px;
+        font-size: 13px;
+        border-radius: 12px;
+        min-height: 48px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .quiz-opt:active:not(:disabled) {
+        transform: scale(0.98);
+    }
+
+    .checklist-item {
+        padding: 12px 14px;
+        font-size: 14px;
+        min-height: 48px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .checklist-item input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* === BADGES MOBILE === */
+@media (max-width: 768px) {
+    .badges-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .badge-card {
+        padding: 18px 12px;
+        border-radius: 14px;
+    }
+
+    .badge-icon {
+        font-size: 34px;
+        margin-bottom: 8px;
+    }
+
+    .badge-card h4 {
+        font-size: 13px;
+    }
+
+    .badge-card p {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 400px) {
+    .badges-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+}
+
+/* === PEER COMPARISON MOBILE === */
+@media (max-width: 768px) {
+    .peer-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        text-align: center;
+    }
+
+    .peer-rank-circle {
+        width: 100px;
+        height: 100px;
+    }
+
+    .peer-rank-text {
+        font-size: 18px;
+    }
+
+    .peer-metric {
+        padding: 10px 14px;
+    }
+
+    .peer-metric-label {
+        font-size: 12px;
+    }
+
+    .peer-metric-value {
+        font-size: 13px;
+    }
+}
+
+/* === SALARY INSIGHTS MOBILE === */
+@media (max-width: 768px) {
+    .salary-summary {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .salary-stat {
+        padding: 12px 8px;
+    }
+
+    .salary-val {
+        font-size: 16px;
+    }
+
+    .salary-label {
+        font-size: 9px;
+    }
+
+    .salary-bar-item {
+        grid-template-columns: 80px 1fr 60px;
+        gap: 8px;
+        font-size: 12px;
+    }
+
+    .salary-company {
+        font-size: 11px;
+    }
+
+    .salary-amount {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 400px) {
+    .salary-summary {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* === RESUME BUILDER MOBILE === */
+@media (max-width: 768px) {
+    .resume-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .resume-actions select,
+    .resume-actions .btn-primary {
+        width: 100%;
+        min-height: 44px;
+    }
+
+    .resume-preview-container {
+        max-height: 60vh;
+    }
+
+    .resume-page {
+        padding: 24px 16px;
+    }
+
+    .res-header h1 {
+        font-size: 22px;
+    }
+
+    .res-section h2 {
+        font-size: 14px;
+    }
+
+    .res-section p {
+        font-size: 13px;
+    }
+}
+
+/* === PROFILE STRENGTH MOBILE === */
+@media (max-width: 768px) {
+    .strength-meter {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .strength-gauge {
+        width: 150px;
+    }
+
+    .strength-value {
+        font-size: 24px;
+    }
+
+    .strength-checklist {
+        justify-content: center;
+    }
+
+    .strength-done,
+    .strength-missing {
+        font-size: 11px;
+        padding: 4px 10px;
+    }
+}
+
+/* === SKILL GAP MOBILE === */
+@media (max-width: 768px) {
+    .skills-showcase {
+        gap: 6px;
+    }
+
+    .skill-chip {
+        padding: 5px 12px;
+        font-size: 11px;
+    }
+
+    .skill-score-container {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .skill-score-text {
+        text-align: center;
+        font-size: 22px;
+    }
+
+    .demand-bar-item {
+        padding: 10px 12px;
+    }
+
+    .demand-label {
+        font-size: 12px;
+    }
+}
+
+/* === ADMIN LIST ITEMS MOBILE === */
+@media (max-width: 768px) {
+    .admin-list-item {
+        padding: 14px;
+        border-radius: 12px;
+        gap: 10px;
+    }
+
+    .ali-left strong {
+        font-size: 13px;
+    }
+
+    .ali-meta {
+        font-size: 11px;
+    }
+
+    .admin-list-item .btn-danger {
+        min-width: 40px;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+}
+
+/* === LEADERBOARD MOBILE === */
+@media (max-width: 768px) {
+    .lb-item {
+        padding: 10px 12px;
+    }
+
+    .lb-rank {
+        font-size: 16px;
+        min-width: 30px;
+    }
+
+    .lb-info strong {
+        font-size: 13px;
+    }
+
+    .lb-info span {
+        font-size: 10px;
+    }
+
+    .lb-cgpa {
+        font-size: 16px;
+    }
+}
+
+/* === DEADLINE ITEMS MOBILE === */
+@media (max-width: 768px) {
+    .deadline-item {
+        padding: 12px 14px;
+        border-radius: 10px;
+    }
+
+    .dl-left strong {
+        font-size: 13px;
+    }
+
+    .dl-date {
+        font-size: 11px;
+    }
+
+    .dl-days {
+        font-size: 20px;
+    }
+
+    .dl-countdown {
+        min-width: 50px;
+    }
+}
+
+/* === ADMIN HEALTH SCORE MOBILE === */
+@media (max-width: 768px) {
+    .health-score-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        text-align: center;
+    }
+
+    .health-score-circle {
+        width: 100px;
+        height: 100px;
+    }
+
+    .health-score-value {
+        font-size: 20px;
+    }
+}
+
+/* === STUDENT MODAL MOBILE === */
+@media (max-width: 768px) {
+    .student-modal-overlay {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .student-modal {
+        width: 100%;
+        max-width: 100%;
+        max-height: 85vh;
+        border-radius: 20px 20px 0 0;
+        padding: 20px 16px env(safe-area-inset-bottom, 16px);
+    }
+}
+
+/* === TOAST MOBILE === */
+@media (max-width: 768px) {
+    .toast-notification {
+        right: 12px;
+        left: 12px;
+        bottom: 16px;
+        max-width: none;
+        padding: 14px 18px;
+        border-radius: 14px;
+        font-size: 13px;
+    }
+}
+
+/* === ADMIN FORMS MOBILE === */
+@media (max-width: 768px) {
+    .admin-form .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* === OVERVIEW GRID MOBILE === */
+@media (max-width: 768px) {
+    .overview-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .quick-stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .qs-item {
+        padding: 10px;
+    }
+
+    .qs-value {
+        font-size: 22px;
+    }
+
+    .qs-label {
+        font-size: 10px;
+    }
+}
+
+/* === DAILY TIP MOBILE === */
+@media (max-width: 768px) {
+    .tip-banner {
+        padding: 14px 16px;
+        gap: 10px;
+        border-radius: 12px;
+    }
+
+    .tip-text {
+        font-size: 13px;
+    }
+
+    .tip-icon {
+        font-size: 20px;
+    }
+}
+
+/* === TRAINING CARDS MOBILE === */
+@media (max-width: 768px) {
+    .trainings-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .training-card {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .training-card h4 {
+        font-size: 15px;
+    }
+
+    .training-meta {
+        font-size: 11px;
+    }
+}
+
+/* === BULK ACTION FAB MOBILE === */
+@media (max-width: 768px) {
+    .bulk-fab {
+        width: 52px;
+        height: 52px;
+        bottom: 20px;
+        right: 16px;
+        font-size: 22px;
+    }
+}
+
+/* === SKILLBUILD CARDS MOBILE === */
+@media (max-width: 768px) {
+    .sb-card {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .sb-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 26px;
+        border-radius: 12px;
+    }
+
+    .sb-info h4 {
+        font-size: 14px;
+    }
+
+    .sb-info p {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    .sb-arrow {
+        display: none;
+    }
+}
+
+/* === PREDICTOR MOBILE === */
+@media (max-width: 768px) {
+    .predictor-inputs {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .pred-gauge {
+        width: 120px;
+        height: 120px;
+    }
+
+    .pred-percent {
+        font-size: 24px;
+    }
+
+    .pred-label {
+        font-size: 16px;
+    }
+
+    .pred-tips {
+        font-size: 13px;
+    }
+}
+
+/* === DISABLE HOVER ON TOUCH DEVICES === */
+@media (hover: none) and (pointer: coarse) {
+    .stat-card:hover,
+    .glass-card:hover,
+    .job-card:hover,
+    .badge-card:hover,
+    .training-card:hover,
+    .sb-card:hover,
+    .qa-btn:hover,
+    .sidebar-nav .nav-item:hover,
+    .notif-item:hover,
+    .app-card:hover,
+    .admin-list-item:hover,
+    .deadline-item:hover,
+    .lb-item:hover,
+    .demand-bar-item:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* Active states for touch */
+    .stat-card:active { transform: scale(0.98); }
+    .job-card:active { transform: scale(0.99); }
+    .badge-card:active { transform: scale(0.97); }
+    .training-card:active { transform: scale(0.98); }
+    .sb-card:active { transform: translateX(4px); }
+    .qa-btn:active { transform: scale(0.95); background: rgba(30, 79, 154, 0.15); }
+    .notif-item:active { background: rgba(255, 255, 255, 0.06); }
+    .app-card:active { background: rgba(255, 255, 255, 0.06); }
+}
+
+/* === PWA STANDALONE MODE === */
+@media all and (display-mode: standalone) {
+    .dash-topbar {
+        padding-top: env(safe-area-inset-top, 12px);
+    }
+
+    .dash-sidebar {
+        padding-top: env(safe-area-inset-top, 0);
+    }
+
+    .toast-notification {
+        bottom: calc(16px + env(safe-area-inset-bottom, 0));
+    }
+
+    .bulk-fab {
+        bottom: calc(20px + env(safe-area-inset-bottom, 0));
+    }
+
+    .student-modal {
+        padding-bottom: env(safe-area-inset-bottom, 16px);
+    }
+}
+
+/* === SMOOTH SCROLLING & OVERSCROLL === */
+.dash-content {
+    -webkit-overflow-scrolling: touch;
+}
+
+.sidebar-nav {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+
+.table-wrap,
+.cert-table-wrap {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+}
+
+/* === LOADING SKELETON ANIMATION === */
+@keyframes shimmer {
+    0% { background-position: -300px 0; }
+    100% { background-position: 300px 0; }
+}
+
+.skeleton {
+    background: linear-gradient(90deg,
+        rgba(255, 255, 255, 0.03) 25%,
+        rgba(255, 255, 255, 0.08) 50%,
+        rgba(255, 255, 255, 0.03) 75%
+    );
+    background-size: 600px 100%;
+    animation: shimmer 1.5s ease infinite;
+    border-radius: 8px;
+}
+
+.skeleton-text {
+    height: 14px;
+    margin-bottom: 8px;
+    width: 80%;
+}
+
+.skeleton-card {
+    height: 100px;
+    margin-bottom: 12px;
+}
+
+/* === EXTRA SMALL SCREENS (< 360px) === */
+@media (max-width: 360px) {
+    .dash-content {
+        padding: 10px 8px;
+    }
+
+    .section-header h2 {
+        font-size: 18px;
+    }
+
+    .stat-card {
+        padding: 12px;
+    }
+
+    .stat-value {
+        font-size: 18px;
+    }
+
+    .job-role {
+        font-size: 14px;
+    }
+
+    .glass-card {
+        padding: 14px 12px;
+    }
+
+    .glass-card h3 {
+        font-size: 14px;
+    }
+
+    .qa-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .badges-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}

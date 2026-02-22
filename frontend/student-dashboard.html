@@ -17,8 +17,26 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/premium-dashboard.css">
     <link rel="stylesheet" href="css/pwa-enhancements.css">
+    <link rel="stylesheet" href="css/mobile-dashboard.css">
+    <link rel="stylesheet" href="css/app-loader.css">
+    <link rel="stylesheet" href="css/premium-animations.css">
 </head>
 <body>
+
+<!-- Premium Loading Screen -->
+<div class="app-loader" id="appLoader">
+    <div class="loader-grid"></div>
+    <div class="loader-orb loader-orb-1"></div>
+    <div class="loader-orb loader-orb-2"></div>
+    <div class="loader-orb loader-orb-3"></div>
+    <div class="loader-content">
+        <img src="assets/logos/sgcsr-logo.png" alt="TNPC" class="loader-logo">
+        <div class="loader-title">TNPC Portal</div>
+        <div class="loader-subtitle">Training & Placement Cell</div>
+        <div class="loader-progress"><div class="loader-progress-bar"></div></div>
+        <div class="loader-dots"><span></span><span></span><span></span></div>
+    </div>
+</div>
 
 <div class="dash-layout">
 
@@ -85,7 +103,7 @@
         </nav>
         <div class="sidebar-footer">
             <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span> Home</a>
-            <a href="#" class="nav-item" onclick="localStorage.clear(); window.location.href='login.html';"><span class="nav-icon">🚪</span> Logout</a>
+            <a href="#" class="nav-item" onclick="logoutUser()"><span class="nav-icon">🚪</span> Logout</a>
         </div>
     </aside>
 
@@ -106,7 +124,7 @@
             <!-- ===== DASHBOARD OVERVIEW ===== -->
             <section class="dash-section active" id="sec-dashboard">
                 <div class="section-header">
-                    <h2>Welcome back, <span id="welcomeName">Student</span>! 👋</h2>
+                    <h2><span id="welcomeGreeting">Welcome back,</span> <span id="welcomeName">Student</span>! 👋</h2>
                     <p class="section-subtitle">Here's your placement readiness overview</p>
                 </div>
 
@@ -858,10 +876,50 @@
     </main>
 </div>
 
+<!-- Mobile Bottom Navigation -->
+<nav class="mobile-bottom-nav" id="mobileBottomNav">
+    <button class="bottom-nav-item" data-section="dashboard">
+        <span class="bnav-icon">📊</span>Home
+    </button>
+    <button class="bottom-nav-item" data-section="jobs">
+        <span class="bnav-icon">💼</span>Jobs
+    </button>
+    <button class="bottom-nav-item" data-section="applications">
+        <span class="bnav-icon">📝</span>Applied
+    </button>
+    <button class="bottom-nav-item" data-section="profile">
+        <span class="bnav-icon">👤</span>Profile
+    </button>
+    <button class="bottom-nav-item bottom-nav-more">
+        <span class="bnav-icon">•••</span>More
+    </button>
+</nav>
+
+<!-- More Menu Popup -->
+<div class="more-menu-backdrop" id="moreMenuBackdrop"></div>
+<div class="more-menu" id="moreMenu">
+    <button class="more-menu-item" data-section="saved"><span class="mm-icon">🔖</span>Saved Jobs</button>
+    <button class="more-menu-item" data-section="certifications"><span class="mm-icon">🎓</span>Certifications</button>
+    <button class="more-menu-item" data-section="skillgap"><span class="mm-icon">🎯</span>Skill Analyzer</button>
+    <button class="more-menu-item" data-section="trainings"><span class="mm-icon">📅</span>Trainings</button>
+    <button class="more-menu-item" data-section="notifications"><span class="mm-icon">🔔</span>Notifications</button>
+    <button class="more-menu-item" data-section="predictor"><span class="mm-icon">🤖</span>AI Predictor</button>
+    <button class="more-menu-item" data-section="interview"><span class="mm-icon">📝</span>Interview Prep</button>
+    <button class="more-menu-item" data-section="achievements"><span class="mm-icon">🏅</span>Achievements</button>
+    <button class="more-menu-item" data-section="calendar"><span class="mm-icon">📆</span>Calendar</button>
+    <button class="more-menu-item" data-section="resume"><span class="mm-icon">📄</span>Resume Builder</button>
+    <button class="more-menu-item" data-section="skillbuild"><span class="mm-icon">🚀</span>SkillBuild</button>
+    <button class="more-menu-item" data-section="studyplanner"><span class="mm-icon">📖</span>Study Planner</button>
+    <button class="more-menu-item" data-section="goals"><span class="mm-icon">🎯</span>Goal Tracker</button>
+</div>
+
+<script src="js/auth.js"></script>
 <script src="js/api.js"></script>
 <script src="js/data.js"></script>
 <script src="js/student-dashboard.js"></script>
 <script src="js/student-features.js"></script>
+<script src="js/app-loader.js"></script>
+<script src="js/micro-interactions.js"></script>
 <script src="js/pwa.js" defer></script>
 </body>
 </html>

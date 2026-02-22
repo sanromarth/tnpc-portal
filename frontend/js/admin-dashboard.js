@@ -6,6 +6,16 @@
 const adminUserName = localStorage.getItem("userName");
 if (adminUserName) document.getElementById("adminName").textContent = "👤 " + adminUserName;
 
+// Close sidebar on backdrop click (mobile)
+document.addEventListener("click", function(e) {
+    const sidebar = document.getElementById("adminSidebar");
+    if (sidebar && sidebar.classList.contains("open")) {
+        if (!sidebar.contains(e.target) && !e.target.closest(".sidebar-toggle")) {
+            sidebar.classList.remove("open");
+        }
+    }
+});
+
 let allCertsData = [];
 
 function animateCounters() {
@@ -36,7 +46,7 @@ function showAdminSection(section, navEl) {
     if (section === "certifications") loadCertsList();
     if (section === "placements") loadPlacementsList();
     if (section === "trainings") loadTrainingsList();
-    if (section === "corporates") loadCorporatesList();
+
     if (section === "announcements") loadAnnouncementsList();
 }
 
@@ -362,27 +372,7 @@ document.getElementById("addTrainingForm").addEventListener("submit", async (e) 
 });
 async function removeTraining(id) { if (!confirm("Delete?")) return; try { await deleteTraining(id); showToast("Deleted", "success"); loadTrainingsList(); } catch (e) { showToast("Failed", "error"); } }
 
-document.getElementById("addCorporateForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    try {
-        await addTopCorporate({ name: document.getElementById("corpName").value, type: document.getElementById("corpType").value,
-            logo: document.getElementById("corpLogo").value, description: document.getElementById("corpDesc").value });
-        showToast("Corporate added!", "success"); document.getElementById("addCorporateForm").reset(); loadCorporatesList();
-    } catch (e) { showToast(e.message || "Failed", "error"); }
-});
 
-async function loadCorporatesList() {
-    const el = document.getElementById("corporatesList"); el.innerHTML = '<div class="loading-state">Loading...</div>';
-    try {
-        const corps = await getTopCorporates();
-        if (!corps.length) { el.innerHTML = '<div class="empty-state">No corporates</div>'; return; }
-        el.innerHTML = '<div class="admin-list">' + corps.map(c => `<div class="admin-list-item">
-            <div class="ali-left">${c.logo ? `<img src="${c.logo}" class="ali-logo" alt="${c.name}">` : ''}
-            <strong>${c.name}</strong><span class="ali-meta">${c.type||''} ${c.description ? '| '+c.description.substring(0,80) : ''}</span></div>
-            <button class="btn-danger btn-xs" onclick="removeCorporate('${c._id}')">🗑️</button></div>`).join('') + '</div>';
-    } catch (e) { el.innerHTML = '<div class="empty-state">Failed to load</div>'; }
-}
-async function removeCorporate(id) { if (!confirm("Delete?")) return; try { await deleteTopCorporate(id); showToast("Deleted", "success"); loadCorporatesList(); } catch (e) { showToast("Failed", "error"); } }
 
 document.getElementById("addAnnouncementForm").addEventListener("submit", async (e) => {
     e.preventDefault();

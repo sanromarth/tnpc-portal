@@ -6,10 +6,29 @@
 const token = localStorage.getItem("token");
 const userName = localStorage.getItem("userName");
 
+function getGreeting() {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good Morning";
+    if (hour < 17) return "Good Afternoon";
+    return "Good Evening";
+}
+
 const welcomeEl = document.getElementById("welcomeName");
 if (welcomeEl && userName) welcomeEl.textContent = userName;
+const greetingEl = document.getElementById("welcomeGreeting");
+if (greetingEl) greetingEl.textContent = getGreeting() + ",";
 const topbarNameEl = document.getElementById("topbarName");
 if (topbarNameEl && userName) topbarNameEl.textContent = "👤 " + userName;
+
+// Close sidebar on backdrop click (mobile)
+document.addEventListener("click", function(e) {
+    const sidebar = document.getElementById("studentSidebar");
+    if (sidebar && sidebar.classList.contains("open")) {
+        if (!sidebar.contains(e.target) && !e.target.closest(".sidebar-toggle")) {
+            sidebar.classList.remove("open");
+        }
+    }
+});
 
 let allJobs = [];
 let savedJobs = JSON.parse(localStorage.getItem("savedJobs") || "[]");
