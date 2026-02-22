@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 showRegError(data.message || "Registration failed.");
             }
         } catch (err) {
-            showRegError("Something went wrong. Please try again.");
+            showRegError("Server is starting up, please wait 30 seconds and try again.");
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = origText;

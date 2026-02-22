@@ -15,6 +15,9 @@ async function registerUser(userData) {
         return { success: true };
 
     } catch (error) {
+        if (error.name === "TypeError" && error.message.includes("fetch")) {
+            return { success: false, message: "Server is starting up, please wait 30 seconds and try again." };
+        }
         return { success: false, message: "Server not reachable. Please try again later." };
     }
 }
@@ -41,6 +44,9 @@ async function loginUser(email, password) {
         return { success: true, role: data.role, name: data.name };
 
     } catch (error) {
+        if (error.name === "TypeError" && error.message.includes("fetch")) {
+            return { success: false, message: "Server is starting up, please wait 30 seconds and try again." };
+        }
         return { success: false, message: "Server not reachable. Please try again later." };
     }
 }

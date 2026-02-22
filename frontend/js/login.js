@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
             submitBtn.textContent = origText;
             submitBtn.style.opacity = "1";
             if (errorMsg) {
-                errorMsg.textContent = "Something went wrong. Please try again.";
+                errorMsg.textContent = err.message || "Server is starting up, please wait and try again.";
                 errorMsg.classList.add("show");
             }
         }

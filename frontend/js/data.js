@@ -133,3 +133,15 @@ async function getCertifications() {
 async function getIBMCertifications() {
     return apiGet("/api/certifications/ibm");
 }
+
+async function getTopCorporates() {
+    return apiGet("/api/corporates");
+}
+
+async function addTopCorporate(data) {
+    return apiPost("/api/corporates", data);
+}
+
+async function deleteTopCorporate(id) {
+    return apiDelete(`/api/corporates/${id}`);
+}

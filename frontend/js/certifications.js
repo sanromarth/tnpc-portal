@@ -62,7 +62,16 @@ async function loadIBMData() {
 
     try {
         const res = await fetch(`${API_BASE}/api/certifications/ibm`);
+
+        if (!res.ok) {
+            throw new Error(`Server returned ${res.status}`);
+        }
+
         const data = await res.json();
+
+        if (!Array.isArray(data)) {
+            throw new Error("Invalid response format from server");
+        }
 
         if (countBadge) {
             countBadge.textContent = `${data.length} Students`;
@@ -72,7 +81,7 @@ async function loadIBMData() {
             tbody.innerHTML = `
                 <tr>
                     <td colspan="5" style="text-align:center; color:#6b7280; padding:40px 20px; font-size:15px;">
-                        No certification records found. Please check the backend connection.
+                        No certification records found.
                     </td>
                 </tr>
             `;
@@ -95,6 +104,9 @@ async function loadIBMData() {
 
     } catch (error) {
         console.error("Error fetching IBM certifications:", error);
+        if (countBadge) {
+            countBadge.textContent = "0 Students";
+        }
         tbody.innerHTML = `
             <tr>
                 <td colspan="5">

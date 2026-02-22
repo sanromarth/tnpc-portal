@@ -7,7 +7,16 @@ let fullData = [];
 async function loadPlacements() {
   try {
     const res = await fetch(`${API_BASE}/api/placements`);
+
+    if (!res.ok) {
+      throw new Error(`Server returned ${res.status}`);
+    }
+
     let data = await res.json();
+
+    if (!Array.isArray(data)) {
+      throw new Error("Invalid response format from server");
+    }
 
     data = data.filter(d => d.yearOrder >= 2017);
 
@@ -21,6 +30,12 @@ async function loadPlacements() {
     updateDashboard(data);
   } catch (error) {
     console.error("Error loading placements:", error);
+    const tbody = document.querySelector("#placementTable tbody");
+    if (tbody) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:#c62828; padding:20px;">
+        ⚠️ Failed to load placement data. ${error.message}
+      </td></tr>`;
+    }
   } finally {
     if (loader) loader.style.display = "none";
   }
@@ -183,7 +198,6 @@ function populateYearFilter(data) {
   const select = document.getElementById("yearFilter");
   if (!select) return;
 
-  
   select.innerHTML = '<option value="all">All Years</option>';
 
   data.forEach(d => {

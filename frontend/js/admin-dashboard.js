@@ -287,7 +287,11 @@ async function updateApp(id, status) {
 async function loadCertsList() {
     const tbody = document.getElementById("adminCertBody");
     tbody.innerHTML = '<tr><td colspan="5" class="loading-state">Loading...</td></tr>';
-    try { const certs = await getIBMCertifications(); allCertsData = certs; renderCertsTable(certs); }
+    try {
+        const certs = await getIBMCertifications();
+        allCertsData = Array.isArray(certs) ? certs : [];
+        renderCertsTable(allCertsData);
+    }
     catch (e) { tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Failed to load</td></tr>'; }
 }
 function filterCerts() {
