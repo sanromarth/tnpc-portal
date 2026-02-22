@@ -1,6 +1,10 @@
+(async () => {
+    const allowed = await protectPage("student");
+    if (!allowed) return;
+})();
+
 const token = localStorage.getItem("token");
 const userName = localStorage.getItem("userName");
-if (!token) window.location.href = "login.html";
 
 const welcomeEl = document.getElementById("welcomeName");
 if (welcomeEl && userName) welcomeEl.textContent = userName;

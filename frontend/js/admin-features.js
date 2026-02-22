@@ -188,7 +188,7 @@ async function bulkRemindUnprofiled() {
     try {
         const students = await getStudents();
         const unprofiled = students.filter(s => !s.course || !s.phone || s.cgpa === 0);
-        await postNotification({ title: "Complete Your Profile", message: `Reminder: ${unprofiled.length} students have incomplete profiles. Please update your profile for placement eligibility.`, type: "announcement", priority: "high", target: "student" });
+        await postNotification({ title: "Complete Your Profile", message: `Reminder: ${unprofiled.length} students have incomplete profiles. Please update your profile for placement eligibility.`, type: "announcement", priority: "high", targetRole: "student" });
         showToast(`Reminder sent for ${unprofiled.length} unprofiled students!`, "success");
     } catch(e) { showToast("Failed: " + (e.message || "Error"), "error"); }
 }
@@ -210,7 +210,7 @@ async function bulkDeadlineAlert() {
         const upcoming = jobs.filter(j => j.deadline && new Date(j.deadline) > now && j.status === "active").sort((a,b) => new Date(a.deadline) - new Date(b.deadline)).slice(0, 3);
         if (!upcoming.length) { showToast("No upcoming deadlines to alert about", "info"); return; }
         const msg = upcoming.map(j => `${j.company} — ${j.role} (${new Date(j.deadline).toLocaleDateString("en-IN")})`).join("\n");
-        await postNotification({ title: "⏰ Upcoming Deadlines Alert", message: msg, type: "deadline", priority: "high", target: "student" });
+        await postNotification({ title: "⏰ Upcoming Deadlines Alert", message: msg, type: "deadline", priority: "high", targetRole: "student" });
         showToast("Deadline alert sent to all students!", "success");
     } catch(e) { showToast("Failed: " + (e.message || "Error"), "error"); }
 }

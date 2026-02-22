@@ -1,3 +1,8 @@
+(async () => {
+    const allowed = await protectPage("admin");
+    if (!allowed) return;
+})();
+
 const adminUserName = localStorage.getItem("userName");
 if (adminUserName) document.getElementById("adminName").textContent = "👤 " + adminUserName;
 
