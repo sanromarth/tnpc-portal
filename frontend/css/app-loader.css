@@ -36,10 +36,13 @@
 .loader-logo {
     width: 72px;
     height: 72px;
-    border-radius: 18px;
+    border-radius: 50%;
     margin-bottom: 20px;
     animation: logoPulse 2s ease-in-out infinite;
     filter: drop-shadow(0 4px 20px rgba(251, 192, 45, 0.2));
+    background: rgba(255, 255, 255, 0.95);
+    padding: 4px;
+    object-fit: contain;
 }
 
 @keyframes logoPulse {

@@ -1,6 +1,8 @@
 @media (max-width: 1024px) {
   .gmr-logo {
-    display: none;
+    height: 30px;
+    max-width: 70px;
+    padding: 4px 8px;
   }
   .navbar {
     flex-wrap: nowrap;
@@ -48,6 +50,12 @@
 
   .header-logo {
     height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 3px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   .header-text h1 {
@@ -85,7 +93,9 @@
   }
 
   .gmr-logo {
-    display: none;
+    height: 26px;
+    max-width: 60px;
+    padding: 3px 6px;
   }
 
   .nav-links a {

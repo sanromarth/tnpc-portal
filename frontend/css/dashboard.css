@@ -7,7 +7,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0a0f1a;color:#e0e0e0;m
 .dash-main{margin-left:260px;flex:1;min-height:100vh;background:#0a0f1a}
 
 .sidebar-header{padding:20px 18px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,0.08)}
-.sidebar-logo{width:36px;height:36px;border-radius:8px}
+.sidebar-logo{width:44px;height:44px;border-radius:50%;object-fit:contain;background:rgba(255,255,255,0.95);padding:3px;box-shadow:0 2px 12px rgba(251,192,45,0.15)}
 .sidebar-header h2{font-size:16px;font-weight:700;color:#fff;flex:1}
 .sidebar-close{display:none;background:none;border:none;color:#fff;font-size:20px;cursor:pointer}
 
