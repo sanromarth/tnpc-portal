@@ -1,6 +1,36 @@
 /* ============================================
-   PREMIUM DASHBOARD UPGRADE
+   PREMIUM DASHBOARD — NEXT LEVEL
    ============================================ */
+
+/* === ANIMATED MESH GRADIENT BACKGROUND === */
+.dash-main {
+    background: #0a0f1a;
+    position: relative;
+}
+
+.dash-main::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 260px;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(ellipse 600px 400px at 15% 20%, rgba(30,79,154,0.08), transparent),
+        radial-gradient(ellipse 500px 350px at 85% 75%, rgba(198,40,40,0.05), transparent),
+        radial-gradient(ellipse 400px 300px at 50% 50%, rgba(251,192,45,0.03), transparent);
+    pointer-events: none;
+    z-index: 0;
+    animation: meshFloat 12s ease-in-out infinite alternate;
+}
+
+@keyframes meshFloat {
+    0%   { opacity: 0.6; transform: scale(1); }
+    50%  { opacity: 1;   transform: scale(1.05); }
+    100% { opacity: 0.7; transform: scale(0.98); }
+}
+
+.dash-content { position: relative; z-index: 1; }
 
 /* === SIDEBAR PREMIUM === */
 .dash-sidebar {
@@ -19,7 +49,7 @@
     left: 18px;
     right: 18px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(251, 192, 45, 0.15), transparent);
+    background: linear-gradient(90deg, transparent, rgba(251, 192, 45, 0.2), transparent);
 }
 
 .sidebar-nav .nav-item {
@@ -45,9 +75,9 @@
 
 /* === TOPBAR PREMIUM === */
 .dash-topbar {
-    background: linear-gradient(90deg, rgba(11, 29, 58, 0.8), rgba(18, 42, 82, 0.6));
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(251, 192, 45, 0.05);
+    background: linear-gradient(90deg, rgba(11, 29, 58, 0.85), rgba(18, 42, 82, 0.65));
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(251, 192, 45, 0.06);
 }
 
 .topbar-title {
@@ -57,11 +87,39 @@
     background-clip: text;
 }
 
-/* === STAT CARDS PREMIUM === */
+/* === NOTIFICATION BELL PULSE === */
+.notif-badge {
+    animation: bellPulse 2s ease-in-out infinite;
+}
+
+@keyframes bellPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); box-shadow: 0 0 12px rgba(198,40,40,0.5); }
+}
+
+/* === STAT CARDS PREMIUM + SHINE ANIMATION === */
 .stat-card {
     position: relative;
     overflow: hidden;
     border-radius: 18px;
+}
+
+.stat-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 80%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    transform: skewX(-20deg);
+    animation: cardShine 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes cardShine {
+    0%, 100% { left: -150%; }
+    50% { left: 150%; }
 }
 
 .stat-card::after {
@@ -104,23 +162,92 @@
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* === GLASS CARD PREMIUM === */
+/* === STAGGERED CARD ENTRANCE ANIMATION === */
+.overview-cards .stat-card {
+    opacity: 0;
+    animation: staggerIn 0.6s ease forwards;
+}
+.overview-cards .stat-card:nth-child(1) { animation-delay: 0.05s; }
+.overview-cards .stat-card:nth-child(2) { animation-delay: 0.12s; }
+.overview-cards .stat-card:nth-child(3) { animation-delay: 0.19s; }
+.overview-cards .stat-card:nth-child(4) { animation-delay: 0.26s; }
+.overview-cards .stat-card:nth-child(5) { animation-delay: 0.33s; }
+.overview-cards .stat-card:nth-child(6) { animation-delay: 0.40s; }
+
+@keyframes staggerIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Stagger glass cards within overview */
+.overview-grid .glass-card {
+    opacity: 0;
+    animation: staggerIn 0.6s ease forwards;
+}
+.overview-grid .glass-card:nth-child(1) { animation-delay: 0.15s; }
+.overview-grid .glass-card:nth-child(2) { animation-delay: 0.25s; }
+
+/* Stagger job cards */
+.jobs-grid .job-card, .job-preview-grid .job-card {
+    opacity: 0;
+    animation: staggerSlideIn 0.5s ease forwards;
+}
+.jobs-grid .job-card:nth-child(1), .job-preview-grid .job-card:nth-child(1) { animation-delay: 0.05s; }
+.jobs-grid .job-card:nth-child(2), .job-preview-grid .job-card:nth-child(2) { animation-delay: 0.1s; }
+.jobs-grid .job-card:nth-child(3), .job-preview-grid .job-card:nth-child(3) { animation-delay: 0.15s; }
+.jobs-grid .job-card:nth-child(4), .job-preview-grid .job-card:nth-child(4) { animation-delay: 0.2s; }
+.jobs-grid .job-card:nth-child(5), .job-preview-grid .job-card:nth-child(5) { animation-delay: 0.25s; }
+.jobs-grid .job-card:nth-child(6), .job-preview-grid .job-card:nth-child(6) { animation-delay: 0.3s; }
+
+@keyframes staggerSlideIn {
+    from { opacity: 0; transform: translateX(-16px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* === GLASS CARD PREMIUM + GLOW BORDER === */
 .glass-card {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
     backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 18px;
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
 }
 
 .glass-card:hover {
-    border-color: rgba(251, 192, 45, 0.1);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    border-color: rgba(251, 192, 45, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(30,79,154,0.08);
 }
 
 .glass-card h3 {
     color: #fff;
     font-weight: 700;
+}
+
+/* === SECTION HEADER PREMIUM UNDERLINE === */
+.section-header h2 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 800;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+}
+
+.section-header h2::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 48px;
+    height: 3px;
+    background: linear-gradient(90deg, #FBC02D, #1e4f9a);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+}
+
+.section-header:hover h2::after {
+    width: 100%;
 }
 
 /* === JOB CARD PREMIUM === */
@@ -140,12 +267,34 @@
 .job-card:hover {
     transform: translateY(-6px);
     border-color: rgba(30, 79, 154, 0.25);
-    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.25), 0 0 20px rgba(30,79,154,0.08);
 }
 
 @keyframes gradientSlide {
     0% { background-position: 0% 50%; }
     100% { background-position: 200% 50%; }
+}
+
+/* === SKELETON LOADING SHIMMER === */
+.loading-state {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-state::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 200%; }
 }
 
 /* === DASHBOARD SECTION TRANSITIONS === */
@@ -158,13 +307,7 @@
     to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.section-header h2 {
-    color: #fff;
-    font-size: 24px;
-    font-weight: 800;
-}
-
-/* === PIPELINE PREMIUM === */
+/* === PIPELINE PREMIUM + ANIMATED ARROWS === */
 .pipeline-item {
     border-radius: 14px;
     transition: all 0.3s;
@@ -174,7 +317,16 @@
     transform: scale(1.08);
 }
 
-/* === BTN PRIMARY PREMIUM === */
+.pipeline-arrow {
+    animation: arrowBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+    0%, 100% { transform: translateX(0); opacity: 0.3; }
+    50% { transform: translateX(3px); opacity: 0.6; }
+}
+
+/* === BTN PRIMARY PREMIUM — SWEEP SHINE === */
 .btn-primary {
     background: linear-gradient(135deg, #1e4f9a 0%, #2962aa 50%, #3674c0 100%);
     border-radius: 12px;
@@ -190,7 +342,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
     transition: left 0.5s;
 }
 
@@ -213,12 +365,21 @@
     box-shadow: 0 0 20px rgba(251, 192, 45, 0.05);
 }
 
+.badge-card.earned .badge-icon {
+    animation: badgeFloat 3s ease-in-out infinite;
+}
+
+@keyframes badgeFloat {
+    0%, 100% { transform: translateY(0) scale(1.2); }
+    50% { transform: translateY(-4px) scale(1.25); }
+}
+
 .badge-card:hover {
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
-/* === PREMIUM SCROLLBAR FOR DASHBOARD === */
+/* === PREMIUM SCROLLBAR === */
 .dash-sidebar::-webkit-scrollbar { width: 4px; }
 .dash-sidebar::-webkit-scrollbar-track { background: transparent; }
 .dash-sidebar::-webkit-scrollbar-thumb {
@@ -241,6 +402,17 @@
     border-left: 3px solid;
     border-image: linear-gradient(180deg, #FBC02D, #e53935) 1;
 }
+
+/* Stagger notification items */
+.notif-list .notif-item {
+    opacity: 0;
+    animation: staggerSlideIn 0.4s ease forwards;
+}
+.notif-list .notif-item:nth-child(1) { animation-delay: 0.03s; }
+.notif-list .notif-item:nth-child(2) { animation-delay: 0.06s; }
+.notif-list .notif-item:nth-child(3) { animation-delay: 0.09s; }
+.notif-list .notif-item:nth-child(4) { animation-delay: 0.12s; }
+.notif-list .notif-item:nth-child(5) { animation-delay: 0.15s; }
 
 /* === TRAINING CARD PREMIUM === */
 .training-card {
@@ -266,12 +438,12 @@
 }
 
 /* === STATUS PILL GLOW === */
-.status-accepted { box-shadow: 0 0 8px rgba(46, 125, 50, 0.15); }
-.status-rejected { box-shadow: 0 0 8px rgba(198, 40, 40, 0.15); }
-.status-shortlisted { box-shadow: 0 0 8px rgba(30, 79, 154, 0.15); }
-.status-pending { box-shadow: 0 0 8px rgba(251, 192, 45, 0.15); }
+.status-accepted { box-shadow: 0 0 10px rgba(46, 125, 50, 0.2); }
+.status-rejected { box-shadow: 0 0 10px rgba(198, 40, 40, 0.2); }
+.status-shortlisted { box-shadow: 0 0 10px rgba(30, 79, 154, 0.2); }
+.status-pending { box-shadow: 0 0 10px rgba(251, 192, 45, 0.2); }
 
-/* === FORM INPUT PREMIUM === */
+/* === FORM INPUT PREMIUM + GLOW === */
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -294,7 +466,64 @@
 
 .qa-icon {
     filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s ease;
 }
+
+.qa-btn:hover .qa-icon {
+    transform: scale(1.15);
+}
+
+/* === TIP BANNER PREMIUM === */
+.tip-banner {
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tip-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(251,192,45,0.04), transparent);
+    animation: tipShine 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes tipShine {
+    0%, 100% { left: -100%; }
+    50% { left: 150%; }
+}
+
+/* === TABLE ROW HOVER PREMIUM === */
+.premium-table tr {
+    transition: all 0.25s ease;
+}
+
+.premium-table tbody tr:hover {
+    background: rgba(30, 79, 154, 0.06) !important;
+    box-shadow: inset 3px 0 0 #1e4f9a;
+}
+
+/* === DEADLINE ITEM ANIMATIONS === */
+.deadline-list .deadline-item {
+    opacity: 0;
+    animation: staggerIn 0.4s ease forwards;
+}
+.deadline-list .deadline-item:nth-child(1) { animation-delay: 0.05s; }
+.deadline-list .deadline-item:nth-child(2) { animation-delay: 0.1s; }
+.deadline-list .deadline-item:nth-child(3) { animation-delay: 0.15s; }
+.deadline-list .deadline-item:nth-child(4) { animation-delay: 0.2s; }
+
+/* === CHARTS GRID — FLOATING EFFECT === */
+.charts-grid .glass-card {
+    opacity: 0;
+    animation: staggerIn 0.6s ease forwards;
+}
+.charts-grid .glass-card:nth-child(1) { animation-delay: 0.1s; }
+.charts-grid .glass-card:nth-child(2) { animation-delay: 0.2s; }
 
 /* === PREMIUM SCROLLBAR FOR CONTENT === */
 .dash-main::-webkit-scrollbar { width: 6px; }
@@ -313,3 +542,54 @@
     background: rgba(30, 79, 154, 0.3);
     border-radius: 10px;
 }
+
+/* === ADMIN LIST ITEM STAGGER === */
+.admin-list .admin-list-item {
+    opacity: 0;
+    animation: staggerSlideIn 0.4s ease forwards;
+}
+.admin-list .admin-list-item:nth-child(1) { animation-delay: 0.03s; }
+.admin-list .admin-list-item:nth-child(2) { animation-delay: 0.06s; }
+.admin-list .admin-list-item:nth-child(3) { animation-delay: 0.09s; }
+.admin-list .admin-list-item:nth-child(4) { animation-delay: 0.12s; }
+.admin-list .admin-list-item:nth-child(5) { animation-delay: 0.15s; }
+
+/* === LEADERBOARD PREMIUM === */
+.lb-item:first-child .lb-rank { color: #FBC02D; }
+.lb-item:nth-child(2) .lb-rank { color: #b0bec5; }
+.lb-item:nth-child(3) .lb-rank { color: #a1887f; }
+
+/* === SKILL CHIP HOVER === */
+.skill-chip {
+    transition: all 0.25s ease;
+}
+.skill-chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* === CALENDAR DAY HOVER === */
+.cal-day:not(.empty):hover {
+    background: rgba(30, 79, 154, 0.1) !important;
+    transform: scale(1.05);
+    transition: all 0.2s;
+}
+
+.cal-day.today {
+    box-shadow: 0 0 12px rgba(30,79,154,0.2);
+}
+
+/* === RESPONSIVE — HIDE MESH ON MOBILE === */
+@media (max-width: 900px) {
+    .dash-main::before {
+        left: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
