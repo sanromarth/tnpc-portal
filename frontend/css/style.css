@@ -1,3 +1,10 @@
+/* === GLOBAL LOGO SAFETY — prevent ANY logo from EVER rendering oversized === */
+img[src*="logo"] {
+  max-width: 200px !important;
+  max-height: 200px !important;
+  object-fit: cover;
+}
+
 :root {
   
   --navy: #0B1D3A;
@@ -1288,6 +1295,7 @@ tr:last-child td { border-bottom: none; }
   right: 0;
   z-index: 10000;
   animation: slideUp 0.4s ease forwards;
+  overflow: hidden;
 }
 
 .pwa-banner {
@@ -1308,10 +1316,15 @@ tr:last-child td { border-bottom: none; }
 }
 
 .pwa-banner-icon {
-  width: 44px;
-  height: 44px;
+  width: 44px !important;
+  height: 44px !important;
+  max-width: 44px !important;
+  max-height: 44px !important;
+  min-width: 44px;
   border-radius: 10px;
   border: 2px solid rgba(255,255,255,0.2);
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .pwa-banner-text {
