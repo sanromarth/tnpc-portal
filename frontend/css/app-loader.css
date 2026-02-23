@@ -34,8 +34,10 @@
 }
 
 .loader-logo {
-    width: 72px;
-    height: 72px;
+    width: 72px !important;
+    height: 72px !important;
+    max-width: 72px !important;
+    max-height: 72px !important;
     border-radius: 50%;
     margin-bottom: 20px;
     animation: logoPulse 2s ease-in-out infinite;

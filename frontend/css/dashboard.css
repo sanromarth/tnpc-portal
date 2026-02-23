@@ -6,8 +6,14 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0a0f1a;color:#e0e0e0;m
 .dash-sidebar{width:260px;background:linear-gradient(180deg,#0B1D3A 0%,#122a52 100%);position:fixed;top:0;left:0;height:100vh;z-index:100;display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,0.06);transition:transform 0.35s cubic-bezier(.4,0,.2,1)}
 .dash-main{margin-left:260px;flex:1;min-height:100vh;background:#0a0f1a}
 
-.sidebar-header{padding:20px 18px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,0.08)}
-.sidebar-logo{width:44px;height:44px;border-radius:50%;object-fit:contain;background:rgba(255,255,255,0.95);padding:3px;box-shadow:0 2px 12px rgba(251,192,45,0.15)}
+/* Global logo image safety — prevent any logo from rendering oversized */
+.dash-layout img[src*="logo"]{max-width:100px !important;max-height:100px !important;object-fit:contain}
+.dash-main img[src*="logo"]{max-width:80px !important;max-height:80px !important}
+.dash-content img[src*="logo"]{max-width:60px !important;max-height:60px !important}
+.app-loader img{max-width:72px !important;max-height:72px !important}
+
+.sidebar-header{padding:20px 18px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden}
+.sidebar-logo{width:44px !important;height:44px !important;max-width:44px !important;max-height:44px !important;min-width:44px;border-radius:50%;object-fit:contain;background:rgba(255,255,255,0.95);padding:3px;box-shadow:0 2px 12px rgba(251,192,45,0.15);flex-shrink:0}
 .sidebar-header h2{font-size:16px;font-weight:700;color:#fff;flex:1}
 .sidebar-close{display:none;background:none;border:none;color:#fff;font-size:20px;cursor:pointer}
 
