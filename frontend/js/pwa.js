@@ -27,7 +27,7 @@ function showInstallBanner() {
   banner.innerHTML = `
     <div class="pwa-banner">
       <div class="pwa-banner-content">
-        <img src="assets/logos/sgcsr-logo.png" alt="TNPC" class="pwa-banner-icon">
+        <img src="assets/logos/sgcsr-logo.png" alt="TNPC" class="pwa-banner-icon" style="width:44px;height:44px;max-width:44px;max-height:44px;object-fit:cover;border-radius:10px;flex-shrink:0;">
         <div class="pwa-banner-text">
           <strong>Install TNPC Portal</strong>
           <span>Add to home screen for quick access</span>
