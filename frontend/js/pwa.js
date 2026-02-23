@@ -21,6 +21,8 @@ window.addEventListener("beforeinstallprompt", (e) => {
 function showInstallBanner() {
   if (window.matchMedia("(display-mode: standalone)").matches) return;
   if (sessionStorage.getItem("pwa-dismissed")) return;
+  const page = window.location.pathname.split("/").pop();
+  if (page === "admin-dashboard.html" || page === "student-dashboard.html") return;
 
   const banner = document.createElement("div");
   banner.id = "pwa-install-banner";
@@ -40,6 +42,7 @@ function showInstallBanner() {
     </div>
   `;
   document.body.appendChild(banner);
+  setTimeout(() => dismissBanner(), 10000);
 }
 
 async function installApp() {
