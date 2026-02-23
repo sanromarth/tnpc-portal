@@ -95,9 +95,9 @@ a { text-decoration: none; color: inherit; }
 .college-logo {
   height: 42px;
   width: 42px;
-  object-fit: contain;
+  object-fit: cover;
   background: rgba(255, 255, 255, 0.95);
-  padding: 3px;
+  padding: 0;
   border-radius: 50%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   flex-shrink: 0;
@@ -1056,9 +1056,9 @@ footer {
   height: 60px;
   width: 60px;
   border-radius: 50%;
-  object-fit: contain;
+  object-fit: cover;
   background: rgba(255, 255, 255, 0.95);
-  padding: 3px;
+  padding: 0;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 }
 

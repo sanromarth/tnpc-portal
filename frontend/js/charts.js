@@ -1,4 +1,15 @@
 
+const _chartInstances = {};
+function safeChart(canvasId, config) {
+    if (_chartInstances[canvasId]) {
+        _chartInstances[canvasId].destroy();
+    }
+    const ctx = document.getElementById(canvasId);
+    if (!ctx) return null;
+    _chartInstances[canvasId] = new Chart(ctx, config);
+    return _chartInstances[canvasId];
+}
+
 document.addEventListener("DOMContentLoaded", async function () {
 
     
@@ -16,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const rejected = statsData ? (statsData.rejectedApplications || 0) : 0;
         const pending = statsData ? (statsData.pendingApplications || 0) : 0;
 
-        new Chart(statusCtx, {
+        safeChart("statusChart", {
             type: "doughnut",
             data: {
                 labels: ["Accepted", "Rejected", "Pending"],
@@ -59,7 +70,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 .filter(p => p.yearOrder >= 2017 && p.totalStudents > 0)
                 .sort((a, b) => a.yearOrder - b.yearOrder);
 
-            new Chart(yearCtx, {
+            safeChart("yearPlacementChart", {
                 type: "line",
                 data: {
                     labels: filtered.map(p => p.batch),

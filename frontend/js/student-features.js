@@ -379,11 +379,12 @@ function loadStudyTasks() {
         el.innerHTML = '<div style="text-align:center;padding:20px;color:rgba(255,255,255,0.3);font-size:13px;">No tasks yet. Add one above!</div>';
         return;
     }
+    const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     el.innerHTML = tasks.map((t, i) => `
         <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;background:rgba(255,255,255,${t.done?'0.03':'0.06'});border-radius:10px;margin-bottom:6px;transition:all 0.2s;">
             <input type="checkbox" ${t.done?'checked':''} onchange="toggleStudyTask(${i})" style="width:18px;height:18px;cursor:pointer;accent-color:#FBC02D;">
-            <span style="flex:1;font-size:14px;color:${t.done?'rgba(255,255,255,0.3)':'rgba(255,255,255,0.8)'};${t.done?'text-decoration:line-through;':''}">${t.text}</span>
-            <button onclick="removeStudyTask(${i})" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:16px;">✕</button>
+            <span style="flex:1;font-size:14px;color:${t.done?'rgba(255,255,255,0.3)':'rgba(255,255,255,0.8)'};${t.done?'text-decoration:line-through;':''}">${esc(t.text)}</span>
+            <button onclick="removeStudyTask(${i})" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:16px;">\u2715</button>
         </div>
     `).join('');
 }
@@ -392,8 +393,9 @@ function addStudyTask(e) {
     e.preventDefault();
     const input = document.getElementById('studyTaskInput');
     const text = input.value.trim();
-    if (!text) return;
+    if (!text || text.length > 200) return;
     const tasks = JSON.parse(localStorage.getItem('studyTasks') || '[]');
+    if (tasks.length >= 50) { showToast('Max 50 tasks allowed', 'error'); return; }
     tasks.unshift({ text, done: false });
     localStorage.setItem('studyTasks', JSON.stringify(tasks));
     input.value = '';
@@ -423,20 +425,21 @@ function loadGoals() {
         el.innerHTML = '<div class="glass-card" style="text-align:center;color:rgba(255,255,255,0.3);">No goals set yet. Add your first placement goal above!</div>';
         return;
     }
+    const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     el.innerHTML = goals.map((g, i) => {
         const target = new Date(g.date);
         const today = new Date();
         const daysLeft = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
         const statusColor = g.done ? '#2e7d32' : daysLeft < 0 ? '#C62828' : daysLeft < 7 ? '#FBC02D' : 'rgba(255,255,255,0.3)';
-        const statusText = g.done ? '✅ Completed' : daysLeft < 0 ? '⚠️ Overdue' : `${daysLeft} days left`;
+        const statusText = g.done ? '\u2705 Completed' : daysLeft < 0 ? '\u26a0\ufe0f Overdue' : `${daysLeft} days left`;
         return `
         <div class="glass-card" style="display:flex;align-items:center;gap:16px;${g.done?'opacity:0.6;':''}">
             <input type="checkbox" ${g.done?'checked':''} onchange="toggleGoal(${i})" style="width:22px;height:22px;cursor:pointer;accent-color:#FBC02D;flex-shrink:0;">
             <div style="flex:1;">
-                <h4 style="font-size:15px;font-weight:600;color:${g.done?'rgba(255,255,255,0.4)':'#fff'};margin:0 0 4px;${g.done?'text-decoration:line-through;':''}">${g.text}</h4>
-                <span style="font-size:12px;color:${statusColor};">${statusText} • Target: ${target.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</span>
+                <h4 style="font-size:15px;font-weight:600;color:${g.done?'rgba(255,255,255,0.4)':'#fff'};margin:0 0 4px;${g.done?'text-decoration:line-through;':''}">${esc(g.text)}</h4>
+                <span style="font-size:12px;color:${statusColor};">${statusText} \u2022 Target: ${target.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</span>
             </div>
-            <button onclick="removeGoal(${i})" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:18px;">🗑</button>
+            <button onclick="removeGoal(${i})" style="background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:18px;">\ud83d\uddd1</button>
         </div>`;
     }).join('');
 }
@@ -445,8 +448,9 @@ function addGoal(e) {
     e.preventDefault();
     const input = document.getElementById('goalInput');
     const date = document.getElementById('goalDate');
-    if (!input.value.trim() || !date.value) return;
+    if (!input.value.trim() || input.value.trim().length > 200 || !date.value) return;
     const goals = JSON.parse(localStorage.getItem('placementGoals') || '[]');
+    if (goals.length >= 20) { showToast('Max 20 goals allowed', 'error'); return; }
     goals.push({ text: input.value.trim(), date: date.value, done: false });
     localStorage.setItem('placementGoals', JSON.stringify(goals));
     input.value = ''; date.value = '';

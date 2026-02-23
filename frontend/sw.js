@@ -1,4 +1,4 @@
-const CACHE_NAME = "tnpc-portal-v4";
+const CACHE_NAME = "tnpc-portal-v5";
 const STATIC_ASSETS = [
   "/",
   "/index.html",

@@ -13,7 +13,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0a0f1a;color:#e0e0e0;m
 .app-loader img{max-width:72px !important;max-height:72px !important}
 
 .sidebar-header{padding:20px 18px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden}
-.sidebar-logo{width:44px !important;height:44px !important;max-width:44px !important;max-height:44px !important;min-width:44px;border-radius:50%;object-fit:contain;background:rgba(255,255,255,0.95);padding:3px;box-shadow:0 2px 12px rgba(251,192,45,0.15);flex-shrink:0}
+.sidebar-logo{width:44px !important;height:44px !important;max-width:44px !important;max-height:44px !important;min-width:44px;border-radius:50%;object-fit:cover;background:rgba(255,255,255,0.95);padding:0;box-shadow:0 2px 12px rgba(251,192,45,0.15);flex-shrink:0}
 .sidebar-header h2{font-size:16px;font-weight:700;color:#fff;flex:1}
 .sidebar-close{display:none;background:none;border:none;color:#fff;font-size:20px;cursor:pointer}
 
@@ -128,6 +128,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0a0f1a;color:#e0e0e0;m
 .premium-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;color:rgba(255,255,255,0.8)}
 .premium-table tr:hover{background:rgba(255,255,255,0.03)}
 .premium-table tr:last-child td{border-bottom:none}
+.premium-table tbody tr:nth-child(even){background:rgba(255,255,255,0.015)}
+.premium-table td:first-child{font-weight:500}
 
 /* === FORMS === */
 .profile-form{margin-bottom:20px}
@@ -193,7 +195,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0a0f1a;color:#e0e0e0;m
 .ali-logo{width:24px;height:24px;border-radius:4px;object-fit:contain;margin-bottom:4px}
 
 /* === CHARTS === */
-.charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin-top:16px}
+.charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:16px}
 
 /* === AI PREDICTOR === */
 .predictor-card{text-align:center}
@@ -206,9 +208,12 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0a0f1a;color:#e0e0e0;m
 .pred-tips{font-size:14px;color:rgba(255,255,255,0.5);max-width:500px;margin:0 auto;line-height:1.5}
 
 /* === STATES === */
-.loading-state{text-align:center;padding:40px 20px;color:rgba(255,255,255,0.4);font-size:14px}
-.empty-state{text-align:center;padding:40px 20px;color:rgba(255,255,255,0.3);font-size:14px}
-.empty-state a{color:#64b5f6;text-decoration:none}
+.loading-state{text-align:center;padding:48px 20px;color:rgba(255,255,255,0.4);font-size:14px}
+.loading-state::before{content:'⏳';display:block;font-size:32px;margin-bottom:12px;animation:pulse 1.5s ease infinite}
+.empty-state{text-align:center;padding:48px 20px;color:rgba(255,255,255,0.35);font-size:14px;line-height:1.6}
+.empty-state::before{content:'📭';display:block;font-size:36px;margin-bottom:12px;opacity:0.5}
+.empty-state a{color:#64b5f6;text-decoration:none;font-weight:600}
+.empty-state a:hover{text-decoration:underline}
 
 /* === ACTIVITY === */
 .activity-list{display:flex;flex-direction:column;gap:8px}
