@@ -27,18 +27,19 @@
 11. API Documentation
 12. Security Implementation
 13. Progressive Web App (PWA)
-14. Deployment Architecture
-15. Testing and Validation
-16. Screenshots Description
-17. Future Enhancements
-18. Conclusion
-19. References
+14. Native Android Application
+15. Deployment Architecture
+16. Testing and Validation
+17. Screenshots Description
+18. Future Enhancements
+19. Conclusion
+20. References
 
 ---
 
 ## 1. ABSTRACT
 
-The TNPC Portal is a full-stack web application developed for the Training & Placement Cell of Sri GCSR College of Engineering & Technology, Rajam. It serves as a centralized digital platform that bridges the gap between the placement cell administration and students. The system enables administrators to post job opportunities, manage student records, track placement statistics, announce training programs, and manage certifications. Students can browse jobs, apply directly, track their application status, build resumes, and access training materials. The application is built using modern web technologies — vanilla HTML/CSS/JavaScript on the frontend and Node.js with Express.js and MongoDB on the backend. It features JWT-based authentication with OTP email verification, role-based access control, a Progressive Web App (PWA) architecture for mobile installability, real-time analytics dashboards, and a premium glassmorphism-based responsive UI. The portal is deployed using Vercel (frontend) and Render (backend) for production-grade availability.
+The TNPC Portal is a full-stack web application and a companion Native Android Application developed for the Training & Placement Cell of Sri GCSR College of Engineering & Technology, Rajam. It serves as a centralized digital platform that bridges the gap between the placement cell administration and students. The system enables administrators to post job opportunities, manage student records, track placement statistics, announce training programs, and manage certifications. Students can browse jobs, apply directly, track their application status, build resumes, and access training materials. The web application is built using modern web technologies — vanilla HTML/CSS/JavaScript on the frontend and Node.js with Express.js and MongoDB on the backend. The native Android application wraps these features in a premium, flagship mobile experience. The portal features JWT-based authentication with OTP email verification, role-based access control, a Progressive Web App (PWA) architecture, real-time analytics dashboards, and a premium glassmorphism-based responsive UI. The portal is deployed using Vercel (frontend) and Render (backend) for production-grade availability.
 
 ---
 
@@ -62,6 +63,7 @@ The project covers the following functional areas:
 - **Resume Builder** — Student profile-based auto-generated resume
 - **Corporate Partnerships** — MOU tracking with industry partners
 - **Progressive Web App** — Installable on mobile devices with offline capability
+- **Native Android App** — Premium flagship mobile experience with Lottie animations, biometric auth, and push notifications
 
 ---
 
@@ -87,9 +89,10 @@ The TNPC Portal solves all of the above by providing a digital, automated, and a
 3. To provide role-based dashboards for administrators and students
 4. To automate job posting, application tracking, and placement statistics
 5. To build a Progressive Web App (PWA) for mobile installability
-6. To implement real-time analytics with charts and visual dashboards
-7. To create a premium, responsive, and accessible user interface
-8. To deploy the application on cloud platforms for 24/7 availability
+6. To deploy a Premium Native Android Application to the Google Play Store
+7. To implement real-time analytics with charts and visual dashboards
+8. To create a premium, responsive, and accessible user interface
+9. To deploy the application on cloud platforms for 24/7 availability
 
 ---
 
@@ -154,11 +157,12 @@ The TNPC Portal solves all of the above by providing a digital, automated, and a
 
 ### 6.4 Deployment
 
-| Platform | Purpose                  |
-| -------- | ------------------------ |
-| Vercel   | Frontend hosting and CDN |
-| Render   | Backend API hosting      |
-| GitHub   | Source code repository   |
+| Platform   | Purpose                  |
+| ---------- | ------------------------ |
+| Vercel     | Frontend hosting and CDN |
+| Render     | Backend API hosting      |
+| GitHub     | Source code repository   |
+| Play Store | Android app distribution |
 
 ---
 
@@ -516,9 +520,39 @@ Cached Assets: HTML pages, CSS files, JS files, logo images
 
 ---
 
-## 14. DEPLOYMENT ARCHITECTURE
+## 14. NATIVE ANDROID APPLICATION
 
-### 14.1 Frontend Deployment (Vercel)
+### 14.1 Application Overview
+
+A premium, flagship-tier native Android application (SGCSRC TNPC) was developed in Java to provide students with a seamless mobile experience. The app securely interfaces with the web portal while adding native mobile capabilities.
+
+### 14.2 Premium Features & UI/UX
+
+| Feature                        | Implementation Details                                                                                      |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------- |
+| **Lottie Animated Onboarding** | 60-FPS vector animations dynamically loaded in a `ViewPager2` slider using `airbnb/lottie`.                 |
+| **Parallax 3D Swiping**        | Custom `ParallaxPageTransformer` creating layered depth effects during onboarding navigation.               |
+| **Edge-to-Edge Immersion**     | `ViewCompat.setOnApplyWindowInsetsListener` enables the app to draw under the system gesture bar.           |
+| **Native Biometric Auth**      | Secure access using Fingerprint/Face ID via Android `BiometricManager`.                                     |
+| **OS Haptic Feedback**         | Physical tactile clicks tied to action buttons using `HapticFeedbackConstants.CONTEXT_CLICK`.               |
+| **Smart Pull-to-Refresh**      | Instant recovery from offline states with fluid transitions back to the active Web interface.               |
+| **WebView State Retention**    | Preserves browsing history and layout states if the OS kills the app in the background to free memory.      |
+| **Chrome Custom Tabs**         | Secure, fast rendering of external links directly within the app rather than launching an external browser. |
+
+### 14.3 Android Security & Compliance
+
+| Mechanism                         | Implementation Details                                                                                 |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| **Network Security Config**       | Hardened `network_security_config.xml` strictly forcing HTTPS and disabling cleartext traffic.         |
+| **Absolute URL Sandbox**          | Wrapped URL interceptors in strict `try-catch` blocks to prevent `ActivityNotFoundException` crashes.  |
+| **Production Debugging Disabled** | `WebSettings` explicitly patched to block Chrome inspector access on release builds.                   |
+| **Memory Leak Prevention**        | Aggressive lifecycle unbinding in `onDestroy()` to gut the WebView completely before application exit. |
+
+---
+
+## 15. DEPLOYMENT ARCHITECTURE
+
+### 15.1 Frontend Deployment (Vercel)
 
 ```
 GitHub Repository → Push to main branch
@@ -572,10 +606,11 @@ Connected to MongoDB Atlas (AWS)
 | **PWA Testing**            | Service worker registration, install prompt, offline caching                                     | ✅ Pass |
 | **Performance Testing**    | Lighthouse audit, lazy loading, .lean() Mongoose optimization                                    | ✅ Pass |
 | **Security Testing**       | XSS prevention, rate limiting, JWT validation, CORS enforcement                                  | ✅ Pass |
+| **Android Compile/Lint**   | Gradle checks, Memory Leak inspection, ViewBinding validations                                   | ✅ Pass |
 
 ---
 
-## 16. SCREENSHOTS DESCRIPTION
+## 17. SCREENSHOTS DESCRIPTION
 
 The following screenshots can be captured from the live application at https://tnpc-portal.vercel.app:
 
@@ -597,7 +632,7 @@ The following screenshots can be captured from the live application at https://t
 
 ---
 
-## 17. FUTURE ENHANCEMENTS
+## 18. FUTURE ENHANCEMENTS
 
 1. **AI-Powered Job Recommendations** — Machine learning to suggest jobs based on student profile
 2. **Live Chat** — Real-time messaging between students and placement officers
@@ -607,18 +642,17 @@ The following screenshots can be captured from the live application at https://t
 6. **Automated Eligibility Check** — Auto-filter students based on CGPA, backlogs, and skills
 7. **Email Notifications** — Automated email alerts for new job postings and status updates
 8. **Multi-Language Support** — Telugu and Hindi language options
-9. **Mobile App** — Native React Native or Flutter mobile application
-10. **Blockchain Certificates** — Tamper-proof digital certificate verification
+9. **Blockchain Certificates** — Tamper-proof digital certificate verification
 
 ---
 
-## 18. CONCLUSION
+## 19. CONCLUSION
 
-The TNPC Portal successfully addresses the challenges of manual placement management at Sri GCSR College by providing a modern, digital, and comprehensive web-based solution. The application demonstrates proficiency in full-stack web development — from database design and REST API architecture to responsive frontend design and cloud deployment. The use of modern technologies such as Express.js 5, Mongoose 9, JWT authentication, PWA architecture, and glassmorphism UI design ensures that the portal meets current industry standards and provides an excellent user experience. The system is currently live and accessible at https://tnpc-portal.vercel.app and is being actively used by the Training & Placement Cell.
+The TNPC Portal successfully addresses the challenges of manual placement management at Sri GCSR College by providing a modern, digital, and comprehensive full-stack solution. The application demonstrates proficiency in modern web and mobile development — from REST API architecture and database design to responsive frontend design, PWA integration, and the publishing of a flagship-tier native Android application. The use of modern technologies such as Express.js 5, Node.js, JWT authentication, alongside advanced Android UI/UX methodologies (Lottie, Parallax, Biometrics, Haptics), ensures that the portal meets current industry standards and provides an unparalleled user experience. The system is currently live at https://tnpc-portal.vercel.app.
 
 ---
 
-## 19. REFERENCES
+## 20. REFERENCES
 
 1. Mozilla Developer Network (MDN) — Web Technologies Documentation — https://developer.mozilla.org
 2. Express.js Official Documentation — https://expressjs.com

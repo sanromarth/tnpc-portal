@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="Home" />
+    <item
+        android:id="@+id/nav_placements"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="Placements" />
+    <item
+        android:id="@+id/nav_certifications"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="Certs" />
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="Settings" />
+</menu>

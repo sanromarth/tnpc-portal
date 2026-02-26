@@ -77,8 +77,14 @@ function renderPlacementChart(data) {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: true,
+      animation: { duration: 600 },
+      hover: { mode: null },
+      interaction: { mode: 'nearest', intersect: true },
+      onHover: null,
       plugins: {
-        legend: { display: false }
+        legend: { display: false },
+        tooltip: { enabled: true, mode: 'nearest', intersect: true }
       },
       scales: {
         y: { beginAtZero: true, grid: { color: "rgba(0,0,0,0.04)" } },
@@ -123,7 +129,15 @@ function renderSalaryChart(data) {
     },
     options: {
       responsive: true,
-      plugins: { legend: { position: "bottom" } },
+      maintainAspectRatio: true,
+      animation: { duration: 600 },
+      hover: { mode: null },
+      interaction: { mode: 'nearest', intersect: true },
+      onHover: null,
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: { enabled: true, mode: 'nearest', intersect: true }
+      },
       scales: {
         y: { beginAtZero: true, grid: { color: "rgba(0,0,0,0.04)" } },
         x: { grid: { display: false } }
@@ -155,7 +169,15 @@ function renderPercentageChart(data) {
     },
     options: {
       responsive: true,
-      plugins: { legend: { position: "bottom" } },
+      maintainAspectRatio: true,
+      animation: { duration: 600 },
+      hover: { mode: null },
+      interaction: { mode: 'nearest', intersect: true },
+      onHover: null,
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: { enabled: true, mode: 'nearest', intersect: true }
+      },
       scales: {
         y: { beginAtZero: true, max: 100, grid: { color: "rgba(0,0,0,0.04)" } },
         x: { grid: { display: false } }

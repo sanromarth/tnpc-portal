@@ -1,0 +1,18 @@
+ <resources>
+    <string name="app_name">SGCSRC TNPC</string>
+
+    <string name="onboarding_title_1">Discover Opportunities</string>
+    <string name="onboarding_desc_1">Browse the latest placement drives, internships, and job openings from top companies — all in one place.</string>
+
+    <string name="onboarding_title_2">Track Your Progress</string>
+    <string name="onboarding_desc_2">Monitor your placement status, certifications, and career milestones with real-time updates.</string>
+
+    <string name="onboarding_title_3">Stay Connected</string>
+    <string name="onboarding_desc_3">Get instant notifications for new opportunities and never miss an important update from TNPC.</string>
+    <string name="shortcut_placements_short">Placements</string>
+    <string name="shortcut_placements_long">View Placements</string>
+    <string name="shortcut_certifications_short">Certifications</string>
+    <string name="shortcut_certifications_long">View Certifications</string>
+    <string name="shortcut_contact_short">Contact</string>
+    <string name="shortcut_contact_long">Contact TNPC</string>
+</resources>

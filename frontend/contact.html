@@ -115,7 +115,7 @@
 .team-section { margin-top: 50px; }
 .team-section h2 { text-align: center; font-size: 28px; font-weight: 800; color: #0B1D3A; margin-bottom: 8px; }
 .team-section .subtitle { text-align: center; color: #6b7280; font-size: 14px; margin-bottom: 32px; }
-.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+.team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 650px; margin: 0 auto; }
 .team-card {
   background: white; border-radius: 16px; padding: 28px 20px; text-align: center;
   box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e5e7eb; transition: all 0.3s;
@@ -287,12 +287,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
         <span class="role">Dept. of Computer Science</span>
         <a class="team-contact" href="mailto:placements@srigcsrcollege.org">📧 Email</a>
       </div>
-      <div class="team-card">
-        <div class="team-avatar" style="background:rgba(46,125,50,0.1);">👨‍💼</div>
-        <h3>Industry Relations</h3>
-        <span class="role">Corporate Partnerships</span>
-        <a class="team-contact" href="mailto:placements@srigcsrcollege.org">📧 Email</a>
-      </div>
+
     </div>
   </section>
 
@@ -315,7 +310,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
       </div>
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFAQ(this)">Are certifications mandatory? <span class="arrow">▾</span></div>
-        <div class="faq-answer">While not mandatory, IBM SkillBuild and ICT Academy certifications significantly boost your resume and provide a competitive edge in placements.</div>
+        <div class="faq-answer">Yes, IBM SkillBuild and ICT Academy certifications are mandatory for all students. These certifications are essential for enhancing your skills and ensuring you are placement-ready with a competitive edge.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFAQ(this)">What is the average package offered? <span class="arrow">▾</span></div>
@@ -381,19 +376,45 @@ function toggleFAQ(el) {
     if (!isOpen) item.classList.add("open");
 }
 
-document.getElementById("contactForm").addEventListener("submit", function(e) {
+document.getElementById("contactForm").addEventListener("submit", async function(e) {
     e.preventDefault();
     const form = this;
     const btn = form.querySelector("button[type='submit']");
     btn.disabled = true;
     btn.textContent = "Sending...";
     
-    setTimeout(() => {
-        form.style.display = "none";
-        document.querySelector(".contact-form-card .subtitle").style.display = "none";
-        document.querySelector(".contact-form-card h2").style.display = "none";
-        document.getElementById("formSuccess").style.display = "block";
-    }, 1200);
+    try {
+        const payload = {
+            name: document.getElementById("contactName").value.trim(),
+            email: document.getElementById("contactEmail").value.trim(),
+            phone: document.getElementById("contactPhone").value.trim(),
+            subject: document.getElementById("contactSubject").value,
+            message: document.getElementById("contactMessage").value.trim()
+        };
+
+        const res = await fetch(`${typeof API_BASE !== 'undefined' ? API_BASE : 'https://tnpc-backend.onrender.com'}/api/contact`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+            form.style.display = "none";
+            document.querySelector(".contact-form-card .subtitle").style.display = "none";
+            document.querySelector(".contact-form-card h2").style.display = "none";
+            document.getElementById("formSuccess").style.display = "block";
+        } else {
+            btn.disabled = false;
+            btn.textContent = "Send Message";
+            alert(data.message || "Failed to send message. Please try again.");
+        }
+    } catch (err) {
+        btn.disabled = false;
+        btn.textContent = "Send Message";
+        alert("Network error. Please check your connection and try again.");
+    }
 });
 </script>
 <script src="js/pwa.js" defer></script>

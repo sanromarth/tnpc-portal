@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Main App Theme — Premium Dark Navy -->
+    <style name="Theme.TNPCPortal" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorPrimaryContainer">@color/accent_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/accent</item>
+        <item name="colorSecondaryContainer">@color/accent_subtle</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorOnSurfaceVariant">@color/text_secondary</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/nav_bar_bg</item>
+        <item name="android:windowBackground">@color/primary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="elevationOverlayEnabled">true</item>
+        <item name="materialCardViewStyle">@style/Widget.TNPCPortal.CardView</item>
+        <item name="switchStyle">@style/Widget.TNPCPortal.Switch</item>
+    </style>
+
+    <!-- Splash Screen Theme (Internal) -->
+    <style name="Theme.TNPCPortal.Splash" parent="Theme.TNPCPortal">
+        <item name="android:windowBackground">@color/primary</item>
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:navigationBarColor">@color/primary</item>
+    </style>
+
+    <!-- App launch / System Splash Screen Theme -->
+    <style name="Theme.TNPCPortal.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
+        <item name="windowSplashScreenAnimationDuration">500</item>
+        <item name="postSplashScreenTheme">@style/Theme.TNPCPortal.Splash</item>
+    </style>
+
+    <!-- Premium Exit Dialog Theme -->
+    <style name="Theme.TNPCPortal.Dialog" parent="Theme.Material3.Dark.Dialog.Alert">
+        <item name="colorPrimary">@color/accent</item>
+        <item name="android:background">@color/dialog_bg</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButton.Positive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButton.Negative</item>
+    </style>
+
+    <style name="DialogButton.Positive" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/error</item>
+    </style>
+
+    <style name="DialogButton.Negative" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/accent</item>
+    </style>
+
+    <!-- Premium Card Style -->
+    <style name="Widget.TNPCPortal.CardView" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@color/card_surface</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">@color/divider</item>
+    </style>
+
+    <!-- Switch Style -->
+    <style name="Widget.TNPCPortal.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="thumbTint">@color/accent</item>
+        <item name="trackTint">@color/accent_subtle</item>
+    </style>
+
+    <!-- Base Text Appearance -->
+    <style name="TextAppearance.TNPCPortal" parent="TextAppearance.Material3.BodyMedium" />
+
+    <!-- Settings Section Title -->
+    <style name="TextAppearance.TNPCPortal.SectionTitle" parent="TextAppearance.TNPCPortal">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.1</item>
+    </style>
+
+    <!-- Bottom Nav Active Indicator -->
+    <style name="Widget.TNPCPortal.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/accent_subtle</item>
+        <item name="android:width">48dp</item>
+        <item name="android:height">32dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.TNPCPortal.ActiveIndicator</item>
+    </style>
+
+    <style name="ShapeAppearance.TNPCPortal.ActiveIndicator" parent="ShapeAppearance.Material3.Corner.Full">
+        <item name="cornerSize">16dp</item>
+    </style>
+</resources>

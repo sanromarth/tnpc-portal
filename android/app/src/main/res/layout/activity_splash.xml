@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_gradient_bg">
+
+    <!-- Floating glow particle 1 (top-right) -->
+    <View
+        android:id="@+id/glowParticle1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/loading_pulse_bg"
+        android:alpha="0" />
+
+    <!-- Floating glow particle 2 (bottom-left) -->
+    <View
+        android:id="@+id/glowParticle2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="200dp"
+        android:background="@drawable/loading_pulse_bg"
+        android:alpha="0" />
+
+    <!-- Floating glow particle 3 (top-left) -->
+    <View
+        android:id="@+id/glowParticle3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/loading_pulse_bg"
+        android:alpha="0" />
+
+    <!-- Center Content -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- Glow Ring behind logo -->
+        <FrameLayout
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp">
+
+            <View
+                android:id="@+id/glowRing"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                android:background="@drawable/glow_ring" />
+
+            <ImageView
+                android:id="@+id/splashLogo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/splash_logo"
+                android:contentDescription="TNPC Portal Logo" />
+        </FrameLayout>
+
+        <!-- App Name -->
+        <TextView
+            android:id="@+id/splashAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TNPC Portal"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.05"
+            android:layout_marginBottom="8dp" />
+
+        <!-- College Name -->
+        <TextView
+            android:id="@+id/splashTagline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sri GCSR College, Rajam"
+            android:textSize="15sp"
+            android:textColor="#78909C"
+            android:fontFamily="sans-serif-light"
+            android:letterSpacing="0.08" />
+    </LinearLayout>
+
+    <!-- Bottom Loader -->
+    <ProgressBar
+        android:id="@+id/splashLoader"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="120dp"
+        android:layout_height="3dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:indeterminate="true"
+        android:indeterminateTint="#4FC3F7" />
+
+    <!-- Powered By Footer -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="28dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="v1.0"
+            android:textSize="12sp"
+            android:textColor="#546E7A"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Training &amp; Placement Cell"
+            android:textSize="10sp"
+            android:textColor="#37474F"
+            android:letterSpacing="0.15" />
+    </LinearLayout>
+
+</RelativeLayout>

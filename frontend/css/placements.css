@@ -82,6 +82,15 @@
 .chart-container canvas {
   width: 100% !important;
   height: auto !important;
+  touch-action: pan-y !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.chart-container {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: auto;
+  will-change: auto;
+  contain: layout style;
 }
 
 .table-section {

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="placements"
+        android:enabled="true"
+        android:shortcutShortLabel="@string/shortcut_placements_short"
+        android:shortcutLongLabel="@string/shortcut_placements_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.gcsr.tnpcportal"
+            android:targetClass="com.gcsr.tnpcportal.SplashActivity"
+            android:data="https://tnpc-portal.vercel.app/placements.html" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="certifications"
+        android:enabled="true"
+        android:shortcutShortLabel="@string/shortcut_certifications_short"
+        android:shortcutLongLabel="@string/shortcut_certifications_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.gcsr.tnpcportal"
+            android:targetClass="com.gcsr.tnpcportal.SplashActivity"
+            android:data="https://tnpc-portal.vercel.app/certifications.html" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="contact"
+        android:enabled="true"
+        android:shortcutShortLabel="@string/shortcut_contact_short"
+        android:shortcutLongLabel="@string/shortcut_contact_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.gcsr.tnpcportal"
+            android:targetClass="com.gcsr.tnpcportal.SplashActivity"
+            android:data="https://tnpc-portal.vercel.app/contact.html" />
+    </shortcut>
+</shortcuts>

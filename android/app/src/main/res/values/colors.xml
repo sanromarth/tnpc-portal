@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Navy Palette -->
+    <color name="primary">#0B1D3A</color>
+    <color name="primary_dark">#071428</color>
+    <color name="primary_light">#1a3a6b</color>
+    <color name="surface">#0F2442</color>
+    <color name="surface_variant">#132D52</color>
+    <color name="card_surface">#11284A</color>
+
+    <!-- Accent -->
+    <color name="accent">#4FC3F7</color>
+    <color name="accent_dark">#1a73e8</color>
+    <color name="accent_glow">#334FC3F7</color>
+    <color name="accent_subtle">#1A4FC3F7</color>
+
+    <!-- Text -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="text_primary">#ECEFF1</color>
+    <color name="text_secondary">#B0BEC5</color>
+    <color name="text_hint">#78909C</color>
+    <color name="text_disabled">#546E7A</color>
+
+    <!-- Status -->
+    <color name="error">#EF5350</color>
+    <color name="error_surface">#1AEF5350</color>
+    <color name="success">#66BB6A</color>
+    <color name="warning">#FFA726</color>
+
+    <!-- UI -->
+    <color name="dialog_bg">#132847</color>
+    <color name="onboarding_purple">#AB47BC</color>
+    <color name="divider">#0A78909C</color>
+    <color name="ripple_light">#1AFFFFFF</color>
+    <color name="nav_bar_bg">#CC0F1E36</color>
+    <color name="glass_overlay">#0DFFFFFF</color>
+    <color name="shimmer">#1A4FC3F7</color>
+
+    <!-- Gradient stops (for reference in Java) -->
+    <color name="gradient_start">#0B1D3A</color>
+    <color name="gradient_center">#0E2240</color>
+    <color name="gradient_end">#091830</color>
+</resources>
