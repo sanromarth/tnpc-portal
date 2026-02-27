@@ -162,10 +162,13 @@ frontend/
 │   ├── icons/
 │   └── images/
 ├── css/
+│   ├── design-system.css
+│   ├── enterprise-upgrade.css
 │   ├── style.css
 │   ├── dashboard.css
 │   ├── premium.css
 │   ├── premium-dashboard.css
+│   ├── premium-animations.css
 │   ├── responsive.css
 │   ├── mobile-dashboard.css
 │   ├── app-loader.css
@@ -321,12 +324,15 @@ Open `frontend/index.html` in browser or use a local server (e.g., Live Server i
 
 ## 🧠 Design Philosophy
 
+- **Enterprise Design System** with unified tokens for colors, typography, spacing, and elevation
 - **Premium Glassmorphism UI** with gradients, blur effects, and micro-animations
 - **Mobile-first responsive design** with PWA capabilities
 - **Modular architecture** with clean separation of concerns
 - **Scalable database schema** supporting historical and modern data
-- **Touch-optimized interactions** for mobile users
+- **Touch-optimized interactions** with tap feedback and reduced shadows on mobile
 - **Skeleton loading states** for perceived performance
+- **Enterprise data tables** with sticky headers, zebra striping, and hover highlights
+- **Performance-tuned** with `content-visibility`, reduced `backdrop-filter` on touch devices, print styles
 - **Time-aware greetings** for personalized experience
 
 ---

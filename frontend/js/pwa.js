@@ -4,7 +4,7 @@ if ("serviceWorker" in navigator) {
       const registration = await navigator.serviceWorker.register("/sw.js", {
         scope: "/"
       });
-      console.log("[PWA] Service Worker registered:", registration.scope);
+      if (location.hostname === 'localhost') console.log("[PWA] Service Worker registered:", registration.scope);
     } catch (error) {
       console.warn("[PWA] Service Worker registration failed:", error);
     }
@@ -49,7 +49,7 @@ async function installApp() {
   if (!deferredPrompt) return;
   deferredPrompt.prompt();
   const { outcome } = await deferredPrompt.userChoice;
-  console.log("[PWA] Install outcome:", outcome);
+  if (location.hostname === 'localhost') console.log("[PWA] Install outcome:", outcome);
   deferredPrompt = null;
   dismissBanner();
 }
@@ -63,7 +63,7 @@ function dismissBanner() {
   sessionStorage.setItem("pwa-dismissed", "true");
 }
 window.addEventListener("appinstalled", () => {
-  console.log("[PWA] App installed successfully");
+  if (location.hostname === 'localhost') console.log("[PWA] App installed successfully");
   deferredPrompt = null;
   dismissBanner();
 });

@@ -1,0 +1,327 @@
+/* ============================================
+   DESIGN SYSTEM — Single Source of Truth
+   Enterprise-Level Design Tokens
+   ============================================ */
+
+:root {
+    /* ─── COLOR PALETTE ─── */
+
+    /* Primary Blue */
+    --ds-primary-50: #e8eef7;
+    --ds-primary-100: #c5d5ec;
+    --ds-primary-200: #9fb9df;
+    --ds-primary-300: #7a9dd1;
+    --ds-primary-400: #5e87c7;
+    --ds-primary-500: #1e4f9a;
+    --ds-primary-600: #1a4589;
+    --ds-primary-700: #153a74;
+    --ds-primary-800: #0B1D3A;
+    --ds-primary-900: #071224;
+
+    /* Accent Gold */
+    --ds-accent-50: #fff9e5;
+    --ds-accent-100: #fff0b8;
+    --ds-accent-200: #ffe68a;
+    --ds-accent-300: #ffdc5c;
+    --ds-accent-400: #ffd84d;
+    --ds-accent-500: #FBC02D;
+    --ds-accent-600: #f9a825;
+    --ds-accent-700: #f57f17;
+    --ds-accent-800: #e65100;
+    --ds-accent-900: #bf360c;
+
+    /* Success Green */
+    --ds-success-50: #e8f5e9;
+    --ds-success-100: #c8e6c9;
+    --ds-success-200: #a5d6a7;
+    --ds-success-300: #81c784;
+    --ds-success-400: #66bb6a;
+    --ds-success-500: #2e7d32;
+    --ds-success-600: #388e3c;
+    --ds-success-700: #2e7d32;
+    --ds-success-800: #1b5e20;
+    --ds-success-900: #0d3d12;
+
+    /* Warning Orange */
+    --ds-warning-50: #fff3e0;
+    --ds-warning-100: #ffe0b2;
+    --ds-warning-200: #ffcc80;
+    --ds-warning-300: #ffb74d;
+    --ds-warning-400: #ffa726;
+    --ds-warning-500: #ef6c00;
+    --ds-warning-600: #e65100;
+    --ds-warning-700: #bf360c;
+    --ds-warning-800: #9e2d0e;
+    --ds-warning-900: #7f1d00;
+
+    /* Danger Red */
+    --ds-danger-50: #fce4ec;
+    --ds-danger-100: #f8bbd0;
+    --ds-danger-200: #ef9a9a;
+    --ds-danger-300: #ef5350;
+    --ds-danger-400: #e53935;
+    --ds-danger-500: #C62828;
+    --ds-danger-600: #b71c1c;
+    --ds-danger-700: #a01f1f;
+    --ds-danger-800: #891515;
+    --ds-danger-900: #6d0f0f;
+
+    /* Neutral Gray Scale */
+    --ds-gray-50: #fafafa;
+    --ds-gray-100: #f5f5f5;
+    --ds-gray-200: #eeeeee;
+    --ds-gray-300: #e0e0e0;
+    --ds-gray-400: #bdbdbd;
+    --ds-gray-500: #9e9e9e;
+    --ds-gray-600: #757575;
+    --ds-gray-700: #616161;
+    --ds-gray-800: #424242;
+    --ds-gray-900: #212121;
+
+    /* ─── TYPOGRAPHY SCALE ─── */
+    --ds-font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+    /* Display / Hero */
+    --ds-text-display: 42px;
+    --ds-text-display-weight: 800;
+    --ds-text-display-line: 1.15;
+
+    /* H1 */
+    --ds-text-h1: 36px;
+    --ds-text-h1-weight: 800;
+    --ds-text-h1-line: 1.2;
+
+    /* H2 — Section Titles */
+    --ds-text-h2: 28px;
+    --ds-text-h2-weight: 700;
+    --ds-text-h2-line: 1.3;
+
+    /* H3 — Card Titles */
+    --ds-text-h3: 20px;
+    --ds-text-h3-weight: 700;
+    --ds-text-h3-line: 1.4;
+
+    /* H4 — Subsection */
+    --ds-text-h4: 18px;
+    --ds-text-h4-weight: 600;
+    --ds-text-h4-line: 1.4;
+
+    /* Body */
+    --ds-text-body: 15px;
+    --ds-text-body-weight: 400;
+    --ds-text-body-line: 1.6;
+
+    /* Small */
+    --ds-text-sm: 13px;
+    --ds-text-sm-weight: 500;
+
+    /* Extra Small — Labels */
+    --ds-text-xs: 11px;
+    --ds-text-xs-weight: 600;
+
+    /* ─── SPACING SCALE ─── */
+    --ds-space-1: 4px;
+    --ds-space-2: 8px;
+    --ds-space-3: 12px;
+    --ds-space-4: 16px;
+    --ds-space-5: 24px;
+    --ds-space-6: 32px;
+    --ds-space-7: 48px;
+    --ds-space-8: 64px;
+    --ds-space-9: 80px;
+
+    /* ─── ELEVATION / SHADOWS ─── */
+    /* Level 1 — Light (cards, buttons) */
+    --ds-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+
+    /* Level 2 — Medium (dropdowns, popovers) */
+    --ds-elevation-2: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+
+    /* Level 3 — High (modals, dialogs) */
+    --ds-elevation-3: 0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+
+    /* ─── BORDER RADIUS — Unified 12px ─── */
+    --ds-radius: 12px;
+    --ds-radius-sm: 8px;
+    --ds-radius-lg: 16px;
+    --ds-radius-full: 999px;
+
+    /* ─── TRANSITIONS ─── */
+    --ds-transition-fast: 150ms ease;
+    --ds-transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --ds-transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* ─── LAYOUT ─── */
+    --ds-container-max: 1280px;
+    --ds-container-padding: 24px;
+}
+
+/* ─── BUTTON SYSTEM — Exactly 3 Types ─── */
+
+/* Primary Button (Filled) */
+.ds-btn-primary,
+.btn-primary-ds {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    font-family: var(--ds-font-family);
+    font-size: var(--ds-text-sm);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--ds-primary-500), var(--ds-primary-600));
+    border: none;
+    border-radius: var(--ds-radius);
+    cursor: pointer;
+    transition: all var(--ds-transition-fast);
+    box-shadow: var(--ds-elevation-1);
+    text-decoration: none;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ds-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(30, 79, 154, 0.3);
+}
+
+.ds-btn-primary:active {
+    transform: scale(0.98);
+    box-shadow: var(--ds-elevation-1);
+}
+
+/* Secondary Button (Outline) */
+.ds-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    font-family: var(--ds-font-family);
+    font-size: var(--ds-text-sm);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--ds-primary-500);
+    background: transparent;
+    border: 1.5px solid var(--ds-primary-500);
+    border-radius: var(--ds-radius);
+    cursor: pointer;
+    transition: all var(--ds-transition-fast);
+    text-decoration: none;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ds-btn-secondary:hover {
+    background: var(--ds-primary-50);
+    transform: translateY(-2px);
+    box-shadow: var(--ds-elevation-1);
+}
+
+.ds-btn-secondary:active {
+    transform: scale(0.98);
+}
+
+/* Ghost Button (Text) */
+.ds-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    font-family: var(--ds-font-family);
+    font-size: var(--ds-text-sm);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--ds-primary-500);
+    background: transparent;
+    border: none;
+    border-radius: var(--ds-radius);
+    cursor: pointer;
+    transition: all var(--ds-transition-fast);
+    text-decoration: none;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ds-btn-ghost:hover {
+    background: var(--ds-gray-100);
+    transform: translateY(-1px);
+}
+
+.ds-btn-ghost:active {
+    transform: scale(0.98);
+    background: var(--ds-gray-200);
+}
+
+/* Dark context button variants */
+.ds-btn-primary.dark-ctx {
+    background: linear-gradient(135deg, var(--ds-accent-500), var(--ds-accent-600));
+    color: var(--ds-primary-800);
+}
+
+.ds-btn-primary.dark-ctx:hover {
+    box-shadow: 0 6px 20px rgba(251, 192, 45, 0.35);
+}
+
+.ds-btn-secondary.dark-ctx {
+    color: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.ds-btn-secondary.dark-ctx:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.ds-btn-ghost.dark-ctx {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.ds-btn-ghost.dark-ctx:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+/* Button sizes */
+.ds-btn-sm {
+    padding: 8px 16px;
+    font-size: var(--ds-text-xs);
+}
+
+.ds-btn-lg {
+    padding: 16px 36px;
+    font-size: var(--ds-text-body);
+    border-radius: var(--ds-radius-lg);
+}
+
+/* ─── ENTERPRISE CONTAINER ─── */
+.ds-container {
+    width: 100%;
+    max-width: var(--ds-container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--ds-container-padding);
+    padding-right: var(--ds-container-padding);
+}
+
+/* ─── MOBILE TAP FEEDBACK ─── */
+@media (hover: none) and (pointer: coarse) {
+    button:active,
+    a:active,
+    [role="button"]:active {
+        transform: scale(0.98) !important;
+        transition: transform 150ms ease !important;
+    }
+
+    /* Reduce shadows on mobile */
+    .ds-btn-primary:hover,
+    .ds-btn-secondary:hover,
+    .ds-btn-ghost:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}

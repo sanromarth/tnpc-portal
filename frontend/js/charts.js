@@ -1,11 +1,44 @@
 
 const _chartInstances = {};
+const _chartRendered = {};
 function safeChart(canvasId, config) {
     if (_chartInstances[canvasId]) {
         _chartInstances[canvasId].destroy();
     }
     const ctx = document.getElementById(canvasId);
     if (!ctx) return null;
+
+    // Disable animation after first render for stability
+    if (_chartRendered[canvasId]) {
+        config.options = config.options || {};
+        config.options.animation = false;
+    } else {
+        config.options = config.options || {};
+        config.options.animation = { duration: 800 };
+        _chartRendered[canvasId] = true;
+    }
+
+    // Consistent legend styling
+    config.options.plugins = config.options.plugins || {};
+    config.options.plugins.legend = config.options.plugins.legend || {};
+    config.options.plugins.legend.align = 'center';
+    config.options.plugins.legend.labels = {
+        ...config.options.plugins.legend.labels,
+        padding: 20,
+        usePointStyle: true,
+        font: { family: "'Inter', sans-serif", weight: 500, size: 12 }
+    };
+
+    // Reduce grid density on scales
+    if (config.options.scales) {
+        Object.values(config.options.scales).forEach(scale => {
+            if (scale.grid) {
+                scale.grid.drawTicks = false;
+                scale.grid.borderDash = [4, 4];
+            }
+        });
+    }
+
     _chartInstances[canvasId] = new Chart(ctx, config);
     return _chartInstances[canvasId];
 }

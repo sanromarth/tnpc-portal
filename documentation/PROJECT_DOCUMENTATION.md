@@ -3,9 +3,9 @@
 ## Comprehensive Project Documentation
 
 **Project Title:** TNPC Portal — Training & Placement Cell Management System
-**Institution:** Sri GCSR College of Engineering & Technology, Rajam, Andhra Pradesh
-**Affiliated To:** JNTUK (Jawaharlal Nehru Technological University, Kakinada)
-**Developed By:** Sanromarth Andavarma
+**Institution:** Sri GCSR College, Rajam, Andhra Pradesh
+**Affiliated To:** Dr br Ambedhkar University srikakulam
+**Developed By:** Codegen's
 **Deployment URL:** https://tnpc-portal.vercel.app
 **Backend API URL:** https://tnpc-backend.onrender.com
 **Repository:** https://github.com/sanromarth/tnpc-portal
@@ -362,25 +362,31 @@ The database consists of 8 collections (entities):
 
 The frontend follows a **premium glassmorphism design language** with:
 
+- **Unified Design System** — `design-system.css` provides a single source of truth for all design tokens (colors, typography, spacing, elevation, border-radius)
 - **Dark navy gradient background** (#0B1D3A to #1e4f9a)
 - **Frosted glass card effects** (backdrop-filter: blur)
 - **Premium golden accent** (#FBC02D) for CTAs and highlights
-- **Inter font family** (Google Fonts) for modern typography
-- **Micro-animations** for hover effects and transitions
-- **Responsive design** for mobile, tablet, and desktop
+- **Inter font family** (Google Fonts) with strict typography scale (Display 42px → XS 11px)
+- **Standardized 3-type button system** (Primary, Secondary/Outline, Ghost) with 150ms transitions
+- **Enterprise table design** with sticky headers, zebra striping, and hover highlights
+- **Skeleton loaders** for perceived performance during async data loading
+- **Mobile-optimized** with reduced shadows, tap feedback (scale 0.98), and zoom-prevention on inputs
+- **Performance-tuned** with `content-visibility: auto`, reduced `backdrop-filter` on touch devices, and print styles
 
 ### 10.2 CSS Architecture
 
-| Stylesheet              | Purpose                                           | Lines |
-| ----------------------- | ------------------------------------------------- | ----- |
-| style.css               | Global styles, navbar, footer, public pages       | ~1400 |
-| dashboard.css           | Dashboard layout, sidebar, stat cards, tables     | ~300  |
-| premium-dashboard.css   | Enhanced glassmorphism effects, premium gradients | ~300  |
-| responsive.css          | Media queries for mobile/tablet breakpoints       | ~200  |
-| app-loader.css          | Splash screen animation                           | ~90   |
-| dashboard-predictor.css | Placement predictor card styles                   | ~134  |
-| premium.css             | Premium effects for public pages                  | ~280  |
-| mous.css                | MOU page specific styles                          | ~200  |
+| Stylesheet              | Purpose                                                                     | Lines |
+| ----------------------- | --------------------------------------------------------------------------- | ----- |
+| design-system.css       | **Unified design tokens** — colors, typography, spacing, elevation, buttons | ~230  |
+| enterprise-upgrade.css  | **Enterprise enhancements** — tables, skeletons, mobile, performance, print | ~300  |
+| style.css               | Global styles, navbar, footer, public pages                                 | ~1400 |
+| dashboard.css           | Dashboard layout, sidebar, stat cards, tables                               | ~300  |
+| premium-dashboard.css   | Enhanced glassmorphism effects, premium gradients                           | ~300  |
+| responsive.css          | Media queries for mobile/tablet breakpoints                                 | ~200  |
+| app-loader.css          | Splash screen animation                                                     | ~90   |
+| dashboard-predictor.css | Placement predictor card styles                                             | ~134  |
+| premium.css             | Premium effects for public pages                                            | ~280  |
+| mous.css                | MOU page specific styles                                                    | ~200  |
 
 ### 10.3 JavaScript Architecture
 
@@ -832,11 +838,69 @@ The following screenshots can be captured from the live application at https://t
 
 - Version bumped from 1.1 to 1.2 (versionCode 2 → 3)
 
+### v1.3 — Enterprise UI Enhancement (Current)
+
+**Design System Foundation:**
+
+- Created `design-system.css` — unified single source of truth for all design tokens
+- Full semantic color palette: Primary Blue, Accent Gold, Success Green, Warning Orange, Danger Red — each with 10 shades (50–900)
+- Neutral gray scale (50–900) for consistent backgrounds, borders, and text
+- Strict typography scale: Display (42px) → H1 (36px) → H2 (28px) → H3 (20px) → H4 (18px) → Body (15px) → Small (13px) → XS (11px)
+- 9-step spacing system (4/8/12/16/24/32/48/64/80px)
+- 3-tier elevation system (Light, Medium, Modal)
+- Unified border-radius (12px base)
+- Standardized 3-type button system (Primary, Secondary/Outline, Ghost) with dark-context variants and size modifiers
+
+**Desktop Enhancements:**
+
+- Enforced `max-width: 1280px` container with `24px` side padding across all pages
+- Typography hierarchy enforcement using CSS `clamp()` for responsive scaling
+- Enterprise data tables: sticky `<thead>`, zebra-striped rows, hover row highlight
+- Charts: animation disabled after first render for stability; reduced grid density (`borderDash: [4, 4]`); consistent legend styling with Inter font
+- Footer: darker gradient background (`#091830` → `#050d1a`), gradient divider, enhanced bottom bar
+- Custom scrollbar styling on desktop (thin, navy-tinted)
+
+**Mobile Enhancements:**
+
+- Shadow intensity reduced ~30% — cards use `0 1px 4px` instead of heavy `box-shadow`
+- Tap feedback: `scale(0.98)` on active state for buttons, cards, nav items, and interactive elements
+- Form zoom prevention: all inputs forced to `16px` font-size on mobile
+- Vertical spacing standardized to `24px`/`32px` gaps using design system spacing tokens
+- Touch device optimization: `backdrop-filter` reduced to `blur(8px)`, hover transform effects disabled
+
+**Micro-interactions & Premium Feel:**
+
+- Sequential card reveal stagger delay updated from 60ms → 80ms for smoother perceived loading
+- Skeleton shimmer loaders (`.skeleton`, `.skeleton-text`, `.skeleton-card`, `.skeleton-circle`) for async content
+- Dashboard section page transitions: `opacity` + `translateY(10px)` with cubic-bezier easing
+- Enhanced empty states with dashed circle indicator and guidance text
+
+**Performance Optimization:**
+
+- `content-visibility: auto` on below-fold sections (features, recruiters, testimonials, footer)
+- `prefers-reduced-motion` support — disables skeleton animations for users with motion sensitivity
+- Print stylesheet: hides navbar, sidebar, footer, mobile nav for clean printouts
+- `will-change: transform` applied only to animated elements (navbar, orbs) instead of globally
+
+**Security Hardening:**
+
+- All `console.log` calls in frontend JS wrapped with `location.hostname === 'localhost'` guard to prevent debug output in production
+
+**Files Changed:**
+
+- [NEW] `frontend/css/design-system.css` — unified design tokens
+- [NEW] `frontend/css/enterprise-upgrade.css` — enterprise visual enhancements
+- [MODIFIED] `frontend/js/charts.js` — first-render-only animation, consistent legends, reduced grid density
+- [MODIFIED] `frontend/js/micro-interactions.js` — stagger delay 60ms → 80ms
+- [MODIFIED] `frontend/js/pwa.js` — console.log wrapped in localhost guard
+- [MODIFIED] `frontend/index.html` — footer divider, CSS imports
+- [MODIFIED] All 12 HTML files — added `design-system.css` and `enterprise-upgrade.css` imports
+
 ---
 
 ## 20. CONCLUSION
 
-The TNPC Portal (v1.2) successfully addresses the challenges of manual placement management at Sri GCSR College by providing a modern, digital, and comprehensive full-stack solution. The application demonstrates proficiency in modern web and mobile development — from REST API architecture and database design to responsive frontend design, PWA integration, and the publishing of a flagship-tier native Android application. The use of modern technologies such as Express.js 5, Node.js, JWT authentication, alongside advanced Android UI/UX methodologies (Lottie, Parallax, Biometrics, Haptics, Crash-Safe Architecture), ensures that the portal meets current industry standards and provides an unparalleled user experience. The v1.2 upgrade specifically focused on eliminating all potential crash vectors, hardening security against XSS/ReDoS/phishing, and polishing the Android app to ultra-premium quality with real-time progress indicators, cache management, and robust crash recovery. The system is currently live at https://tnpc-portal.vercel.app.
+The TNPC Portal (v1.3) successfully addresses the challenges of manual placement management at Sri GCSR College by providing a modern, digital, and comprehensive full-stack solution. The application demonstrates proficiency in modern web and mobile development — from REST API architecture and database design to responsive frontend design, PWA integration, and the publishing of a flagship-tier native Android application. The use of modern technologies such as Express.js 5, Node.js, JWT authentication, alongside advanced Android UI/UX methodologies (Lottie, Parallax, Biometrics, Haptics, Crash-Safe Architecture), ensures that the portal meets current industry standards and provides an unparalleled user experience. The v1.3 Enterprise UI Enhancement introduced a formal design system with unified tokens, enterprise-grade data tables, optimized chart rendering, mobile-first performance tuning with skeleton loaders, and production-ready security hardening — elevating the portal to an institutional-quality platform. The system is currently live at https://tnpc-portal.vercel.app.
 
 ---
 
@@ -862,4 +926,4 @@ The TNPC Portal (v1.2) successfully addresses the challenges of manual placement
 ---
 
 **© 2026 Sri GCSR College of Engineering & Technology, Rajam. All Rights Reserved.**
-**Developed by Sanromarth Andavarma | Version 1.2**
+**Developed by Sanromarth Andavarma | Version 1.3**

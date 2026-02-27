@@ -1,0 +1,395 @@
+/* ============================================
+   ENTERPRISE UPGRADE — Ultra Premium Enhancements
+   Desktop, Mobile, Tables, Charts, Footer, Performance
+   ============================================ */
+
+/* ─── PHASE 2: DESKTOP LAYOUT — Max Width Container ─── */
+.container {
+    max-width: var(--ds-container-max, 1280px);
+    padding-left: var(--ds-container-padding, 24px);
+    padding-right: var(--ds-container-padding, 24px);
+}
+
+/* ─── TYPOGRAPHY HIERARCHY ENFORCEMENT ─── */
+.hero h1 {
+    font-size: clamp(28px, 5vw, var(--ds-text-display, 42px));
+    font-weight: var(--ds-text-display-weight, 800);
+    line-height: var(--ds-text-display-line, 1.15);
+}
+
+.section-heading,
+.cert-hero h1,
+.page-header h1 {
+    font-size: clamp(24px, 4vw, var(--ds-text-h2, 28px));
+    font-weight: var(--ds-text-h2-weight, 700);
+    line-height: var(--ds-text-h2-line, 1.3);
+}
+
+.feature-card h3,
+.glass-card h3,
+.footer-col h3 {
+    font-size: var(--ds-text-h4, 18px);
+    font-weight: var(--ds-text-h4-weight, 600);
+}
+
+.feature-card p,
+.testimonial-quote {
+    font-size: var(--ds-text-body, 15px);
+    line-height: var(--ds-text-body-line, 1.6);
+}
+
+/* ─── BUTTON TRANSITION STANDARDIZATION (150ms) ─── */
+.btn-yellow,
+.btn-red,
+.btn-outline,
+.btn-outline-hero,
+.btn-outline-dark,
+.btn-primary,
+.btn-ghost,
+.btn-sm,
+.btn-admin,
+.qa-btn,
+.cert-card {
+    transition: all var(--ds-transition-fast, 150ms) ease !important;
+}
+
+/* Hover elevation for all buttons */
+.btn-yellow:hover,
+.btn-red:hover,
+.btn-primary:hover {
+    box-shadow: var(--ds-elevation-2, 0 4px 16px rgba(0, 0, 0, 0.08));
+}
+
+/* ─── DATA TABLE ENTERPRISE UPGRADE ─── */
+
+/* Sticky header */
+.premium-table thead th,
+.cert-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: none;
+}
+
+/* Zebra striping */
+.premium-table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.cert-table tbody tr:nth-child(even) {
+    background: rgba(245, 247, 250, 0.5);
+}
+
+/* Hover row highlight — enhanced */
+.premium-table tbody tr:hover {
+    background: rgba(30, 79, 154, 0.08) !important;
+    transition: background 0.15s ease;
+}
+
+.cert-table tbody tr:hover {
+    background: rgba(30, 79, 154, 0.04) !important;
+    transition: background 0.15s ease;
+}
+
+/* Sortable column indicator */
+.premium-table th[data-sortable],
+.cert-table th[data-sortable] {
+    cursor: pointer;
+    user-select: none;
+}
+
+.premium-table th[data-sortable]:hover,
+.cert-table th[data-sortable]:hover {
+    opacity: 0.85;
+}
+
+.premium-table th[data-sortable]::after {
+    content: " ↕";
+    opacity: 0.4;
+    font-size: 10px;
+}
+
+/* ─── CHARTS OPTIMIZATION ─── */
+.charts-grid {
+    gap: var(--ds-space-5, 24px) !important;
+}
+
+/* ─── FOOTER ENTERPRISE UPGRADE ─── */
+.premium-footer {
+    background: linear-gradient(180deg, #091830 0%, #050d1a 100%);
+}
+
+.footer-social {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.footer-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    transition: all var(--ds-transition-fast, 150ms) ease;
+    text-decoration: none;
+}
+
+.footer-social a:hover {
+    background: rgba(251, 192, 45, 0.15);
+    color: #FBC02D;
+    transform: translateY(-2px);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.15);
+    padding: 20px var(--ds-container-padding, 24px);
+}
+
+.footer-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    margin: 0;
+}
+
+/* ─── PHASE 3: MOBILE ENHANCEMENTS ─── */
+
+/* Reduced shadows on mobile */
+@media (max-width: 768px) {
+    .stat-card,
+    .glass-card,
+    .feature-card,
+    .stat-box,
+    .testimonial-card {
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    .stat-card:hover,
+    .glass-card:hover,
+    .feature-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    /* Standardized vertical spacing */
+    .dash-section {
+        padding-bottom: var(--ds-space-6, 32px);
+    }
+
+    .section-header {
+        margin-bottom: var(--ds-space-5, 24px);
+    }
+
+    .glass-card + .glass-card,
+    .mt-20 {
+        margin-top: var(--ds-space-5, 24px) !important;
+    }
+
+    /* Tap feedback */
+    button:active,
+    .nav-item:active,
+    .qa-btn:active,
+    .sb-card:active,
+    .job-card:active,
+    .notif-item:active,
+    [role="button"]:active {
+        transform: scale(0.98) !important;
+        transition: transform 150ms ease !important;
+    }
+
+    /* Form optimization — prevent zoom */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="tel"],
+    input[type="url"],
+    input[type="date"],
+    input[type="search"],
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Reduce backdrop-filter on touch devices */
+    .glass-card,
+    .navbar.scrolled {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* Disable complex hover effects */
+    .feature-card:hover,
+    .stat-box:hover,
+    .testimonial-card:hover {
+        transform: none;
+    }
+
+    /* Reduce animation complexity */
+    .orb {
+        animation-duration: 12s;
+    }
+}
+
+/* ─── PHASE 4: SKELETON LOADERS ─── */
+.skeleton {
+    background: linear-gradient(90deg,
+        rgba(255, 255, 255, 0.03) 25%,
+        rgba(255, 255, 255, 0.06) 50%,
+        rgba(255, 255, 255, 0.03) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s ease-in-out infinite;
+    border-radius: var(--ds-radius-sm, 8px);
+}
+
+.skeleton-text {
+    height: 14px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+.skeleton-text.short {
+    width: 60%;
+}
+
+.skeleton-card {
+    height: 120px;
+    border-radius: var(--ds-radius, 12px);
+}
+
+.skeleton-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+}
+
+/* Light theme skeletons (for public pages) */
+.skeleton-light {
+    background: linear-gradient(90deg,
+        #f0f0f0 25%,
+        #e8e8e8 50%,
+        #f0f0f0 75%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes skeletonShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ─── PHASE 4: PAGE TRANSITIONS ─── */
+.dash-section {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dash-section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── PHASE 4: ENHANCED EMPTY STATES ─── */
+.empty-state {
+    text-align: center;
+    padding: var(--ds-space-7, 48px) var(--ds-space-5, 24px);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: var(--ds-text-body, 15px);
+    line-height: 1.6;
+}
+
+.empty-state::before {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+}
+
+/* ─── PHASE 5: PERFORMANCE OPTIMIZATION ─── */
+
+/* Content visibility for below-fold sections */
+.features-section,
+.recruiter-section,
+.testimonials-section,
+.cta-section,
+.premium-footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 400px;
+}
+
+/* GPU-promoted layers only where needed */
+.navbar {
+    will-change: transform;
+}
+
+.hero-orbs .orb {
+    will-change: transform;
+}
+
+/* Reduce repaints */
+@media (prefers-reduced-motion: reduce) {
+    .skeleton,
+    .skeleton-light {
+        animation: none;
+        background: rgba(255, 255, 255, 0.04);
+    }
+}
+
+/* ─── SCROLLBAR STYLING (DESKTOP) ─── */
+@media (min-width: 769px) {
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(30, 79, 154, 0.2);
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(30, 79, 154, 0.35);
+    }
+}
+
+/* ─── PRINT STYLES ─── */
+@media print {
+    .navbar,
+    .premium-footer,
+    .dash-sidebar,
+    .dash-topbar,
+    .scroll-top-btn,
+    .mobile-bottom-nav,
+    .more-menu,
+    .more-menu-backdrop {
+        display: none !important;
+    }
+
+    .dash-main {
+        margin-left: 0 !important;
+    }
+
+    body {
+        background: #fff !important;
+        color: #000 !important;
+    }
+}

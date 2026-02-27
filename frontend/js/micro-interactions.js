@@ -123,7 +123,7 @@
     }
 
     // === STAGGER CHILDREN ANIMATION ===
-    function staggerChildren(parent, delay = 60) {
+    function staggerChildren(parent, delay = 80) {
         if (!parent) return;
         const children = parent.children;
         Array.from(children).forEach((child, i) => {

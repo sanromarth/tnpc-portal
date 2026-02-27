@@ -64,7 +64,9 @@ CODEGENS_TNPC_PORTAL/
 │   ├── student-dashboard.html        # Student portal (single-page app)
 │   ├── admin-placement.html          # Admin placement editor
 │   │
-│   ├── css/                           # Stylesheets (13 files)
+│   ├── css/                           # Stylesheets (15 files)
+│   │   ├── design-system.css        # ★ Unified design tokens (colors, typography, spacing, elevation, buttons)
+│   │   ├── enterprise-upgrade.css   # ★ Enterprise enhancements (tables, skeletons, mobile, performance, print)
 │   │   ├── style.css                 # Global styles, navbar, footer (~1400 lines)
 │   │   ├── dashboard.css             # Dashboard base layout (~300 lines)
 │   │   ├── premium-dashboard.css     # Premium glassmorphism effects (~300 lines)
@@ -72,10 +74,13 @@ CODEGENS_TNPC_PORTAL/
 │   │   ├── app-loader.css            # Splash screen animation (~90 lines)
 │   │   ├── dashboard-predictor.css   # Placement predictor styles (~134 lines)
 │   │   ├── premium.css               # Premium public page effects (~280 lines)
+│   │   ├── premium-animations.css    # Micro-interaction animations (~310 lines)
+│   │   ├── mobile-dashboard.css      # Mobile dashboard optimizations (~1176 lines)
+│   │   ├── auth.css                  # Authentication page styles
+│   │   ├── pwa-enhancements.css      # PWA install banner styles
 │   │   ├── mous.css                  # MOU page styles (~200 lines)
 │   │   ├── placements.css            # Placement page styles
-│   │   ├── certifications.css        # Certification page styles
-│   │   └── [others]                  # Additional stylesheets
+│   │   └── certifications.css        # Certification page styles
 │   │
 │   ├── js/                            # JavaScript files (20 files)
 │   │   ├── api.js                    # Centralized API client (fetch wrapper)
@@ -119,10 +124,10 @@ CODEGENS_TNPC_PORTAL/
 | ---------------------- | ------ | ----------- |
 | Backend JS files       | 15     | ~90 KB      |
 | Frontend HTML pages    | 13     | ~190 KB     |
-| Frontend CSS files     | 13     | ~55 KB      |
+| Frontend CSS files     | 15     | ~60 KB      |
 | Frontend JS files      | 20     | ~155 KB     |
 | Configuration files    | 5      | ~60 KB      |
-| **Total source files** | **66** | **~550 KB** |
+| **Total source files** | **68** | **~555 KB** |
 
 ## Lines of Code Estimate
 
@@ -130,6 +135,6 @@ CODEGENS_TNPC_PORTAL/
 | ---------------- | ----------------- |
 | Backend (all JS) | ~1,800 lines      |
 | Frontend HTML    | ~3,500 lines      |
-| Frontend CSS     | ~3,200 lines      |
+| Frontend CSS     | ~3,730 lines      |
 | Frontend JS      | ~4,500 lines      |
-| **Total**        | **~13,000 lines** |
+| **Total**        | **~13,530 lines** |
