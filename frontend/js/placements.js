@@ -58,14 +58,82 @@ function getPercentage(d) {
   return Math.round((d.placementsOffered / d.eligibleStudents) * 100);
 }
 
+// Store stat values for animation
+let statTargets = {};
+
 function renderStats(data) {
   const latest = data[data.length - 1];
   if (!latest) return;
 
-  document.getElementById("statPercentage").innerText = getPercentage(latest) + "%";
-  document.getElementById("statHighest").innerText = (latest.highestCTC || 0) + " LPA";
-  document.getElementById("statAvg").innerText = (latest.avgCTC || 0) + " LPA";
-  document.getElementById("statCompanies").innerText = latest.companiesVisited || 0;
+  statTargets = {
+    statPercentage: getPercentage(latest),
+    statHighest: latest.highestCTC || 0,
+    statAvg: latest.avgCTC || 0,
+    statCompanies: latest.companiesVisited || 0
+  };
+
+  // Set initial values (will be animated)
+  Object.entries(statTargets).forEach(([id, value]) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.setAttribute('data-target', value);
+      const suffix = el.getAttribute('data-suffix') || '';
+      el.innerText = '0' + suffix;
+    }
+  });
+
+  // Setup counter animation observer
+  setupCounterAnimations();
+}
+
+function setupCounterAnimations() {
+  const counters = document.querySelectorAll('.counter-value');
+  if (!counters.length) return;
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        if (el.dataset.animated) return;
+        el.dataset.animated = 'true';
+        el.classList.add('counting');
+
+        const target = parseFloat(el.getAttribute('data-target')) || 0;
+        const suffix = el.getAttribute('data-suffix') || '';
+        const isDecimal = target % 1 !== 0;
+        const duration = 1800;
+        const startTime = performance.now();
+
+        function easeOutExpo(t) {
+          return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+        }
+
+        function animate(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easedProgress = easeOutExpo(progress);
+          const current = easedProgress * target;
+
+          if (isDecimal) {
+            el.innerText = current.toFixed(1) + suffix;
+          } else {
+            el.innerText = Math.round(current) + suffix;
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            el.classList.remove('counting');
+          }
+        }
+
+        requestAnimationFrame(animate);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  counters.forEach(c => counterObserver.observe(c));
 }
 
 function renderPlacementChart(data) {
@@ -228,6 +296,10 @@ function renderTable(data) {
 }
 
 function updateDashboard(data) {
+  // Reset counter animations for re-trigger
+  document.querySelectorAll('.counter-value').forEach(el => {
+    delete el.dataset.animated;
+  });
   renderStats(data);
   renderPlacementChart(data);
   renderSalaryChart(data);

@@ -68,55 +68,92 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 
 <div id="loader" class="loader"></div>
 
-<section class="hero">
-  <h1>Placement Analytics Dashboard</h1>
-  <p>Institutional Performance Overview — Comprehensive Statistics (2017–2026)</p>
+<section class="hero placement-hero">
+  <div class="hero-particles">
+    <span class="particle" style="--size:6px;--x:10%;--y:20%;--duration:6s;--delay:0s"></span>
+    <span class="particle" style="--size:4px;--x:25%;--y:60%;--duration:8s;--delay:1s"></span>
+    <span class="particle" style="--size:8px;--x:50%;--y:30%;--duration:7s;--delay:0.5s"></span>
+    <span class="particle" style="--size:5px;--x:70%;--y:70%;--duration:9s;--delay:2s"></span>
+    <span class="particle" style="--size:3px;--x:85%;--y:40%;--duration:6.5s;--delay:1.5s"></span>
+    <span class="particle" style="--size:7px;--x:15%;--y:80%;--duration:8.5s;--delay:0.8s"></span>
+    <span class="particle" style="--size:4px;--x:60%;--y:15%;--duration:7.5s;--delay:2.5s"></span>
+    <span class="particle" style="--size:6px;--x:90%;--y:55%;--duration:6s;--delay:1.2s"></span>
+  </div>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-content-placement">
+    <span class="hero-badge">📊 Analytics Dashboard</span>
+    <h1 class="hero-title-animated">Placement Analytics Dashboard</h1>
+    <p class="hero-subtitle">Institutional Performance Overview — Comprehensive Statistics (2017–2026)</p>
+  </div>
 </section>
 
-<div style="text-align:center; padding: 10px 0;">
+<div class="year-filter-wrapper">
+  <label for="yearFilter" class="filter-label">📅 Filter by Year</label>
   <select id="yearFilter" onchange="filterByYear()">
     <option value="all">All Years</option>
   </select>
 </div>
 
-<div class="stats-container">
-  <div class="stat-card">
+<div class="stats-container premium-stats">
+  <div class="stat-card glass-card fade-in" data-delay="0">
+    <div class="stat-accent"></div>
+    <div class="stat-icon-circle">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    </div>
     <h3>Placement Percentage</h3>
-    <h1 id="statPercentage">0%</h1>
+    <h1 id="statPercentage" class="counter-value" data-suffix="%">0%</h1>
   </div>
-  <div class="stat-card">
+  <div class="stat-card glass-card fade-in" data-delay="1">
+    <div class="stat-accent"></div>
+    <div class="stat-icon-circle">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    </div>
     <h3>Highest CTC</h3>
-    <h1 id="statHighest">0 LPA</h1>
+    <h1 id="statHighest" class="counter-value" data-suffix=" LPA">0 LPA</h1>
   </div>
-  <div class="stat-card">
+  <div class="stat-card glass-card fade-in" data-delay="2">
+    <div class="stat-accent"></div>
+    <div class="stat-icon-circle">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+    </div>
     <h3>Average CTC</h3>
-    <h1 id="statAvg">0 LPA</h1>
+    <h1 id="statAvg" class="counter-value" data-suffix=" LPA">0 LPA</h1>
   </div>
-  <div class="stat-card">
+  <div class="stat-card glass-card fade-in" data-delay="3">
+    <div class="stat-accent"></div>
+    <div class="stat-icon-circle">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </div>
     <h3>Companies Visited</h3>
-    <h1 id="statCompanies">0</h1>
+    <h1 id="statCompanies" class="counter-value" data-suffix="">0</h1>
   </div>
 </div>
 
-<h2 class="section-title">Placement Trend Analysis</h2>
+<h2 class="section-title fade-in">Placement Trend Analysis</h2>
 
-<section class="charts">
-  <div class="chart-container">
+<section class="charts premium-charts">
+  <div class="chart-container premium-chart-card fade-in" data-delay="0">
+    <div class="chart-accent"></div>
+    <h4 class="chart-card-title">📊 Placements Offered</h4>
     <canvas id="placementTrend"></canvas>
   </div>
-  <div class="chart-container">
+  <div class="chart-container premium-chart-card fade-in" data-delay="1">
+    <div class="chart-accent"></div>
+    <h4 class="chart-card-title">💰 Salary Trends</h4>
     <canvas id="salaryTrend"></canvas>
   </div>
-  <div class="chart-container">
+  <div class="chart-container premium-chart-card fade-in" data-delay="2">
+    <div class="chart-accent"></div>
+    <h4 class="chart-card-title">📈 Placement Percentage</h4>
     <canvas id="percentageTrend"></canvas>
   </div>
 </section>
 
-<h2 class="section-title">Year-wise Placement Statistics (2017–2026)</h2>
+<h2 class="section-title fade-in">Year-wise Placement Statistics (2017–2026)</h2>
 
-<section class="table-section">
-  <div class="table-container">
-    <table id="placementTable">
+<section class="table-section premium-table-section fade-in">
+  <div class="table-container premium-table-container">
+    <table id="placementTable" class="premium-table">
       <thead>
         <tr>
           <th>Batch</th>
@@ -134,7 +171,13 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
   </div>
 </section>
 
-<button class="download-btn" onclick="downloadCSV()">📥 Download CSV Report</button>
+<div class="download-wrapper fade-in">
+  <button class="download-btn premium-download-btn" onclick="downloadCSV()">
+    <span class="btn-shimmer"></span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download CSV Report
+  </button>
+</div>
 
 <footer class="premium-footer">
 <div class="footer-grid container">
