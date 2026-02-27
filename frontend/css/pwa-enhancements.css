@@ -97,22 +97,63 @@ img {
 .stat-card, .job-card, .app-card, .corporate-card, .about-card,
 .mou-card, .feature-card, .contact-card, .cert-card, .recruiter-card {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
-  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stat-card, .job-card, .app-card, .corporate-card, .about-card,
+  .mou-card, .feature-card, .contact-card, .cert-card, .recruiter-card {
+    will-change: transform;
+  }
 }
 
 @media (hover: none) and (pointer: coarse) {
+  /* Remove all hover transforms on touch devices — these cause scroll jank */
   .stat-card:hover, .job-card:hover, .app-card:hover,
   .corporate-card:hover, .about-card:hover, .mou-card:hover,
-  .feature-card:hover, .contact-card:hover, .cert-card:hover {
-    transform: none;
-    box-shadow: none;
+  .feature-card:hover, .contact-card:hover, .cert-card:hover,
+  .stat-box:hover, .feature-card:hover, .testimonial-card:hover {
+    transform: none !important;
+    box-shadow: none !important;
   }
 
   .stat-card:active, .job-card:active, .app-card:active,
   .corporate-card:active, .about-card:active, .mou-card:active,
   .feature-card:active, .contact-card:active, .cert-card:active {
-    transform: scale(0.98);
+    transform: scale(0.98) !important;
     transition: transform 0.1s ease;
+  }
+
+  /* Kill heavy infinite animations that cause constant GPU repaints */
+  .orb, .feature-icon, .stat-box::before,
+  .mou-card::before, .about-card::before, .cert-card::before,
+  .cta-section::before, .cta-section::after {
+    animation: none !important;
+  }
+
+  /* Disable backdrop-filter on hero — very expensive during scroll */
+  .hero::before {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Reduce blur on modals and overlays */
+  .modal {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  /* Disable smooth scroll CSS (let native handle it for buttery feel) */
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  /* Reduce transition complexity */
+  .fade-in {
+    transition-duration: 0.3s !important;
+  }
+
+  .carousel-track img {
+    transition: none !important;
   }
 }
 

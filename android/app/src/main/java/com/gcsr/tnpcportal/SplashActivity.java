@@ -163,32 +163,45 @@ public class SplashActivity extends AppCompatActivity {
         animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
         animatorSet.start();
 
-        new Handler(Looper.getMainLooper()).postDelayed(this::navigateNext, SPLASH_DURATION);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (!isFinishing() && !isDestroyed()) {
+                navigateNext();
+            }
+        }, SPLASH_DURATION);
     }
 
     private void navigateNext() {
-        SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-        boolean onboardingDone = prefs.getBoolean(KEY_ONBOARDING_DONE, false);
+        if (isFinishing() || isDestroyed()) return;
+        try {
+            SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+            boolean onboardingDone = prefs.getBoolean(KEY_ONBOARDING_DONE, false);
 
-        Intent intent;
-        if (!onboardingDone) {
-            intent = new Intent(this, OnboardingActivity.class);
-        } else {
-            intent = new Intent(this, MainActivity.class);
+            Intent intent;
+            if (!onboardingDone) {
+                intent = new Intent(this, OnboardingActivity.class);
+            } else {
+                intent = new Intent(this, MainActivity.class);
+            }
+            
+            // Pass through any App Shortcut / Deep Link data
+            if (getIntent().getData() != null) {
+                intent.setData(getIntent().getData());
+                intent.setAction(getIntent().getAction());
+            }
+            
+            startActivity(intent);
+            if (Build.VERSION.SDK_INT >= 34) {
+                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, android.R.anim.fade_in, android.R.anim.fade_out);
+            } else {
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+            finish();
+        } catch (Exception e) {
+            // Last-resort fallback — if anything fails, just open MainActivity
+            try {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            } catch (Exception ignored) {}
         }
-        
-        // Pass through any App Shortcut / Deep Link data
-        if (getIntent().getData() != null) {
-            intent.setData(getIntent().getData());
-            intent.setAction(getIntent().getAction());
-        }
-        
-        startActivity(intent);
-        if (Build.VERSION.SDK_INT >= 34) {
-            overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, android.R.anim.fade_in, android.R.anim.fade_out);
-        } else {
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        }
-        finish();
     }
 }

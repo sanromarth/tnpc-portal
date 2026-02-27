@@ -22,15 +22,17 @@
                 android:layout_height="match_parent"
                 android:background="@color/primary">
 
-                <!-- Top Progress Bar -->
+                <!-- Top Progress Bar (Determinate — shows real page load %) -->
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:layout_alignParentTop="true"
-                    android:indeterminate="true"
-                    android:indeterminateTint="@color/accent"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressTint="@color/accent"
+                    android:progressBackgroundTint="@android:color/transparent"
                     android:visibility="gone" />
 
                 <!-- WebView -->
@@ -86,9 +88,10 @@
                             android:layout_marginBottom="6dp" />
 
                         <TextView
+                            android:id="@+id/loadingPercent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Please wait..."
+                            android:text="Connecting..."
                             android:textSize="12sp"
                             android:textColor="@color/text_hint"
                             android:fontFamily="sans-serif-light" />

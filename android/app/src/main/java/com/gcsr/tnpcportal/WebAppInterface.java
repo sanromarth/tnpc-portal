@@ -1,6 +1,9 @@
 package com.gcsr.tnpcportal;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.webkit.JavascriptInterface;
 
 public class WebAppInterface {
@@ -41,16 +44,22 @@ public class WebAppInterface {
     @JavascriptInterface
     public void openSettings() {
         activity.runOnUiThread(() -> {
-            Intent intent = new Intent(activity, SettingsActivity.class);
-            activity.startActivity(intent);
+            try {
+                Intent intent = new Intent(activity, SettingsActivity.class);
+                activity.startActivity(intent);
+            } catch (Exception e) {
+                // Swallow — prevents crash if activity can't start
+            }
         });
     }
 
     @JavascriptInterface
     public void hapticFeedback() {
         activity.runOnUiThread(() -> {
-            activity.getWindow().getDecorView().performHapticFeedback(
-                    android.view.HapticFeedbackConstants.CONTEXT_CLICK);
+            try {
+                activity.getWindow().getDecorView().performHapticFeedback(
+                        android.view.HapticFeedbackConstants.CONTEXT_CLICK);
+            } catch (Exception ignored) {}
         });
     }
 
@@ -58,5 +67,42 @@ public class WebAppInterface {
     public boolean isAppInstalled() {
         return true;
     }
-}
 
+    /**
+     * Returns the current network connection type: "wifi", "cellular", "ethernet", or "none".
+     */
+    @JavascriptInterface
+    public String getConnectionType() {
+        try {
+            ConnectivityManager cm = (ConnectivityManager)
+                    activity.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
+            Network network = cm.getActiveNetwork();
+            if (network == null) return "none";
+            NetworkCapabilities caps = cm.getNetworkCapabilities(network);
+            if (caps == null) return "none";
+            if (caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) return "wifi";
+            if (caps.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) return "cellular";
+            if (caps.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) return "ethernet";
+            return "none";
+        } catch (Exception e) {
+            return "none";
+        }
+    }
+
+    /**
+     * Check if the device currently has an active internet connection.
+     */
+    @JavascriptInterface
+    public boolean isOnline() {
+        try {
+            ConnectivityManager cm = (ConnectivityManager)
+                    activity.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
+            Network network = cm.getActiveNetwork();
+            if (network == null) return false;
+            NetworkCapabilities caps = cm.getNetworkCapabilities(network);
+            return caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+}

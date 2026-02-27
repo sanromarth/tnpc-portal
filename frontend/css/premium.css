@@ -67,6 +67,10 @@ html {
 
 /* Reduce heavy effects on mobile for smooth scrolling */
 @media (hover: none) and (pointer: coarse) {
+    html {
+        scroll-behavior: auto;
+    }
+
     .navbar {
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
@@ -81,6 +85,28 @@ html {
         animation: none;
         background: linear-gradient(90deg, #C62828 0%, #e53935 40%, #C62828 100%);
         background-size: 100% 100%;
+    }
+
+    /* Kill expensive infinite animations */
+    .stat-box::before {
+        animation: none;
+    }
+    .feature-icon {
+        animation: none;
+    }
+    .loading-shimmer {
+        animation: none;
+    }
+
+    /* Disable hover transforms that conflict with touch scrolling */
+    .stat-box:hover,
+    .feature-card:hover {
+        transform: none;
+    }
+
+    /* Optimize carousel perf */
+    .carousel-track {
+        animation-duration: 40s;
     }
 }
 
@@ -115,6 +141,7 @@ html {
     box-shadow: 0 2px 12px rgba(251, 192, 45, 0.25);
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 .btn-yellow::before {
@@ -126,6 +153,7 @@ html {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
     transition: left 0.5s;
+    pointer-events: none;
 }
 
 .btn-yellow:hover::before { left: 100%; }
@@ -138,6 +166,7 @@ html {
 .btn-red {
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 .btn-red::before {
@@ -149,6 +178,7 @@ html {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
     transition: left 0.5s;
+    pointer-events: none;
 }
 
 .btn-red:hover::before { left: 100%; }

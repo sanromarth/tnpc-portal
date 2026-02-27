@@ -29,13 +29,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 navLinksMenu.classList.contains("active") ? "true" : "false"
             );
         });
+
+        // Auto-close mobile nav when a link is clicked
+        navLinksMenu.querySelectorAll("a:not(.dropdown a)").forEach(link => {
+            link.addEventListener("click", () => {
+                if (window.innerWidth <= 768) {
+                    navLinksMenu.classList.remove("active");
+                    hamburger.classList.remove("active");
+                    hamburger.setAttribute("aria-expanded", "false");
+                }
+            });
+        });
     }
 
     
     if (navbar) {
         window.addEventListener("scroll", () => {
             navbar.classList.toggle("scrolled", window.scrollY > 50);
-        });
+        }, { passive: true });
     }
 
     
@@ -93,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("scroll", () => {
         scrollTopBtn.classList.toggle("visible", window.scrollY > 400);
-    });
+    }, { passive: true });
 
     scrollTopBtn.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });

@@ -72,25 +72,28 @@
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   border: 1px solid #e5e7eb;
-  transition: all 0.3s ease;
+  overflow: hidden;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: auto;
+  contain: content;
+  position: relative;
 }
 
-.chart-container:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+@media (hover: hover) and (pointer: fine) {
+  .chart-container {
+    transition: box-shadow 0.3s ease;
+  }
+  .chart-container:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
 }
 
 .chart-container canvas {
   width: 100% !important;
-  height: auto !important;
+  max-width: 100%;
   touch-action: pan-y !important;
   -webkit-tap-highlight-color: transparent;
-}
-
-.chart-container {
-  touch-action: pan-y;
-  -webkit-overflow-scrolling: auto;
-  will-change: auto;
-  contain: layout style;
+  display: block;
 }
 
 .table-section {
@@ -175,6 +178,17 @@ tr:last-child td { border-bottom: none; }
   .hero h1 { font-size: 24px; }
   .hero p { font-size: 14px; }
   .hero { padding: 36px 16px; }
+
+  .chart-container {
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .chart-container canvas {
+    pointer-events: none;
+  }
 
   .table-section {
     padding: 0 12px;

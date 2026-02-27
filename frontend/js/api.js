@@ -3,10 +3,9 @@ const API_BASE = "https://tnpc-backend.onrender.com";
 
 function getAuthHeaders() {
     const token = localStorage.getItem("token");
-    return {
-        "Content-Type": "application/json",
-        "Authorization": token ? `Bearer ${token}` : ""
-    };
+    const headers = { "Content-Type": "application/json" };
+    if (token) headers["Authorization"] = `Bearer ${token}`;
+    return headers;
 }
 function handleAuthError(res) {
     if (res.status === 401) {
@@ -92,10 +91,17 @@ function showToast(message, type = "info") {
 
     const toast = document.createElement("div");
     toast.className = `toast-notification toast-${type}`;
-    toast.innerHTML = `
-        <span class="toast-icon">${type === "success" ? "✓" : type === "error" ? "✕" : "ℹ"}</span>
-        <span class="toast-message">${message}</span>
-    `;
+
+    const icon = document.createElement("span");
+    icon.className = "toast-icon";
+    icon.textContent = type === "success" ? "✓" : type === "error" ? "✕" : "ℹ";
+
+    const msg = document.createElement("span");
+    msg.className = "toast-message";
+    msg.textContent = message;
+
+    toast.appendChild(icon);
+    toast.appendChild(msg);
     document.body.appendChild(toast);
 
     requestAnimationFrame(() => toast.classList.add("show"));

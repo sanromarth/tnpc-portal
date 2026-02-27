@@ -2,6 +2,17 @@
 const loader = document.getElementById("loader");
 if (loader) loader.style.display = "block";
 
+// Detect touch devices to disable chart interactions that cause page shaking
+const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+const chartTouchOptions = isTouchDevice ? {
+  animation: { duration: 0 },
+  hover: { mode: null },
+  interaction: { mode: null },
+  events: [],
+  plugins: { tooltip: { enabled: false } }
+} : {};
+
 let fullData = [];
 
 async function loadPlacements() {
@@ -89,7 +100,8 @@ function renderPlacementChart(data) {
       scales: {
         y: { beginAtZero: true, grid: { color: "rgba(0,0,0,0.04)" } },
         x: { grid: { display: false } }
-      }
+      },
+      ...chartTouchOptions
     }
   });
 }
@@ -141,7 +153,8 @@ function renderSalaryChart(data) {
       scales: {
         y: { beginAtZero: true, grid: { color: "rgba(0,0,0,0.04)" } },
         x: { grid: { display: false } }
-      }
+      },
+      ...chartTouchOptions
     }
   });
 }
@@ -181,7 +194,8 @@ function renderPercentageChart(data) {
       scales: {
         y: { beginAtZero: true, max: 100, grid: { color: "rgba(0,0,0,0.04)" } },
         x: { grid: { display: false } }
-      }
+      },
+      ...chartTouchOptions
     }
   });
 }
@@ -193,18 +207,23 @@ function renderTable(data) {
   tbody.innerHTML = "";
 
   data.forEach(d => {
-    tbody.innerHTML += `
-      <tr>
-        <td>${d.batch}</td>
-        <td>${d.totalStudents || 0}</td>
-        <td>${d.eligibleStudents || 0}</td>
-        <td>${d.placementsOffered || 0}</td>
-        <td>${d.companiesVisited || 0}</td>
-        <td>${d.highestCTC || 0}</td>
-        <td>${d.avgCTC || 0}</td>
-        <td>${getPercentage(d)}%</td>
-      </tr>
-    `;
+    const tr = document.createElement("tr");
+    const cells = [
+      d.batch,
+      d.totalStudents || 0,
+      d.eligibleStudents || 0,
+      d.placementsOffered || 0,
+      d.companiesVisited || 0,
+      d.highestCTC || 0,
+      d.avgCTC || 0,
+      getPercentage(d) + "%"
+    ];
+    cells.forEach(val => {
+      const td = document.createElement("td");
+      td.textContent = val;
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
   });
 }
 

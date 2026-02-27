@@ -230,13 +230,19 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 (function(){
   const c=document.getElementById('particleCanvas');
   if(!c)return;
+
+  // Skip particles on touch devices for performance
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  if(isTouch){c.style.display='none';return;}
+
   const ctx=c.getContext('2d');
-  let w,h;
+  let w,h,animId=null,isVisible=true;
   function resize(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight;}
   resize();window.addEventListener('resize',resize);
   const particles=[];
   for(let i=0;i<40;i++){particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+1,dx:(Math.random()-0.5)*0.5,dy:(Math.random()-0.5)*0.5,o:Math.random()*0.3+0.1});}
   function draw(){
+    if(!isVisible){animId=null;return;}
     ctx.clearRect(0,0,w,h);
     particles.forEach(p=>{
       ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
@@ -245,8 +251,15 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
       if(p.x<0||p.x>w)p.dx*=-1;
       if(p.y<0||p.y>h)p.dy*=-1;
     });
-    requestAnimationFrame(draw);
+    animId=requestAnimationFrame(draw);
   }
+
+  // Only animate when hero section is visible
+  const observer=new IntersectionObserver(([entry])=>{
+    isVisible=entry.isIntersecting;
+    if(isVisible&&!animId)draw();
+  },{threshold:0.1});
+  observer.observe(c.closest('.hero')||c);
   draw();
 
   const text='Corporate Integrated Placement & Certification Portal — Building bridges between talent and opportunity since 2005.';

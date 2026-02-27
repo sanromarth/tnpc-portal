@@ -153,16 +153,24 @@ public class OnboardingActivity extends AppCompatActivity {
     }
 
     private void launchMain() {
-        SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-        prefs.edit().putBoolean(KEY_ONBOARDING_DONE, true).apply();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        if (Build.VERSION.SDK_INT >= 34) {
-            overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, android.R.anim.fade_in, android.R.anim.fade_out);
-        } else {
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        if (isFinishing() || isDestroyed()) return;
+        try {
+            SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+            prefs.edit().putBoolean(KEY_ONBOARDING_DONE, true).apply();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            if (Build.VERSION.SDK_INT >= 34) {
+                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, android.R.anim.fade_in, android.R.anim.fade_out);
+            } else {
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+            finish();
+        } catch (Exception e) {
+            try {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            } catch (Exception ignored) {}
         }
-        finish();
     }
 
     class OnboardingAdapter extends RecyclerView.Adapter<OnboardingAdapter.OnboardingViewHolder> {

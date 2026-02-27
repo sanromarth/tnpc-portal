@@ -266,6 +266,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
         <div class="success-icon">✅</div>
         <h3>Message Sent!</h3>
         <p>Thank you for reaching out. We'll respond within 24 hours.</p>
+        <a href="#" onclick="resetContactForm();return false;" style="display:inline-block;margin-top:16px;color:#1e4f9a;font-weight:600;text-decoration:none;font-size:14px;">Send Another Message →</a>
       </div>
     </div>
   </div>
@@ -365,7 +366,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 </div>
 </footer>
 
-<script src="js/api.js" defer></script>
+<script src="js/api.js"></script>
 <script src="js/main.js" defer></script>
 <script src="js/animations.js" defer></script>
 <script>
@@ -380,8 +381,10 @@ document.getElementById("contactForm").addEventListener("submit", async function
     e.preventDefault();
     const form = this;
     const btn = form.querySelector("button[type='submit']");
+    const origText = btn.textContent;
     btn.disabled = true;
     btn.textContent = "Sending...";
+    btn.style.opacity = "0.7";
     
     try {
         const payload = {
@@ -405,17 +408,29 @@ document.getElementById("contactForm").addEventListener("submit", async function
             document.querySelector(".contact-form-card .subtitle").style.display = "none";
             document.querySelector(".contact-form-card h2").style.display = "none";
             document.getElementById("formSuccess").style.display = "block";
+            showToast("Message sent successfully!", "success");
         } else {
             btn.disabled = false;
-            btn.textContent = "Send Message";
-            alert(data.message || "Failed to send message. Please try again.");
+            btn.textContent = origText;
+            btn.style.opacity = "1";
+            showToast(data.message || "Failed to send message. Please try again.", "error");
         }
     } catch (err) {
         btn.disabled = false;
-        btn.textContent = "Send Message";
-        alert("Network error. Please check your connection and try again.");
+        btn.textContent = origText;
+        btn.style.opacity = "1";
+        showToast("Network error. Please check your connection and try again.", "error");
     }
 });
+
+function resetContactForm() {
+    const form = document.getElementById("contactForm");
+    form.reset();
+    form.style.display = "";
+    document.querySelector(".contact-form-card .subtitle").style.display = "";
+    document.querySelector(".contact-form-card h2").style.display = "";
+    document.getElementById("formSuccess").style.display = "none";
+}
 </script>
 <script src="js/pwa.js" defer></script>
 </body>

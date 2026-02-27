@@ -32,8 +32,9 @@
 16. Testing and Validation
 17. Screenshots Description
 18. Future Enhancements
-19. Conclusion
-20. References
+19. Version History & Upgrade Changelog
+20. Conclusion
+21. References
 
 ---
 
@@ -467,18 +468,23 @@ Development: http://localhost:5000/api
 
 ### 12.1 Security Measures
 
-| Measure                    | Implementation                          | Purpose                                               |
-| -------------------------- | --------------------------------------- | ----------------------------------------------------- |
-| **Password Hashing**       | bcryptjs with salt rounds               | Prevents plain-text password storage                  |
-| **JWT Authentication**     | jsonwebtoken with secret key            | Stateless session management                          |
-| **OTP Email Verification** | 6-digit OTP via Nodemailer              | Prevents fake account registration                    |
-| **Helmet**                 | helmet npm package                      | Sets secure HTTP headers (XSS protection, HSTS, etc.) |
-| **Rate Limiting**          | express-rate-limit (200 req/15 min)     | Prevents brute-force and DDoS attacks                 |
-| **CORS**                   | Whitelisted origins                     | Prevents unauthorized cross-origin requests           |
-| **Input Validation**       | Mongoose schema validators              | Prevents malformed data entry                         |
-| **XSS Sanitization**       | HTML entity escaping on frontend        | Prevents script injection via user input              |
-| **Role-Based Access**      | adminMiddleware on protected routes     | Restricts admin operations to admin users             |
-| **Token Expiry**           | JWT expiration + frontend auto-redirect | Prevents stale session attacks                        |
+| Measure                        | Implementation                                | Purpose                                               |
+| ------------------------------ | --------------------------------------------- | ----------------------------------------------------- |
+| **Password Hashing**           | bcryptjs with salt rounds                     | Prevents plain-text password storage                  |
+| **JWT Authentication**         | jsonwebtoken with secret key                  | Stateless session management                          |
+| **OTP Email Verification**     | 6-digit OTP via Nodemailer                    | Prevents fake account registration                    |
+| **Helmet**                     | helmet npm package                            | Sets secure HTTP headers (XSS protection, HSTS, etc.) |
+| **General Rate Limiting**      | express-rate-limit (200 req/15 min)           | Prevents DDoS attacks                                 |
+| **Auth Rate Limiting**         | Stricter limit (10 req/min) on auth endpoints | Prevents brute-force login/registration attacks       |
+| **CORS Origin Validation**     | Whitelisted origins with strict origin check  | Rejects requests from unknown origins                 |
+| **Input Sanitization**         | Regex escaping + length limiting on search    | Prevents ReDoS (Regular Expression Denial of Service) |
+| **XSS Prevention (Frontend)**  | `textContent` instead of `innerHTML`          | Prevents script injection via user input              |
+| **Fetch Timeout**              | 30-second timeout wrapper on all API calls    | Prevents indefinite hangs on backend cold starts      |
+| **Role-Based Access**          | adminMiddleware on protected routes           | Restricts admin operations to admin users             |
+| **Token Expiry**               | JWT expiration + frontend auto-redirect       | Prevents stale session attacks                        |
+| **Deep Link URL Validation**   | `isAllowedUrl()` guard in Android app         | Prevents phishing via malicious intents               |
+| **WebView Debugging Disabled** | Disabled in release builds                    | Prevents Chrome inspector in production               |
+| **Mixed Content Blocked**      | `MIXED_CONTENT_NEVER_ALLOW` in Android        | Enforces HTTPS for all WebView content                |
 
 ### 12.2 Authentication Flow
 
@@ -494,6 +500,20 @@ Development: http://localhost:5000/api
 9. authMiddleware verifies JWT on every protected route
 10. If token expired/invalid → 401 response → Client redirects to login
 ```
+
+### 12.3 Security Hardening (v1.2 Update)
+
+| Area                 | Change                                                                      |
+| -------------------- | --------------------------------------------------------------------------- |
+| CORS                 | Fixed origin check to properly reject unknown origins                       |
+| Auth Endpoints       | Added dedicated rate limiter (10 req/min) for `/api/login`, `/api/register` |
+| Search Queries       | Regex escaping and 100-char length limit on all search inputs               |
+| Toast Notifications  | Replaced `innerHTML` with `textContent` to prevent XSS                      |
+| Table Rendering      | Replaced `innerHTML +=` with DOM API (`createElement`, `textContent`)       |
+| Authorization Header | Fixed to not send empty `Authorization: Bearer null` when no token present  |
+| Deep Links (Android) | Intent URLs validated against allowed domains before loading                |
+| WebView URL Scheme   | `mailto:`, `tel:`, `market:`, `intent://` handled via system intents        |
+| Renderer Crash       | `onRenderProcessGone()` recovers gracefully instead of crashing             |
 
 ---
 
@@ -524,9 +544,25 @@ Cached Assets: HTML pages, CSS files, JS files, logo images
 
 ### 14.1 Application Overview
 
-A premium, flagship-tier native Android application (SGCSRC TNPC) was developed in Java to provide students with a seamless mobile experience. The app securely interfaces with the web portal while adding native mobile capabilities.
+A premium, flagship-tier native Android application (SGCSRC TNPC) was developed in Java to provide students with a seamless mobile experience. The app securely interfaces with the web portal while adding native mobile capabilities. The app targets Android API 24+ (Android 7.0 Nougat and above) with SDK 35 compilation.
 
-### 14.2 Premium Features & UI/UX
+**Application ID:** `com.gcsr.tnpcportal`
+**Current Version:** 1.2 (versionCode 3)
+**Min SDK:** 24 | **Target SDK:** 35
+
+### 14.2 Android Project Structure
+
+```
+android/app/src/main/java/com/gcsr/tnpcportal/
+├── MainActivity.java            — Core WebView activity (935 lines)
+├── SplashActivity.java          — Animated splash screen with parallax
+├── OnboardingActivity.java      — First-launch intro slides with Lottie
+├── SettingsActivity.java        — App settings with cache management
+├── WebAppInterface.java         — JavaScript bridge (JS ↔ Native)
+└── TNPCFirebaseMessagingService.java — Push notification handler
+```
+
+### 14.3 Premium Features & UI/UX
 
 | Feature                        | Implementation Details                                                                                      |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------- |
@@ -535,18 +571,89 @@ A premium, flagship-tier native Android application (SGCSRC TNPC) was developed 
 | **Edge-to-Edge Immersion**     | `ViewCompat.setOnApplyWindowInsetsListener` enables the app to draw under the system gesture bar.           |
 | **Native Biometric Auth**      | Secure access using Fingerprint/Face ID via Android `BiometricManager`.                                     |
 | **OS Haptic Feedback**         | Physical tactile clicks tied to action buttons using `HapticFeedbackConstants.CONTEXT_CLICK`.               |
-| **Smart Pull-to-Refresh**      | Instant recovery from offline states with fluid transitions back to the active Web interface.               |
+| **Smart Pull-to-Refresh**      | Enabled only when WebView is scrolled to top, preventing mid-page scroll conflicts.                         |
 | **WebView State Retention**    | Preserves browsing history and layout states if the OS kills the app in the background to free memory.      |
 | **Chrome Custom Tabs**         | Secure, fast rendering of external links directly within the app rather than launching an external browser. |
+| **Real-Time Progress Bar**     | Determinate progress bar showing actual page load percentage (0–100%).                                      |
+| **Loading Screen with %**      | Splash overlay shows "Loading... 42%" tied to WebChromeClient's `onProgressChanged`.                        |
+| **In-App Review**              | Google Play In-App Review API for seamless app rating without leaving the app.                              |
+| **Predictive Back Gesture**    | Modern Android 14+ back gesture with `OnBackPressedCallback`.                                               |
+| **Push Notifications**         | Firebase Cloud Messaging with custom notification icons and high-priority channels.                         |
+| **File Upload**                | WebView file chooser with camera capture support via `ActivityResultContracts`.                             |
+| **Download Manager**           | Native download handling with notifications for file downloads from WebView.                                |
 
-### 14.3 Android Security & Compliance
+### 14.4 Android Crash Safety (v1.2)
 
-| Mechanism                         | Implementation Details                                                                                 |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| **Network Security Config**       | Hardened `network_security_config.xml` strictly forcing HTTPS and disabling cleartext traffic.         |
-| **Absolute URL Sandbox**          | Wrapped URL interceptors in strict `try-catch` blocks to prevent `ActivityNotFoundException` crashes.  |
-| **Production Debugging Disabled** | `WebSettings` explicitly patched to block Chrome inspector access on release builds.                   |
-| **Memory Leak Prevention**        | Aggressive lifecycle unbinding in `onDestroy()` to gut the WebView completely before application exit. |
+Every activity and service has been hardened with crash-prevention guards:
+
+| Component                    | Safety Mechanism                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------------ |
+| **SplashActivity**           | `isFinishing()`/`isDestroyed()` checks before navigation; try-catch fallback         |
+| **OnboardingActivity**       | try-catch in `launchMain()` with fallback to `MainActivity`                          |
+| **MainActivity**             | `onRenderProcessGone()` for WebView renderer crashes; proper lifecycle cleanup       |
+| **SettingsActivity**         | try-catch around all cache operations, file traversal, and WebView storage clearing  |
+| **WebAppInterface**          | try-catch in all `@JavascriptInterface` methods; `runOnUiThread()` for thread safety |
+| **FirebaseMessagingService** | try-catch around entire `sendNotification()` with null-safe title/body               |
+
+### 14.5 Android Security & Compliance
+
+| Mechanism                         | Implementation Details                                                                           |
+| --------------------------------- | ------------------------------------------------------------------------------------------------ |
+| **Deep Link URL Validation**      | `isAllowedUrl()` validates all intent URLs against `tnpc-portal.vercel.app` and backend domains. |
+| **Network Security Config**       | Hardened `network_security_config.xml` strictly forcing HTTPS and disabling cleartext traffic.   |
+| **URL Scheme Sandboxing**         | `shouldOverrideUrlLoading` handles `mailto:`, `tel:`, `market:`, `intent://` via system intents. |
+| **Production Debugging Disabled** | `WebSettings` explicitly blocks Chrome inspector access on release builds.                       |
+| **Mixed Content Blocked**         | `MIXED_CONTENT_NEVER_ALLOW` enforces HTTPS for all loaded content.                               |
+| **File Access Disabled**          | `setAllowFileAccess(false)` and `setAllowContentAccess(false)` prevent local file exploits.      |
+| **Memory Leak Prevention**        | Proper lifecycle cleanup in `onDestroy()` without wasteful `clearCache(true)`.                   |
+
+### 14.6 JavaScript Bridge (WebAppInterface)
+
+The app exposes the following native functions to the web portal via `window.TNPCApp`:
+
+| Method                | Parameters | Returns | Purpose                                |
+| --------------------- | ---------- | ------- | -------------------------------------- |
+| `shareCurrentPage()`  | title, url | void    | Native share sheet for page content    |
+| `getAppVersion()`     | —          | String  | Returns app version name (e.g., "1.2") |
+| `requestReview()`     | —          | void    | Triggers Google In-App Review flow     |
+| `showToast()`         | message    | void    | Shows native Android toast             |
+| `openSettings()`      | —          | void    | Opens SettingsActivity                 |
+| `hapticFeedback()`    | —          | void    | Triggers device haptic vibration       |
+| `isAppInstalled()`    | —          | boolean | Always returns true (detection helper) |
+| `getConnectionType()` | —          | String  | Returns "wifi", "cellular", or "none"  |
+| `isOnline()`          | —          | boolean | Returns current network availability   |
+
+### 14.7 Settings Features
+
+| Setting                | Description                                              |
+| ---------------------- | -------------------------------------------------------- |
+| **Biometric Lock**     | Toggle fingerprint/PIN requirement on app launch         |
+| **Push Notifications** | Toggle notification preferences                          |
+| **Clear Cache**        | Shows cache size (KB/MB), clears app + WebView + cookies |
+| **Rate App**           | Opens Play Store listing for reviews                     |
+| **Share App**          | Native share intent with app link                        |
+| **Reset Onboarding**   | Re-enables first-launch intro slides                     |
+| **About Section**      | Version info, developer credit, copyright                |
+
+### 14.8 Android Dependencies
+
+| Library              | Version       | Purpose                      |
+| -------------------- | ------------- | ---------------------------- |
+| `androidx.appcompat` | 1.7.0         | Backward-compatible UI       |
+| `material`           | 1.12.0        | Material Design 3 components |
+| `constraintlayout`   | 2.1.4         | Flexible layouts             |
+| `webkit`             | 1.12.1        | Advanced WebView features    |
+| `swiperefreshlayout` | 1.1.0         | Pull-to-refresh              |
+| `viewpager2`         | 1.1.0         | Onboarding slider            |
+| `biometric`          | 1.1.0         | Biometric authentication     |
+| `core`               | 1.15.0        | Core AndroidX utilities      |
+| `core-splashscreen`  | 1.2.0-alpha02 | System splash screen         |
+| `browser`            | 1.8.0         | Chrome Custom Tabs           |
+| `lottie`             | 6.6.2         | Lottie vector animations     |
+| `play-review`        | 2.0.2         | In-App Review API            |
+| `firebase-bom`       | 33.7.0        | Firebase platform            |
+| `firebase-messaging` | (BOM)         | Push notifications           |
+| `firebase-analytics` | (BOM)         | Usage analytics              |
 
 ---
 
@@ -643,16 +750,97 @@ The following screenshots can be captured from the live application at https://t
 7. **Email Notifications** — Automated email alerts for new job postings and status updates
 8. **Multi-Language Support** — Telugu and Hindi language options
 9. **Blockchain Certificates** — Tamper-proof digital certificate verification
+10. **Dark/Light Theme Toggle** — User-selectable theme in Android app and web portal
+11. **Offline Job Caching** — Cache job listings for offline browsing in Android app
+12. **App Widgets** — Android home screen widget showing latest job postings
+13. **Wear OS Notifications** — Push notifications to smartwatches
 
 ---
 
-## 19. CONCLUSION
+## 19. VERSION HISTORY & UPGRADE CHANGELOG
 
-The TNPC Portal successfully addresses the challenges of manual placement management at Sri GCSR College by providing a modern, digital, and comprehensive full-stack solution. The application demonstrates proficiency in modern web and mobile development — from REST API architecture and database design to responsive frontend design, PWA integration, and the publishing of a flagship-tier native Android application. The use of modern technologies such as Express.js 5, Node.js, JWT authentication, alongside advanced Android UI/UX methodologies (Lottie, Parallax, Biometrics, Haptics), ensures that the portal meets current industry standards and provides an unparalleled user experience. The system is currently live at https://tnpc-portal.vercel.app.
+### v1.0 — Initial Release
+
+- Full-stack web application with all core modules
+- Native Android application with WebView, biometric auth, and Lottie onboarding
+- PWA with service worker and offline support
+- Deployed on Vercel (frontend) and Render (backend)
+
+### v1.1 — Security & Performance Patch
+
+**Backend:**
+
+- Fixed CORS origin check to properly reject unknown origins
+- Added auth-specific rate limiter (10 req/min) for login, register, and password reset endpoints
+- Added regex escaping and 100-char length limits on search queries to prevent ReDoS attacks
+- Optimized job auto-expiration from per-request to time-gated (once per minute)
+
+**Frontend:**
+
+- Fixed `getAuthHeaders()` to not send empty `Authorization` header when no token present
+- Replaced `innerHTML` with `textContent` in `showToast()` to prevent XSS
+- Replaced `innerHTML +=` with DOM API in placement table rendering to prevent XSS
+- Added 30-second fetch timeout wrapper to handle backend cold starts
+- Implemented mobile navigation auto-close on link click
+- Added passive scroll event listeners for performance
+- Optimized particle canvas to pause when off-screen and disable on touch devices
+- Improved contact form with proper error handling, loading states, and `showToast()` instead of `alert()`
+
+**Android:**
+
+- Disabled nested scrolling to prevent SwipeRefreshLayout conflicts
+- Injected performance CSS to disable heavy animations in WebView
+- Smart SwipeRefreshLayout that only triggers at scroll top
+- Added WebView focus settings for smoother touch fling
+- Updated progress bar to show percentage in `onProgressChanged`
+
+### v1.2 — Ultra Premium Upgrade (Current)
+
+**Critical Bug Fixes:**
+
+- Changed progress bar from indeterminate to determinate mode (`max=100`) — `setProgress()` was silently broken
+- Deep link URL validation via `isAllowedUrl()` — previously any URL could be loaded via intent (phishing risk)
+- Fixed `loadingPulse` AnimatorSet leak — animation ran forever even after loading screen dismissed
+- Removed `clearCache(true)` from `onDestroy()` — was blocking UI and destroying user sessions on every config change
+
+**Crash Safety Hardening (all 6 Java components):**
+
+- `SplashActivity`: `isFinishing()`/`isDestroyed()` guards + try-catch fallback in `navigateNext()`
+- `OnboardingActivity`: try-catch in `launchMain()` with last-resort fallback to `MainActivity`
+- `MainActivity`: `onRenderProcessGone()` for WebView renderer crash recovery
+- `SettingsActivity`: try-catch around all cache operations, file traversal, and WebView storage clearing
+- `WebAppInterface`: try-catch in `openSettings()` and `hapticFeedback()` JS bridge methods
+- `TNPCFirebaseMessagingService`: try-catch around entire `sendNotification()` with null-safe title/body
+
+**Security Hardening:**
+
+- Intent URL validation against allowed domains before loading in WebView
+- Proper handling of `market:` and `intent://` URL schemes via system intents
+- WebView renderer crash recovery instead of app crash
+
+**New Features & UX:**
+
+- Loading screen shows real page load percentage ("Loading... 42%")
+- Settings: cache size display with human-readable KB/MB formatting
+- Settings: "Reset Onboarding" option to re-view intro slides
+- Settings: Clear Cache now also clears WebView storage and cookies
+- Settings: About section with developer credit and copyright
+- WebAppInterface: `getConnectionType()` returns "wifi", "cellular", "ethernet", or "none"
+- WebAppInterface: `isOnline()` returns current network availability for web
+
+**Build:**
+
+- Version bumped from 1.1 to 1.2 (versionCode 2 → 3)
 
 ---
 
-## 20. REFERENCES
+## 20. CONCLUSION
+
+The TNPC Portal (v1.2) successfully addresses the challenges of manual placement management at Sri GCSR College by providing a modern, digital, and comprehensive full-stack solution. The application demonstrates proficiency in modern web and mobile development — from REST API architecture and database design to responsive frontend design, PWA integration, and the publishing of a flagship-tier native Android application. The use of modern technologies such as Express.js 5, Node.js, JWT authentication, alongside advanced Android UI/UX methodologies (Lottie, Parallax, Biometrics, Haptics, Crash-Safe Architecture), ensures that the portal meets current industry standards and provides an unparalleled user experience. The v1.2 upgrade specifically focused on eliminating all potential crash vectors, hardening security against XSS/ReDoS/phishing, and polishing the Android app to ultra-premium quality with real-time progress indicators, cache management, and robust crash recovery. The system is currently live at https://tnpc-portal.vercel.app.
+
+---
+
+## 21. REFERENCES
 
 1. Mozilla Developer Network (MDN) — Web Technologies Documentation — https://developer.mozilla.org
 2. Express.js Official Documentation — https://expressjs.com
@@ -664,7 +852,14 @@ The TNPC Portal successfully addresses the challenges of manual placement manage
 8. Chart.js Documentation — https://www.chartjs.org
 9. Web.dev — Progressive Web Apps — https://web.dev/progressive-web-apps
 10. OWASP Security Practices — https://owasp.org
+11. Android Developer Documentation — https://developer.android.com
+12. Lottie Animation Library — https://airbnb.io/lottie
+13. Firebase Cloud Messaging — https://firebase.google.com/docs/cloud-messaging
+14. Google Play In-App Review API — https://developer.android.com/guide/playcore/in-app-review
+15. AndroidX Biometric Library — https://developer.android.com/training/sign-in/biometric-auth
+16. Material Design 3 — https://m3.material.io
 
 ---
 
 **© 2026 Sri GCSR College of Engineering & Technology, Rajam. All Rights Reserved.**
+**Developed by Sanromarth Andavarma | Version 1.2**

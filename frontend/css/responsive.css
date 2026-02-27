@@ -177,9 +177,11 @@
   }
 
   
-  .orb-1 { width: 180px; height: 180px; }
-  .orb-2 { width: 150px; height: 150px; }
-  .orb-3 { width: 120px; height: 120px; }
+  /* Hide orbs on mobile — filter:blur(60px) + animation is extremely GPU-expensive */
+  .hero-orbs,
+  .orb-1, .orb-2, .orb-3 {
+    display: none !important;
+  }
 
   
   .stats {

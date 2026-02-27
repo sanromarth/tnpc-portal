@@ -44,6 +44,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
@@ -88,10 +89,12 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout loadingLayout;
     private RelativeLayout offlineLayout;
     private SwipeRefreshLayout swipeRefresh;
+    private TextView loadingPercentText;
     private boolean isFirstLoad = true;
     private boolean isAuthenticated = false;
     private Handler timeoutHandler;
     private Snackbar connectivitySnackbar;
+    private AnimatorSet loadingAnimSet;
 
     private ValueCallback<Uri[]> fileUploadCallback;
     private ConnectivityManager.NetworkCallback networkCallback;
@@ -152,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
         loadingLayout = binding.loadingLayout;
         offlineLayout = binding.offlineLayout;
         swipeRefresh = binding.swipeRefresh;
+        loadingPercentText = binding.loadingPercent;
         Button retryButton = binding.retryButton;
 
         configureWebView();
@@ -257,7 +261,12 @@ public class MainActivity extends AppCompatActivity {
             // Check for incoming Deep Link or App Shortcut
             Intent intent = getIntent();
             if (intent != null && intent.getData() != null) {
-                webView.loadUrl(intent.getData().toString());
+                String url = intent.getData().toString();
+                if (isAllowedUrl(url)) {
+                    webView.loadUrl(url);
+                } else {
+                    webView.loadUrl(WEBSITE_URL);
+                }
             } else {
                 webView.loadUrl(WEBSITE_URL);
             }
@@ -267,6 +276,16 @@ public class MainActivity extends AppCompatActivity {
             offlineLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * Validate that a URL belongs to our allowed domains.
+     * Prevents malicious intents from loading phishing pages.
+     */
+    private boolean isAllowedUrl(String url) {
+        if (url == null) return false;
+        return url.startsWith("https://tnpc-portal.vercel.app") ||
+               url.startsWith("https://tnpc-backend.onrender.com");
     }
     
     @Override
@@ -294,7 +313,10 @@ public class MainActivity extends AppCompatActivity {
     private void handleIncomingIntent(Intent intent) {
         setIntent(intent);
         if (isAuthenticated && intent != null && intent.getData() != null) {
-            webView.loadUrl(intent.getData().toString());
+            String url = intent.getData().toString();
+            if (isAllowedUrl(url)) {
+                webView.loadUrl(url);
+            }
         }
     }
 
@@ -332,10 +354,17 @@ public class MainActivity extends AppCompatActivity {
         alpha.setRepeatCount(ObjectAnimator.INFINITE);
         alpha.setRepeatMode(ObjectAnimator.REVERSE);
 
-        AnimatorSet set = new AnimatorSet();
-        set.playTogether(scaleX, scaleY, alpha);
-        set.setDuration(1500);
-        set.start();
+        loadingAnimSet = new AnimatorSet();
+        loadingAnimSet.playTogether(scaleX, scaleY, alpha);
+        loadingAnimSet.setDuration(1500);
+        loadingAnimSet.start();
+    }
+
+    private void stopLoadingPulse() {
+        if (loadingAnimSet != null) {
+            loadingAnimSet.cancel();
+            loadingAnimSet = null;
+        }
     }
 
     private void setupSwipeRefresh() {
@@ -351,6 +380,12 @@ public class MainActivity extends AppCompatActivity {
         
         // Add a premium, heavier "pull" feel
         swipeRefresh.setDistanceToTriggerSync(300);
+
+        // Only allow swipe-to-refresh when WebView is scrolled to the top
+        // This prevents SwipeRefreshLayout from intercepting mid-page scrolls
+        webView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            swipeRefresh.setEnabled(scrollY == 0);
+        });
         
         swipeRefresh.setOnRefreshListener(() -> {
             hapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
@@ -442,11 +477,34 @@ public class MainActivity extends AppCompatActivity {
                 swipeRefresh.setRefreshing(false);
                 cancelLoadingTimeout();
                 if (isFirstLoad) {
+                    stopLoadingPulse();
                     fadeOut(loadingLayout);
                     webView.setVisibility(View.VISIBLE);
                     isFirstLoad = false;
                 }
                 injectShareButton(view);
+                injectPerformanceCSS(view);
+            }
+
+            @Override
+            public boolean onRenderProcessGone(WebView view, android.webkit.RenderProcessGoneDetail detail) {
+                if (!detail.didCrash()) {
+                    // Renderer was killed to reclaim memory; just reload
+                    if (webView != null) {
+                        webView.destroy();
+                    }
+                    return true;
+                }
+                // Renderer crashed — show offline screen and let user retry
+                runOnUiThread(() -> {
+                    progressBar.setVisibility(View.GONE);
+                    swipeRefresh.setRefreshing(false);
+                    webView.setVisibility(View.GONE);
+                    fadeIn(offlineLayout);
+                    Toast.makeText(MainActivity.this,
+                            "Page crashed. Tap retry to reload.", Toast.LENGTH_LONG).show();
+                });
+                return true;
             }
 
             @Override
@@ -506,6 +564,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
                 }
+                if (url.startsWith("market:") || url.startsWith("intent://")) {
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                    } catch (android.content.ActivityNotFoundException e) {
+                        // Ignore unknown schemes
+                    }
+                    return true;
+                }
                 
                 // Open external links in a Chrome Custom Tab instead of kicking user to browser
                 try {
@@ -547,12 +613,47 @@ public class MainActivity extends AppCompatActivity {
         view.loadUrl(js);
     }
 
+    /**
+     * Inject performance CSS when running inside the Android WebView.
+     * Disables heavy animations, backdrop-filter, and decorative elements
+     * that cause scroll jank on mobile devices.
+     */
+    private void injectPerformanceCSS(WebView view) {
+        String css =
+                "html{scroll-behavior:auto!important;}" +
+                ".hero-orbs,.orb,.orb-1,.orb-2,.orb-3,#particleCanvas{display:none!important;}" +
+                ".navbar,.navbar.scrolled{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;" +
+                "background:rgba(11,29,58,0.99)!important;}" +
+                ".top-strip{animation:none!important;background:linear-gradient(90deg,#C62828 0%,#e53935 40%,#C62828 100%)!important;}" +
+                ".stat-box::before,.feature-icon,.cta-section::before,.cta-section::after," +
+                ".mou-card::before,.about-card::before,.cert-card::before{animation:none!important;}" +
+                ".stat-card:hover,.job-card:hover,.app-card:hover,.corporate-card:hover," +
+                ".about-card:hover,.mou-card:hover,.feature-card:hover,.contact-card:hover," +
+                ".cert-card:hover,.stat-box:hover,.testimonial-card:hover{transform:none!important;}" +
+                ".fade-in{transition-duration:0.2s!important;}" +
+                "*{-webkit-tap-highlight-color:transparent;}";
+
+        String js = "javascript:(function(){" +
+                "if(document.getElementById('tnpc-perf-css'))return;" +
+                "var s=document.createElement('style');" +
+                "s.id='tnpc-perf-css';" +
+                "s.textContent='" + css.replace("'", "\\'") + "';" +
+                "document.head.appendChild(s);" +
+                "})()";
+        view.loadUrl(js);
+    }
+
     private void setupWebChromeClient() {
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress < 100) {
                     progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setProgress(newProgress);
+                    // Update loading screen percentage text
+                    if (isFirstLoad && loadingPercentText != null) {
+                        loadingPercentText.setText("Loading... " + newProgress + "%");
+                    }
                 } else {
                     progressBar.setVisibility(View.GONE);
                 }
@@ -657,7 +758,13 @@ public class MainActivity extends AppCompatActivity {
         webView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         webView.setVerticalScrollBarEnabled(true);
         webView.setHorizontalScrollBarEnabled(false);
-        webView.setNestedScrollingEnabled(true);
+        // Disable nested scrolling — it conflicts with SwipeRefreshLayout
+        // and causes scroll stutter/jank on content-heavy pages
+        webView.setNestedScrollingEnabled(false);
+        
+        // Enable smooth scroll fling
+        webView.setFocusable(true);
+        webView.setFocusableInTouchMode(true);
         
         // Dynamic caching
         if (isNetworkAvailable()) {
@@ -818,18 +925,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         cancelLoadingTimeout();
+        stopLoadingPulse();
         if (networkCallback != null) {
-            ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-            cm.unregisterNetworkCallback(networkCallback);
+            try {
+                ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+                cm.unregisterNetworkCallback(networkCallback);
+            } catch (Exception ignored) {}
         }
         if (webView != null) {
-            binding.getRoot().removeView(webView);
-            webView.removeAllViews();
-            webView.clearHistory();
-            webView.clearCache(true);
+            webView.stopLoading();
             webView.loadUrl("about:blank");
             webView.onPause();
-            webView.destroyDrawingCache();
+            webView.removeAllViews();
             webView.destroy();
             webView = null;
         }

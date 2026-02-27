@@ -188,7 +188,7 @@
             <LinearLayout
                 android:id="@+id/rowClearCache"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="64dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:paddingHorizontal="16dp"
@@ -202,13 +202,27 @@
                     android:layout_marginEnd="14dp"
                     android:contentDescription="Clear cache" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Clear Cache"
-                    android:textSize="15sp"
-                    android:textColor="@color/text_primary" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Clear Cache"
+                        android:textSize="15sp"
+                        android:textColor="@color/text_primary" />
+
+                    <TextView
+                        android:id="@+id/tvCacheSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Calculating..."
+                        android:textSize="12sp"
+                        android:textColor="@color/text_hint" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -296,6 +310,46 @@
                     android:textSize="20sp"
                     android:textColor="@color/text_disabled" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="54dp"
+                android:background="@color/divider" />
+
+            <!-- Reset Onboarding -->
+            <LinearLayout
+                android:id="@+id/rowResetOnboarding"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:background="?android:attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_slideshow"
+                    app:tint="@color/text_hint"
+                    android:layout_marginEnd="14dp"
+                    android:contentDescription="Reset onboarding" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Reset Onboarding"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:textSize="20sp"
+                    android:textColor="@color/text_disabled" />
+            </LinearLayout>
         </LinearLayout>
 
         <!-- About Section -->
@@ -337,6 +391,22 @@
                 android:layout_height="wrap_content"
                 android:text="Version 1.0"
                 android:textSize="12sp"
+                android:textColor="@color/text_disabled"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Made with ❤ for Sri GCSR College"
+                android:textSize="11sp"
+                android:textColor="@color/text_disabled"
+                android:layout_marginBottom="2dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="© 2026 Training \u0026 Placement Cell"
+                android:textSize="10sp"
                 android:textColor="@color/text_disabled" />
         </LinearLayout>
 
