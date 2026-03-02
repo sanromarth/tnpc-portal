@@ -325,3 +325,63 @@
         box-shadow: none;
     }
 }
+
+/* ─── ALPINE.JS — Prevent Flash of Unstyled Content ─── */
+[x-cloak] { display: none !important; }
+
+/* ─── HTMX — Loading Indicators ─── */
+.htmx-indicator {
+    display: none;
+}
+.htmx-request .htmx-indicator,
+.htmx-request.htmx-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ds-gray-500);
+    font-size: var(--ds-text-sm);
+}
+.htmx-indicator .spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--ds-gray-300);
+    border-top-color: var(--ds-primary-500);
+    border-radius: 50%;
+    animation: htmx-spin 0.6s linear infinite;
+}
+@keyframes htmx-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ─── NProgress — Theme Color Override ─── */
+#nprogress .bar {
+    background: #FBC02D !important;
+    height: 3px;
+}
+#nprogress .peg {
+    box-shadow: 0 0 10px #FBC02D, 0 0 5px #FBC02D;
+}
+#nprogress .spinner-icon {
+    border-top-color: #FBC02D;
+    border-left-color: #FBC02D;
+}
+
+/* ─── Tippy.js — Dark Material Theme ─── */
+.tippy-box[data-theme~='material'] {
+    background: rgba(11, 29, 58, 0.95);
+    color: #e0e0e0;
+    border: 1px solid rgba(251, 192, 45, 0.15);
+    border-radius: 8px;
+    font-size: 13px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+.tippy-box[data-theme~='material'] .tippy-arrow::before {
+    color: rgba(11, 29, 58, 0.95);
+}
+
+/* ─── Typed.js — Cursor Styling ─── */
+.typed-cursor {
+    color: #FBC02D;
+    font-weight: 300;
+    font-size: inherit;
+}

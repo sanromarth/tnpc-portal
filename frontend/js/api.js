@@ -86,6 +86,28 @@ async function apiDelete(endpoint) {
     return data;
 }
 function showToast(message, type = "info") {
+    // Use Notyf if available (CDN loaded on dashboard pages)
+    if (typeof Notyf !== 'undefined') {
+        if (!window._notyfInstance) {
+            window._notyfInstance = new Notyf({
+                duration: 3500,
+                position: { x: 'right', y: 'top' },
+                dismissible: true,
+                ripple: true,
+                types: [
+                    { type: 'info', background: '#1e4f9a', icon: { className: 'notyf-icon', tagName: 'span', text: 'ℹ' } },
+                    { type: 'warning', background: '#FBC02D', icon: false }
+                ]
+            });
+        }
+        const notyf = window._notyfInstance;
+        if (type === 'success') notyf.success(message);
+        else if (type === 'error') notyf.error(message);
+        else notyf.open({ type: 'info', message });
+        return;
+    }
+
+    // Fallback: DOM-based toast for pages without Notyf
     const existing = document.querySelector('.toast-notification');
     if (existing) existing.remove();
 

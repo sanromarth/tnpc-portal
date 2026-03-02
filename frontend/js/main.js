@@ -1,53 +1,9 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-    const certDropdown = document.getElementById("certDropdown");
-    const certToggle = document.getElementById("certToggle");
-    const hamburger = document.getElementById("hamburger");
-    const navLinksMenu = document.getElementById("navLinks");
-    const navbar = document.getElementById("navbar");
+    // ── Navbar toggle logic (hamburger, dropdown, scroll shadow)
+    //    is now handled declaratively via Alpine.js directives in the HTML.
+    //    See x-data="{ mobileOpen, certOpen }" on <header>.
 
-    
-    if (certToggle && certDropdown) {
-        certToggle.addEventListener("click", function (e) {
-            e.preventDefault();
-            certDropdown.classList.toggle("active");
-        });
-
-        document.addEventListener("click", function (e) {
-            if (!certDropdown.contains(e.target)) {
-                certDropdown.classList.remove("active");
-            }
-        });
-    }
-
-    
-    if (hamburger && navLinksMenu) {
-        hamburger.addEventListener("click", () => {
-            navLinksMenu.classList.toggle("active");
-            hamburger.classList.toggle("active");
-            hamburger.setAttribute("aria-expanded",
-                navLinksMenu.classList.contains("active") ? "true" : "false"
-            );
-        });
-
-        // Auto-close mobile nav when a link is clicked
-        navLinksMenu.querySelectorAll("a:not(.dropdown a)").forEach(link => {
-            link.addEventListener("click", () => {
-                if (window.innerWidth <= 768) {
-                    navLinksMenu.classList.remove("active");
-                    hamburger.classList.remove("active");
-                    hamburger.setAttribute("aria-expanded", "false");
-                }
-            });
-        });
-    }
-
-    
-    if (navbar) {
-        window.addEventListener("scroll", () => {
-            navbar.classList.toggle("scrolled", window.scrollY > 50);
-        }, { passive: true });
-    }
 
     
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -15,6 +15,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
   <link rel="stylesheet" href="css/design-system.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/premium.css">
   <link rel="stylesheet" href="css/placements.css">
@@ -22,6 +23,7 @@
 <link rel="stylesheet" href="css/enterprise-upgrade.css">
     <link rel="stylesheet" href="css/pwa-enhancements.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
 <body>
@@ -30,7 +32,7 @@
 Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved by UGC
 </div>
 
-<header class="navbar" id="navbar">
+<header class="navbar" id="navbar" x-data="{ mobileOpen: false, certOpen: false }" @scroll.window="$el.classList.toggle('scrolled', window.scrollY > 50)">
 <div class="nav-left">
 <img src="assets/logos/sgcsr-logo.png" class="college-logo" alt="Sri GCSR College Logo">
 <div>
@@ -39,15 +41,15 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 </div>
 </div>
 
-<div class="hamburger" id="hamburger" role="button" aria-label="Toggle navigation menu" aria-expanded="false" tabindex="0">
+<div class="hamburger" :class="{ active: mobileOpen }" @click="mobileOpen = !mobileOpen" role="button" aria-label="Toggle navigation menu" :aria-expanded="mobileOpen.toString()" tabindex="0">
 <span></span><span></span><span></span>
 </div>
 
-<nav class="nav-links" id="navLinks" aria-label="Main navigation">
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <div class="dropdown" id="certDropdown">
-    <a href="#" id="certToggle">
+<nav class="nav-links" :class="{ active: mobileOpen }" aria-label="Main navigation">
+  <a href="index.html" @click="mobileOpen = false">Home</a>
+  <a href="about.html" @click="mobileOpen = false">About</a>
+  <div class="dropdown" :class="{ active: certOpen }" @click.outside="certOpen = false">
+    <a href="#" @click.prevent="certOpen = !certOpen">
       Certificate Programs <span class="arrow">▾</span>
     </a>
     <div class="dropdown-menu">
@@ -55,10 +57,10 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
       <a href="certifications.html">ICT Certifications</a>
     </div>
   </div>
-  <a href="placements.html" class="active">Placements</a>
-  <a href="mous.html">MoUs</a>
-  <a href="recruiter.html">Recruiters</a>
-  <a href="contact.html">Contact</a>
+  <a href="placements.html" class="active" @click="mobileOpen = false">Placements</a>
+  <a href="mous.html" @click="mobileOpen = false">MoUs</a>
+  <a href="recruiter.html" @click="mobileOpen = false">Recruiters</a>
+  <a href="contact.html" @click="mobileOpen = false">Contact</a>
   <button id="loginBtn" type="button" class="btn-yellow">Login</button>
   <button id="registerBtn" type="button" class="btn-outline">Register</button>
 </nav>
@@ -95,7 +97,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 </div>
 
 <div class="stats-container premium-stats">
-  <div class="stat-card glass-card fade-in" data-delay="0">
+  <div class="stat-card glass-card" data-aos="fade-up" data-delay="0">
     <div class="stat-accent"></div>
     <div class="stat-icon-circle">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
@@ -103,7 +105,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
     <h3>Placement Percentage</h3>
     <h1 id="statPercentage" class="counter-value" data-suffix="%">0%</h1>
   </div>
-  <div class="stat-card glass-card fade-in" data-delay="1">
+  <div class="stat-card glass-card" data-aos="fade-up" data-delay="1">
     <div class="stat-accent"></div>
     <div class="stat-icon-circle">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
@@ -111,7 +113,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
     <h3>Highest CTC</h3>
     <h1 id="statHighest" class="counter-value" data-suffix=" LPA">0 LPA</h1>
   </div>
-  <div class="stat-card glass-card fade-in" data-delay="2">
+  <div class="stat-card glass-card" data-aos="fade-up" data-delay="2">
     <div class="stat-accent"></div>
     <div class="stat-icon-circle">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
@@ -119,7 +121,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
     <h3>Average CTC</h3>
     <h1 id="statAvg" class="counter-value" data-suffix=" LPA">0 LPA</h1>
   </div>
-  <div class="stat-card glass-card fade-in" data-delay="3">
+  <div class="stat-card glass-card" data-aos="fade-up" data-delay="3">
     <div class="stat-accent"></div>
     <div class="stat-icon-circle">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -129,29 +131,29 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
   </div>
 </div>
 
-<h2 class="section-title fade-in">Placement Trend Analysis</h2>
+<h2 class="section-title" data-aos="fade-up">Placement Trend Analysis</h2>
 
 <section class="charts premium-charts">
-  <div class="chart-container premium-chart-card fade-in" data-delay="0">
+  <div class="chart-container premium-chart-card" data-aos="fade-up" data-delay="0">
     <div class="chart-accent"></div>
     <h4 class="chart-card-title">📊 Placements Offered</h4>
     <canvas id="placementTrend"></canvas>
   </div>
-  <div class="chart-container premium-chart-card fade-in" data-delay="1">
+  <div class="chart-container premium-chart-card" data-aos="fade-up" data-delay="1">
     <div class="chart-accent"></div>
     <h4 class="chart-card-title">💰 Salary Trends</h4>
     <canvas id="salaryTrend"></canvas>
   </div>
-  <div class="chart-container premium-chart-card fade-in" data-delay="2">
+  <div class="chart-container premium-chart-card" data-aos="fade-up" data-delay="2">
     <div class="chart-accent"></div>
     <h4 class="chart-card-title">📈 Placement Percentage</h4>
     <canvas id="percentageTrend"></canvas>
   </div>
 </section>
 
-<h2 class="section-title fade-in">Year-wise Placement Statistics (2017–2026)</h2>
+<h2 class="section-title" data-aos="fade-up">Year-wise Placement Statistics (2017–2026)</h2>
 
-<section class="table-section premium-table-section fade-in">
+<section class="table-section premium-table-section" data-aos="fade-up">
   <div class="table-container premium-table-container">
     <table id="placementTable" class="premium-table">
       <thead>
@@ -171,7 +173,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
   </div>
 </section>
 
-<div class="download-wrapper fade-in">
+<div class="download-wrapper" data-aos="fade-up">
   <button class="download-btn premium-download-btn" onclick="downloadCSV()">
     <span class="btn-shimmer"></span>
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -214,7 +216,8 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 
 <script src="js/api.js"></script>
 <script src="js/main.js"></script>
-<script src="js/animations.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>AOS.init({ duration: 700, once: true, offset: 80 });</script>
 <script src="js/placements.js"></script>
 <script src="js/pwa.js" defer></script>
 </body>

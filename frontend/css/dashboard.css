@@ -500,20 +500,84 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0a0f1a;color:#e0e0e0;m
 .resume-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .resume-actions select{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 14px;color:#fff;font-size:13px;font-family:inherit}
 .resume-actions select option{background:#0B1D3A}
-.resume-preview-container{overflow:auto;max-height:70vh}
+.resume-preview-container{overflow:auto;max-height:80vh;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,0.3)}
 .resume-preview{border-radius:12px;overflow:hidden}
-.resume-page{background:#fff;color:#222;padding:40px;max-width:700px;margin:0 auto;border-radius:8px;font-family:'Inter',sans-serif}
-.resume-page.resume-modern .res-header{background:linear-gradient(135deg,#0B1D3A,#1e4f9a);color:#fff;padding:30px;margin:-40px -40px 24px;border-radius:8px 8px 0 0}
-.resume-page.resume-modern .res-contact{color:rgba(255,255,255,0.8)}
-.resume-page.resume-minimal .res-header{border-bottom:1px solid #ddd;padding-bottom:16px;margin-bottom:24px}
-.res-header{text-align:center;margin-bottom:24px}
-.res-header h1{font-size:28px;color:#0B1D3A;margin-bottom:6px}
-.res-contact{font-size:13px;color:#555}
-.res-section{margin:16px 0}
-.res-section h2{font-size:16px;color:#0B1D3A;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.res-section hr{border:none;border-top:1px solid #ddd;margin-bottom:10px}
-.res-section p{font-size:14px;line-height:1.6;color:#333}
-.res-edu-title{font-size:15px}
+
+/* Base resume page */
+.resume-page{background:#fff;color:#333;padding:48px 44px;max-width:750px;margin:0 auto;border-radius:8px;font-family:'Inter','Segoe UI',sans-serif;line-height:1.6;position:relative}
+.resume-page .res-body{margin-top:20px}
+
+/* Header */
+.res-header{text-align:center;padding-bottom:20px;margin-bottom:8px;position:relative}
+.res-header h1{font-size:32px;font-weight:800;color:#0B1D3A;letter-spacing:-0.5px;margin:0 0 8px}
+.res-contact{font-size:13px;color:#555;letter-spacing:0.3px}
+.res-tagline{font-size:12px;color:#888;margin-top:6px;font-weight:500}
+
+/* Sections */
+.res-section{margin-bottom:22px}
+.res-section h2{font-size:14px;font-weight:700;color:#0B1D3A;text-transform:uppercase;letter-spacing:1.5px;border-bottom:2px solid #0B1D3A;padding-bottom:6px;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.res-section-icon{font-size:14px}
+.res-section p{font-size:13.5px;line-height:1.7;color:#444;margin:0}
+
+/* Education card */
+.res-edu-card{background:#f8f9fb;border:1px solid #e8ecf0;border-radius:8px;padding:16px 18px;margin-bottom:12px}
+.res-edu-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.res-edu-left{display:flex;flex-direction:column;gap:3px}
+.res-edu-left strong{font-size:15px;color:#1a1a1a}
+.res-edu-left span{font-size:12px;color:#777}
+.res-edu-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.res-badge{font-size:11px;background:#0B1D3A;color:#fff;padding:3px 10px;border-radius:12px;font-weight:600}
+.res-cgpa{font-size:13px;color:#0B1D3A;font-weight:600}
+.res-cgpa strong{font-size:18px}
+
+/* Academic grid */
+.res-academic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.res-academic-item{text-align:center;padding:10px;background:#f4f5f8;border-radius:8px;border:1px solid #e8ecf0}
+.res-academic-label{display:block;font-size:10px;text-transform:uppercase;color:#888;font-weight:600;letter-spacing:0.5px;margin-bottom:2px}
+.res-academic-value{display:block;font-size:18px;font-weight:800;color:#0B1D3A}
+
+/* Skills tags */
+.res-skills-grid{display:flex;flex-wrap:wrap;gap:8px}
+.res-skill-tag{display:inline-block;padding:5px 14px;background:#eef3fa;color:#1e4f9a;border-radius:20px;font-size:12px;font-weight:600;border:1px solid #d0dff2}
+.res-na{font-size:13px;color:#aaa;font-style:italic}
+
+/* Summary grid */
+.res-summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.res-summary-item{padding:10px 14px;background:#f8f9fb;border-radius:8px;border:1px solid #e8ecf0;display:flex;flex-direction:column;gap:2px}
+.res-summary-item span{font-size:10px;text-transform:uppercase;color:#888;font-weight:600;letter-spacing:0.3px}
+.res-summary-item strong{font-size:14px;color:#1a1a1a}
+
+/* Link */
+.res-link{color:#1e4f9a;text-decoration:none;font-weight:500;word-break:break-all}
+.res-link:hover{text-decoration:underline}
+
+/* Declaration + signature */
+.res-declaration{margin-top:28px;padding-top:16px;border-top:1px dashed #ccc}
+.res-signature{margin-top:24px;text-align:right}
+.res-sig-line{width:180px;height:1px;background:#333;margin-left:auto;margin-bottom:4px}
+.res-signature span{font-size:14px;font-weight:700;color:#0B1D3A}
+
+/* ===== CLASSIC TEMPLATE ===== */
+.resume-classic .res-header{border-bottom:3px solid #0B1D3A}
+
+/* ===== MODERN TEMPLATE ===== */
+.resume-modern .res-header{background:linear-gradient(135deg,#0B1D3A,#1e4f9a);color:#fff;padding:32px 36px;margin:-48px -44px 24px;border-radius:8px 8px 0 0;border-bottom:none}
+.resume-modern .res-header h1{color:#fff}
+.resume-modern .res-contact{color:rgba(255,255,255,0.85)}
+.resume-modern .res-tagline{color:rgba(255,255,255,0.65)}
+.resume-modern .res-section h2{color:#1e4f9a;border-color:#1e4f9a}
+.resume-modern .res-badge{background:#1e4f9a}
+.resume-modern .res-skill-tag{background:#e8f0fe;color:#1565c0;border-color:#bbdefb}
+
+/* ===== MINIMAL TEMPLATE ===== */
+.resume-minimal .res-header{text-align:left;border-bottom:none;padding-left:18px;border-left:4px solid #FBC02D}
+.resume-minimal .res-header h1{font-size:28px;color:#222}
+.resume-minimal .res-section h2{border-bottom:1px solid #e0e0e0;color:#555;font-size:12px;letter-spacing:2px}
+.resume-minimal .res-edu-card{background:transparent;border:none;padding:0}
+.resume-minimal .res-academic-item{background:transparent;border:1px solid #e0e0e0}
+.resume-minimal .res-skill-tag{background:transparent;border:1px solid #999;color:#333;border-radius:4px}
+.resume-minimal .res-summary-item{background:transparent;border:1px dashed #ccc}
+.resume-minimal .res-badge{background:#FBC02D;color:#222}
 
 @media(max-width:600px){
     .interview-questions-grid{grid-template-columns:1fr}

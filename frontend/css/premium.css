@@ -502,17 +502,7 @@ tr:hover {
     background: linear-gradient(90deg, #1e4f9a, #FBC02D, #C62828);
 }
 
-/* === FADE-IN ENHANCED === */
-.fade-in {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.fade-in.show {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* .fade-in styles removed — now handled by AOS library (data-aos="fade-up") */
 
 /* === SKILL TAGS PREMIUM === */
 .skill-tag {

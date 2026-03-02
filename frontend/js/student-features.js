@@ -276,21 +276,116 @@ async function renderResume() {
         if (!resumeProfile) resumeProfile = await getProfile();
         const p = resumeProfile;
         const template = document.getElementById("resumeTemplate").value;
-        const skills = (p.skills || []).join(" • ") || "Not specified";
+
+        const name = p.name || "Your Name";
+        const email = p.email || "";
+        const phone = p.phone || "";
+        const course = p.course || "Course";
+        const spec = p.specialization || "";
+        const batch = p.batch || "N/A";
+        const cgpa = p.cgpa ? p.cgpa.toFixed(2) : "N/A";
+        const tenth = p.tenthPercentage || "N/A";
+        const twelfth = p.twelfthPercentage || "N/A";
+        const skills = p.skills || [];
+        const regNum = p.registerNumber || "N/A";
+        const resumeUrl = p.resumeUrl || "";
+        const certCount = p.certificationCount || 0;
+        const placementStatus = p.placementStatus || "not-placed";
+        const backlogs = p.backlogs ?? "N/A";
+
+        // Contact line
+        const contactParts = [email, phone].filter(Boolean);
+        const contactLine = contactParts.join("  •  ");
+
+        // Skills HTML
+        const skillsHtml = skills.length > 0
+            ? skills.map(s => `<span class="res-skill-tag">${s}</span>`).join("")
+            : '<span class="res-na">No skills added yet</span>';
+
+        // Placement status badge
+        const statusMap = { "placed": "✅ Placed", "not-placed": "🔍 Seeking Opportunities", "opted-out": "⏸ Opted Out" };
+        const statusLabel = statusMap[placementStatus] || "🔍 Seeking Opportunities";
+
+        // Build the resume based on template
         const cls = template === "modern" ? "resume-modern" : template === "minimal" ? "resume-minimal" : "resume-classic";
+
         el.innerHTML = `<div class="resume-page ${cls}">
-            <div class="res-header"><h1>${p.name || "Your Name"}</h1>
-                <div class="res-contact">${p.email || ""} ${p.phone ? " | "+p.phone : ""}</div>
+            <div class="res-header">
+                <h1>${name}</h1>
+                <div class="res-contact">${contactLine}</div>
+                <div class="res-tagline">${course}${spec ? " — " + spec : ""} | ${statusLabel}</div>
             </div>
-            <div class="res-section"><h2>Education</h2><hr>
-                <p class="res-edu-title"><strong>${p.course || "Course"} — ${p.specialization || ""}</strong></p>
-                <p>Sri GCSR College, Rajam | Batch: ${p.batch || "N/A"}</p>
-                <p>CGPA: ${p.cgpa || "N/A"} | 10th: ${p.tenthPercentage || "N/A"}% | 12th: ${p.twelfthPercentage || "N/A"}%</p>
+
+            <div class="res-body">
+                <div class="res-section">
+                    <h2><span class="res-section-icon">🎯</span> Career Objective</h2>
+                    <p>Aspiring ${spec || course} graduate seeking opportunities to apply academic knowledge and technical skills in a challenging professional environment. Eager to contribute to organizational goals while growing as a professional.</p>
+                </div>
+
+                <div class="res-section">
+                    <h2><span class="res-section-icon">🎓</span> Education</h2>
+                    <div class="res-edu-card">
+                        <div class="res-edu-row">
+                            <div class="res-edu-left">
+                                <strong>${course}${spec ? " (" + spec + ")" : ""}</strong>
+                                <span>Sri GCSR College of Engineering & Technology, Rajam</span>
+                            </div>
+                            <div class="res-edu-right">
+                                <span class="res-badge">Batch ${batch}</span>
+                                <span class="res-cgpa">CGPA: <strong>${cgpa}</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="res-academic-grid">
+                        <div class="res-academic-item">
+                            <span class="res-academic-label">10th Standard</span>
+                            <span class="res-academic-value">${tenth}%</span>
+                        </div>
+                        <div class="res-academic-item">
+                            <span class="res-academic-label">12th Standard / Diploma</span>
+                            <span class="res-academic-value">${twelfth}%</span>
+                        </div>
+                        <div class="res-academic-item">
+                            <span class="res-academic-label">Backlogs</span>
+                            <span class="res-academic-value">${backlogs}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="res-section">
+                    <h2><span class="res-section-icon">💻</span> Technical Skills</h2>
+                    <div class="res-skills-grid">${skillsHtml}</div>
+                </div>
+
+                ${certCount > 0 ? `<div class="res-section">
+                    <h2><span class="res-section-icon">📜</span> Certifications</h2>
+                    <p>${certCount} industry certification${certCount > 1 ? "s" : ""} completed (IBM / ICT Academy)</p>
+                </div>` : ""}
+
+                ${resumeUrl ? `<div class="res-section">
+                    <h2><span class="res-section-icon">🔗</span> Portfolio / Resume Link</h2>
+                    <p><a href="${resumeUrl}" target="_blank" class="res-link">${resumeUrl}</a></p>
+                </div>` : ""}
+
+                <div class="res-section">
+                    <h2><span class="res-section-icon">📋</span> Profile Summary</h2>
+                    <div class="res-summary-grid">
+                        <div class="res-summary-item"><span>Register Number</span><strong>${regNum}</strong></div>
+                        <div class="res-summary-item"><span>College</span><strong>Sri GCSR, Rajam</strong></div>
+                        <div class="res-summary-item"><span>Batch</span><strong>${batch}</strong></div>
+                        <div class="res-summary-item"><span>Status</span><strong>${statusLabel}</strong></div>
+                    </div>
+                </div>
+
+                <div class="res-section res-declaration">
+                    <h2><span class="res-section-icon">✍️</span> Declaration</h2>
+                    <p>I hereby declare that the information furnished above is true to the best of my knowledge and belief.</p>
+                    <div class="res-signature">
+                        <div class="res-sig-line"></div>
+                        <span>${name}</span>
+                    </div>
+                </div>
             </div>
-            <div class="res-section"><h2>Skills</h2><hr><p>${skills}</p></div>
-            <div class="res-section"><h2>Register Number</h2><hr><p>${p.registerNumber || "N/A"}</p></div>
-            ${p.resumeUrl ? `<div class="res-section"><h2>Resume Link</h2><hr><p><a href="${p.resumeUrl}" target="_blank">${p.resumeUrl}</a></p></div>` : ""}
-            <div class="res-section"><h2>Declaration</h2><hr><p>I hereby declare that the above information is true to the best of my knowledge.</p></div>
         </div>`;
     } catch (e) { el.innerHTML = '<div class="empty-state">Please complete your profile first</div>'; }
 }
@@ -299,15 +394,74 @@ function printResume() {
     const content = document.getElementById("resumePreview").innerHTML;
     const win = window.open('', '_blank');
     win.document.write(`<!DOCTYPE html><html><head><title>Resume</title><style>
-        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;padding:40px;color:#222;background:#fff}
-        .resume-page{max-width:700px;margin:0 auto}.res-header{text-align:center;margin-bottom:24px;border-bottom:2px solid #0B1D3A;padding-bottom:16px}
-        .res-header h1{font-size:28px;color:#0B1D3A}.res-contact{font-size:13px;color:#555;margin-top:6px}
-        .res-section{margin:16px 0}.res-section h2{font-size:16px;color:#0B1D3A;text-transform:uppercase;letter-spacing:1px}
-        .res-section hr{border:none;border-top:1px solid #ddd;margin:6px 0 10px}.res-section p{font-size:14px;line-height:1.6}
-        .res-edu-title{font-size:15px}a{color:#1e4f9a}@media print{body{padding:20px}}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter','Segoe UI',sans-serif;padding:40px;color:#333;background:#fff;line-height:1.6}
+        .resume-page{max-width:750px;margin:0 auto}
+        .res-body{margin-top:20px}
+        .res-header{text-align:center;padding-bottom:20px;margin-bottom:8px;border-bottom:3px solid #0B1D3A}
+        .res-header h1{font-size:32px;font-weight:800;color:#0B1D3A;letter-spacing:-0.5px;margin:0 0 8px}
+        .res-contact{font-size:13px;color:#555;letter-spacing:0.3px}
+        .res-tagline{font-size:12px;color:#888;margin-top:6px;font-weight:500}
+        .res-section{margin-bottom:22px}
+        .res-section h2{font-size:14px;font-weight:700;color:#0B1D3A;text-transform:uppercase;letter-spacing:1.5px;border-bottom:2px solid #0B1D3A;padding-bottom:6px;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+        .res-section-icon{font-size:14px}
+        .res-section p{font-size:13.5px;line-height:1.7;color:#444}
+        .res-edu-card{background:#f8f9fb;border:1px solid #e8ecf0;border-radius:8px;padding:16px 18px;margin-bottom:12px}
+        .res-edu-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+        .res-edu-left{display:flex;flex-direction:column;gap:3px}
+        .res-edu-left strong{font-size:15px;color:#1a1a1a}
+        .res-edu-left span{font-size:12px;color:#777}
+        .res-edu-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+        .res-badge{font-size:11px;background:#0B1D3A;color:#fff;padding:3px 10px;border-radius:12px;font-weight:600}
+        .res-cgpa{font-size:13px;color:#0B1D3A;font-weight:600}
+        .res-cgpa strong{font-size:18px}
+        .res-academic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+        .res-academic-item{text-align:center;padding:10px;background:#f4f5f8;border-radius:8px;border:1px solid #e8ecf0}
+        .res-academic-label{display:block;font-size:10px;text-transform:uppercase;color:#888;font-weight:600;letter-spacing:0.5px;margin-bottom:2px}
+        .res-academic-value{display:block;font-size:18px;font-weight:800;color:#0B1D3A}
+        .res-skills-grid{display:flex;flex-wrap:wrap;gap:8px}
+        .res-skill-tag{display:inline-block;padding:5px 14px;background:#eef3fa;color:#1e4f9a;border-radius:20px;font-size:12px;font-weight:600;border:1px solid #d0dff2}
+        .res-na{font-size:13px;color:#aaa;font-style:italic}
+        .res-summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        .res-summary-item{padding:10px 14px;background:#f8f9fb;border-radius:8px;border:1px solid #e8ecf0;display:flex;flex-direction:column;gap:2px}
+        .res-summary-item span{font-size:10px;text-transform:uppercase;color:#888;font-weight:600;letter-spacing:0.3px}
+        .res-summary-item strong{font-size:14px;color:#1a1a1a}
+        .res-link{color:#1e4f9a;text-decoration:none;font-weight:500}
+        .res-declaration{margin-top:28px;padding-top:16px;border-top:1px dashed #ccc}
+        .res-signature{margin-top:24px;text-align:right}
+        .res-sig-line{width:180px;height:1px;background:#333;margin-left:auto;margin-bottom:4px}
+        .res-signature span{font-size:14px;font-weight:700;color:#0B1D3A}
+        .resume-modern .res-header{background:linear-gradient(135deg,#0B1D3A,#1e4f9a);color:#fff;padding:32px 36px;margin:-40px -40px 24px;border-bottom:none}
+        .resume-modern .res-header h1{color:#fff}.resume-modern .res-contact{color:rgba(255,255,255,0.85)}
+        .resume-modern .res-tagline{color:rgba(255,255,255,0.65)}
+        .resume-minimal .res-header{text-align:left;border-bottom:none;padding-left:18px;border-left:4px solid #FBC02D}
+        .resume-minimal .res-header h1{font-size:28px;color:#222}
+        @media print{body{padding:20px}.res-edu-card,.res-academic-item,.res-summary-item{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
     </style></head><body>${content}</body></html>`);
     win.document.close();
     setTimeout(() => { win.print(); }, 500);
+}
+
+function downloadResumePDF() {
+    const element = document.getElementById("resumePreview");
+    if (!element || !element.innerHTML.trim() || element.querySelector('.empty-state') || element.querySelector('.loading-state')) {
+        showToast("Please generate your resume first", "error");
+        return;
+    }
+    const opt = {
+        margin: [10, 10, 10, 10],
+        filename: `Resume_${(resumeProfile?.name || 'Student').replace(/\s+/g, '_')}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    // Clone and style for PDF (white background)
+    const clone = element.cloneNode(true);
+    clone.style.background = '#fff';
+    clone.style.color = '#222';
+    clone.style.padding = '20px';
+    showToast("Generating PDF...", "info");
+    html2pdf().set(opt).from(clone).save();
 }
 
 // ===== STUDY PLANNER =====

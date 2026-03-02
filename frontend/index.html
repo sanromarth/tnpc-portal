@@ -19,11 +19,14 @@
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
 <title>Sri GCSR College | Training & Placement Portal</title>
 <link rel="stylesheet" href="css/design-system.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/premium.css">
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/enterprise-upgrade.css">
     <link rel="stylesheet" href="css/pwa-enhancements.css">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 </head>
 <body>
 
@@ -31,7 +34,7 @@
 Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved by UGC
 </div>
 
-<header class="navbar" id="navbar">
+<header class="navbar" id="navbar" x-data="{ mobileOpen: false, certOpen: false }" @scroll.window="$el.classList.toggle('scrolled', window.scrollY > 50)">
 
 <div class="nav-left">
 <img src="assets/logos/sgcsr-logo.png" class="college-logo" alt="Sri GCSR College Logo">
@@ -41,15 +44,15 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 </div>
 </div>
 
-<div class="hamburger" id="hamburger" role="button" aria-label="Toggle navigation menu" aria-expanded="false" tabindex="0">
+<div class="hamburger" :class="{ active: mobileOpen }" @click="mobileOpen = !mobileOpen" role="button" aria-label="Toggle navigation menu" :aria-expanded="mobileOpen.toString()" tabindex="0">
 <span></span><span></span><span></span>
 </div>
 
-<nav class="nav-links" id="navLinks" aria-label="Main navigation">
-  <a href="index.html" class="active">Home</a>
-  <a href="about.html">About</a>
-  <div class="dropdown" id="certDropdown">
-    <a href="#" id="certToggle">
+<nav class="nav-links" :class="{ active: mobileOpen }" aria-label="Main navigation">
+  <a href="index.html" class="active" @click="mobileOpen = false">Home</a>
+  <a href="about.html" @click="mobileOpen = false">About</a>
+  <div class="dropdown" :class="{ active: certOpen }" @click.outside="certOpen = false">
+    <a href="#" @click.prevent="certOpen = !certOpen">
       Certificate Programs <span class="arrow">▾</span>
     </a>
     <div class="dropdown-menu">
@@ -57,10 +60,10 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
       <a href="certifications.html">ICT Certifications</a>
     </div>
   </div>
-  <a href="placements.html">Placements</a>
-  <a href="mous.html">MoUs</a>
-  <a href="recruiter.html">Recruiters</a>
-  <a href="contact.html">Contact</a>
+  <a href="placements.html" @click="mobileOpen = false">Placements</a>
+  <a href="mous.html" @click="mobileOpen = false">MoUs</a>
+  <a href="recruiter.html" @click="mobileOpen = false">Recruiters</a>
+  <a href="contact.html" @click="mobileOpen = false">Contact</a>
   <button id="loginBtn" type="button" class="btn-yellow">Login</button>
   <button id="registerBtn" type="button" class="btn-outline">Register</button>
 </nav>
@@ -83,7 +86,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 </div>
 <style>@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}</style>
 
-<section class="hero fade-in" style="position:relative;">
+<section class="hero" data-aos="fade-up" style="position:relative;">
 <canvas id="particleCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
 <div class="hero-orbs">
   <div class="orb orb-1"></div>
@@ -100,7 +103,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 </div>
 </section>
 
-<section class="stats fade-in">
+<section class="stats" data-aos="fade-up">
 <div class="container">
 <div class="stat-box">
 <h2 class="counter" data-target="98">0</h2>
@@ -120,7 +123,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 </div>
 </section>
 
-<section class="features-section fade-in">
+<section class="features-section" data-aos="fade-up">
 <h2 class="section-heading">Why Choose Us</h2>
 <div class="features-grid container">
   <div class="feature-card">
@@ -146,7 +149,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 </div>
 </section>
 
-<section class="gmr-section fade-in">
+<section class="gmr-section" data-aos="fade-up">
 <div>
 <h2>Strategic Industry Partner</h2>
 <p>Collaborating with GMR Group and leading corporate organizations to provide world-class placement opportunities and industry exposure.</p>
@@ -154,7 +157,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 <img src="assets/logos/gmr-logo.png" alt="GMR Group Logo">
 </section>
 
-<section class="recruiter-section fade-in">
+<section class="recruiter-section" data-aos="fade-up">
 <h2>Top Recruiters</h2>
 <div class="carousel-track">
 <img loading="lazy" src="assets/images/recruiters/tcs.png" alt="TCS">
@@ -178,7 +181,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 </div>
 </section>
 
-<section class="cta-section fade-in">
+<section class="cta-section" data-aos="fade-up">
 <div class="container" style="text-align:center;padding:60px 24px;">
   <h2 class="section-heading" style="margin-bottom:16px;">Ready to Launch Your Career?</h2>
   <p style="color:rgba(255,255,255,0.6);font-size:16px;max-width:600px;margin:0 auto 28px;line-height:1.6;">Whether you're a student seeking placement opportunities or a recruiter looking for top talent — we've got you covered.</p>
@@ -226,7 +229,8 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 
 <script src="js/api.js" defer></script>
 <script src="js/main.js" defer></script>
-<script src="js/animations.js" defer></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>AOS.init({ duration: 700, once: true, offset: 80 });</script>
 <script src="js/counter.js" defer></script>
 <script src="js/auth.js" defer></script>
 <script>
@@ -265,9 +269,20 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
   observer.observe(c.closest('.hero')||c);
   draw();
 
-  const text='Corporate Integrated Placement & Certification Portal — Building bridges between talent and opportunity since 2005.';
-  const el=document.getElementById('heroTyping');
-  if(el){let i=0;function type(){if(i<=text.length){el.textContent=text.substring(0,i);i++;setTimeout(type,25);}};type();}
+  new Typed('#heroTyping', {
+    strings: [
+      'Corporate Integrated Placement & Certification Portal',
+      'Building bridges between talent and opportunity since 2005',
+      'Empowering 1000+ students with industry-ready skills',
+      'Partnered with 100+ leading companies for placements'
+    ],
+    typeSpeed: 30,
+    backSpeed: 15,
+    backDelay: 2500,
+    loop: true,
+    showCursor: true,
+    cursorChar: '|'
+  });
 })();
 </script>
 <script src="js/pwa.js" defer></script>

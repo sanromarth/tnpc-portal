@@ -262,7 +262,8 @@ async function loadJobsList() {
 }
 
 async function removeJob(id) {
-    if (!confirm("Delete this job?")) return;
+    const result = await Swal.fire({ title: 'Delete this job?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#C62828', confirmButtonText: 'Yes, delete', background: '#0f1b2d', color: '#e0e0e0' });
+    if (!result.isConfirmed) return;
     try { await deleteJob(id); showToast("Job deleted", "success"); loadJobsList(); }
     catch (e) { showToast("Failed", "error"); }
 }
@@ -346,7 +347,7 @@ document.getElementById("addPlacementForm").addEventListener("submit", async (e)
     } catch (e) { showToast(e.message || "Failed", "error"); }
 });
 
-async function removePlacement(id) { if (!confirm("Delete?")) return; try { await deletePlacement(id); showToast("Deleted", "success"); loadPlacementsList(); } catch (e) { showToast("Failed", "error"); } }
+async function removePlacement(id) { const r = await Swal.fire({ title: 'Delete this placement record?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#C62828', confirmButtonText: 'Yes, delete', background: '#0f1b2d', color: '#e0e0e0' }); if (!r.isConfirmed) return; try { await deletePlacement(id); showToast("Deleted", "success"); loadPlacementsList(); } catch (e) { showToast("Failed", "error"); } }
 
 async function loadTrainingsList() {
     const el = document.getElementById("trainingsList"); el.innerHTML = '<div class="loading-state">Loading...</div>';
@@ -370,7 +371,7 @@ document.getElementById("addTrainingForm").addEventListener("submit", async (e) 
         showToast("Event added! 📅", "success"); document.getElementById("addTrainingForm").reset(); loadTrainingsList();
     } catch (e) { showToast(e.message || "Failed", "error"); }
 });
-async function removeTraining(id) { if (!confirm("Delete?")) return; try { await deleteTraining(id); showToast("Deleted", "success"); loadTrainingsList(); } catch (e) { showToast("Failed", "error"); } }
+async function removeTraining(id) { const r = await Swal.fire({ title: 'Delete this event?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#C62828', confirmButtonText: 'Yes, delete', background: '#0f1b2d', color: '#e0e0e0' }); if (!r.isConfirmed) return; try { await deleteTraining(id); showToast("Deleted", "success"); loadTrainingsList(); } catch (e) { showToast("Failed", "error"); } }
 
 
 
@@ -397,4 +398,4 @@ async function loadAnnouncementsList() {
         }).join('') + '</div>';
     } catch (e) { el.innerHTML = '<div class="empty-state">Failed to load</div>'; }
 }
-async function removeAnnouncement(id) { if (!confirm("Delete?")) return; try { await deleteNotification(id); showToast("Deleted", "success"); loadAnnouncementsList(); } catch (e) { showToast("Failed", "error"); } }
+async function removeAnnouncement(id) { const r = await Swal.fire({ title: 'Delete this announcement?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#C62828', confirmButtonText: 'Yes, delete', background: '#0f1b2d', color: '#e0e0e0' }); if (!r.isConfirmed) return; try { await deleteNotification(id); showToast("Deleted", "success"); loadAnnouncementsList(); } catch (e) { showToast("Failed", "error"); } }

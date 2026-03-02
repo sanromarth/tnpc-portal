@@ -15,11 +15,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
 <link rel="stylesheet" href="css/design-system.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/premium.css">
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/enterprise-upgrade.css">
     <link rel="stylesheet" href="css/pwa-enhancements.css">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body>
 
@@ -27,7 +29,7 @@
 Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved by UGC
 </div>
 
-<header class="navbar" id="navbar">
+<header class="navbar" id="navbar" x-data="{ mobileOpen: false, certOpen: false }" @scroll.window="$el.classList.toggle('scrolled', window.scrollY > 50)">
 <div class="nav-left">
 <img src="assets/logos/sgcsr-logo.png" class="college-logo" alt="Sri GCSR College Logo">
 <div>
@@ -35,35 +37,35 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
   <p>Training & Placement Cell</p>
 </div>
 </div>
-<div class="hamburger" id="hamburger" role="button" aria-label="Toggle navigation menu" aria-expanded="false" tabindex="0">
+<div class="hamburger" :class="{ active: mobileOpen }" @click="mobileOpen = !mobileOpen" role="button" aria-label="Toggle navigation menu" :aria-expanded="mobileOpen.toString()" tabindex="0">
 <span></span><span></span><span></span>
 </div>
-<nav class="nav-links" id="navLinks" aria-label="Main navigation">
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <div class="dropdown" id="certDropdown">
-    <a href="#" id="certToggle">Certificate Programs <span class="arrow">▾</span></a>
+<nav class="nav-links" :class="{ active: mobileOpen }" aria-label="Main navigation">
+  <a href="index.html" @click="mobileOpen = false">Home</a>
+  <a href="about.html" @click="mobileOpen = false">About</a>
+  <div class="dropdown" :class="{ active: certOpen }" @click.outside="certOpen = false">
+    <a href="#" @click.prevent="certOpen = !certOpen">Certificate Programs <span class="arrow">▾</span></a>
     <div class="dropdown-menu">
       <a href="certifications.html">IBM Certifications</a>
       <a href="certifications.html">ICT Certifications</a>
     </div>
   </div>
-  <a href="placements.html">Placements</a>
-  <a href="mous.html">MoUs</a>
-  <a href="recruiter.html" class="active">Recruiters</a>
-  <a href="contact.html">Contact</a>
+  <a href="placements.html" @click="mobileOpen = false">Placements</a>
+  <a href="mous.html" @click="mobileOpen = false">MoUs</a>
+  <a href="recruiter.html" class="active" @click="mobileOpen = false">Recruiters</a>
+  <a href="contact.html" @click="mobileOpen = false">Contact</a>
   <button id="loginBtn" type="button" class="btn-yellow">Login</button>
   <button id="registerBtn" type="button" class="btn-outline">Register</button>
 </nav>
 <img src="assets/logos/gmr-logo.png" class="gmr-logo" alt="GMR Group Logo">
 </header>
 
-<section class="page-header fade-in">
+<section class="page-header" data-aos="fade-up">
 <h1>Our Recruiting Partners</h1>
 <p>50+ companies partnering with us for campus placements</p>
 </section>
 
-<section class="recruiter-stats fade-in">
+<section class="recruiter-stats" data-aos="fade-up">
 <div class="container">
   <div class="stat-box">
     <h2>50+</h2>
@@ -85,47 +87,47 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 </section>
 
 <section class="content-section">
-  <div class="recruiter-card mou-card fade-in">
+  <div class="recruiter-card mou-card" data-aos="fade-up">
     <h3>💻 TCS</h3>
     <p>Tata Consultancy Services — One of our largest recruiting partners with 200+ offers made through on-campus drives.</p>
   </div>
 
-  <div class="recruiter-card mou-card fade-in">
+  <div class="recruiter-card mou-card" data-aos="fade-up">
     <h3>🖥️ Infosys</h3>
     <p>Infosys Limited — Regular campus recruitment drives, Springboard certifications, and InfyTQ program access.</p>
   </div>
 
-  <div class="recruiter-card mou-card fade-in">
+  <div class="recruiter-card mou-card" data-aos="fade-up">
     <h3>📊 Cognizant</h3>
     <p>Cognizant Technology Solutions — Digital Nurture and GenC programs with dedicated recruitment slots.</p>
   </div>
 
-  <div class="recruiter-card mou-card fade-in">
+  <div class="recruiter-card mou-card" data-aos="fade-up">
     <h3>🏗️ Capgemini</h3>
     <p>Capgemini — Engineering and technology services recruitment with competitive packages and career growth.</p>
   </div>
 
-  <div class="recruiter-card mou-card fade-in">
+  <div class="recruiter-card mou-card" data-aos="fade-up">
     <h3>🚗 Mahindra</h3>
     <p>Mahindra & Mahindra — Diverse hiring across tech and management roles for degree graduates.</p>
   </div>
 
-  <div class="recruiter-card mou-card fade-in">
+  <div class="recruiter-card mou-card" data-aos="fade-up">
     <h3>🏢 GMR Group</h3>
     <p>GMR Group — Strategic industry partner providing project exposure and guaranteed placement opportunities.</p>
   </div>
 
-  <div class="recruiter-card mou-card fade-in">
+  <div class="recruiter-card mou-card" data-aos="fade-up">
     <h3>💊 Hetero</h3>
     <p>Hetero Drugs — Pharmaceutical industry leader recruiting from science and commerce departments.</p>
   </div>
 
-  <div class="recruiter-card mou-card fade-in">
+  <div class="recruiter-card mou-card" data-aos="fade-up">
     <h3>🧬 Neuland Labs</h3>
     <p>Neuland Laboratories — Active ingredient specialists hiring graduates for quality and research roles.</p>
   </div>
 
-  <div class="recruiter-card mou-card fade-in">
+  <div class="recruiter-card mou-card" data-aos="fade-up">
     <h3>🏍️ Hero MotoCorp</h3>
     <p>Hero MotoCorp — Manufacturing and management trainee positions for motivated graduates.</p>
   </div>
@@ -165,7 +167,8 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 </footer>
 <script src="js/api.js" defer></script>
 <script src="js/main.js" defer></script>
-<script src="js/animations.js" defer></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>AOS.init({ duration: 700, once: true, offset: 80 });</script>
 <script src="js/pwa.js" defer></script>
 </body>
 </html>

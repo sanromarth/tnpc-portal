@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/auth.css">
     <link rel="stylesheet" href="css/pwa-enhancements.css">
     <link rel="stylesheet" href="css/enterprise-upgrade.css">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         .otp-section { display: none; }
         .otp-section.active { display: block; }
@@ -78,10 +79,10 @@
             <span class="input-icon">📧</span>
             <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
           </div>
-          <div class="input-group">
+          <div class="input-group" x-data="{ showPw: false }">
             <span class="input-icon">🔒</span>
-            <input type="password" name="password" id="regPassword" placeholder="Password (min 6 characters)" required minlength="6" autocomplete="new-password">
-            <button type="button" class="password-toggle" onclick="togglePassword('regPassword', this)" aria-label="Toggle password visibility">👁</button>
+            <input :type="showPw ? 'text' : 'password'" name="password" id="regPassword" placeholder="Password (min 6 characters)" required minlength="6" autocomplete="new-password">
+            <button type="button" class="password-toggle" @click="showPw = !showPw" aria-label="Toggle password visibility" x-text="showPw ? '🙈' : '👁'"></button>
           </div>
           <div class="password-strength" id="passwordStrength">
             <div class="password-strength-bar" id="strengthBar"></div>
@@ -119,11 +120,6 @@
 <script src="js/auth.js"></script>
 <script src="js/register.js"></script>
 <script>
-function togglePassword(inputId, btn) {
-    const input = document.getElementById(inputId);
-    if (input.type === "password") { input.type = "text"; btn.textContent = "🙈"; }
-    else { input.type = "password"; btn.textContent = "👁"; }
-}
 const regPassword = document.getElementById("regPassword");
 const strengthBar = document.getElementById("strengthBar");
 if (regPassword && strengthBar) {

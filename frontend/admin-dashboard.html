@@ -22,6 +22,13 @@
   <link rel="stylesheet" href="css/premium-animations.css">
     <link rel="stylesheet" href="css/enterprise-upgrade.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/shift-away.css">
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 </head>
 <body>
 
@@ -110,19 +117,19 @@
         <div class="quick-actions glass-card mb-20">
           <h3>⚡ Quick Actions</h3>
           <div class="qa-grid">
-            <button class="qa-btn" onclick="showAdminSection('postjob', document.querySelector('[onclick*=postjob]'))">
+            <button class="qa-btn" data-tippy-content="Post a new job opening" onclick="showAdminSection('postjob', document.querySelector('[onclick*=postjob]'))">
               <span class="qa-icon">💼</span>Post Job
             </button>
-            <button class="qa-btn" onclick="showAdminSection('announcements', document.querySelector('[onclick*=announcements]'))">
+            <button class="qa-btn" data-tippy-content="Send announcement to all students" onclick="showAdminSection('announcements', document.querySelector('[onclick*=announcements]'))">
               <span class="qa-icon">📢</span>Announce
             </button>
-            <button class="qa-btn" onclick="showAdminSection('trainings', document.querySelector('[onclick*=trainings]'))">
+            <button class="qa-btn" data-tippy-content="Schedule a training event" onclick="showAdminSection('trainings', document.querySelector('[onclick*=trainings]'))">
               <span class="qa-icon">📅</span>Add Event
             </button>
-            <button class="qa-btn" onclick="exportStudents()">
+            <button class="qa-btn" data-tippy-content="Download students data as CSV file" onclick="exportStudents()">
               <span class="qa-icon">📥</span>Export CSV
             </button>
-            <button class="qa-btn" onclick="showAdminSection('applications', document.querySelector('[onclick*=applications]'))">
+            <button class="qa-btn" data-tippy-content="Review pending job applications" onclick="showAdminSection('applications', document.querySelector('[onclick*=applications]'))">
               <span class="qa-icon">📋</span>Review Apps
             </button>
 
@@ -130,10 +137,10 @@
         </div>
 
         <div class="overview-cards">
-          <div class="stat-card gradient-blue"><div class="stat-icon">👨‍🎓</div><div class="stat-info"><span class="stat-label">Total Students</span><span class="stat-value counter" id="statStudents" data-target="0">0</span></div></div>
-          <div class="stat-card gradient-green"><div class="stat-icon">✅</div><div class="stat-info"><span class="stat-label">Placed</span><span class="stat-value counter" id="statPlaced" data-target="0">0</span></div></div>
-          <div class="stat-card gradient-gold"><div class="stat-icon">💼</div><div class="stat-info"><span class="stat-label">Active Jobs</span><span class="stat-value counter" id="statJobs" data-target="0">0</span></div></div>
-          <div class="stat-card gradient-red"><div class="stat-icon">📋</div><div class="stat-info"><span class="stat-label">Applications</span><span class="stat-value counter" id="statApps" data-target="0">0</span></div></div>
+          <div class="stat-card gradient-blue" data-tippy-content="Total registered students in the system"><div class="stat-icon">👨‍🎓</div><div class="stat-info"><span class="stat-label">Total Students</span><span class="stat-value counter" id="statStudents" data-target="0">0</span></div></div>
+          <div class="stat-card gradient-green" data-tippy-content="Students who have been placed in companies"><div class="stat-icon">✅</div><div class="stat-info"><span class="stat-label">Placed</span><span class="stat-value counter" id="statPlaced" data-target="0">0</span></div></div>
+          <div class="stat-card gradient-gold" data-tippy-content="Currently active job postings"><div class="stat-icon">💼</div><div class="stat-info"><span class="stat-label">Active Jobs</span><span class="stat-value counter" id="statJobs" data-target="0">0</span></div></div>
+          <div class="stat-card gradient-red" data-tippy-content="Total applications received across all jobs"><div class="stat-icon">📋</div><div class="stat-info"><span class="stat-label">Applications</span><span class="stat-value counter" id="statApps" data-target="0">0</span></div></div>
         </div>
 
         <!-- Placement Funnel -->
@@ -488,5 +495,10 @@
 <script src="js/app-loader.js"></script>
 <script src="js/micro-interactions.js"></script>
 <script src="js/pwa.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    tippy('[data-tippy-content]', { animation: 'shift-away', theme: 'material', arrow: true, delay: [200, 0] });
+  });
+</script>
 </body>
 </html>

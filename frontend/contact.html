@@ -15,11 +15,21 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
 <link rel="stylesheet" href="css/design-system.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/premium.css">
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/enterprise-upgrade.css">
 <link rel="stylesheet" href="css/pwa-enhancements.css">
+<script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.4/dist/htmx.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">
+<script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+  document.addEventListener('htmx:beforeRequest', () => NProgress.start());
+  document.addEventListener('htmx:afterRequest', () => NProgress.done());
+</script>
+<script src="https://unpkg.com/imask@7.6.0/dist/imask.min.js"></script>
 <style>
 .contact-hero {
   background: linear-gradient(135deg, #0B1D3A 0%, #1e4f9a 60%, #C62828 100%);
@@ -149,7 +159,7 @@
 Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved by UGC
 </div>
 
-<header class="navbar" id="navbar">
+<header class="navbar" id="navbar" x-data="{ mobileOpen: false, certOpen: false }" @scroll.window="$el.classList.toggle('scrolled', window.scrollY > 50)">
 <div class="nav-left">
 <img src="assets/logos/sgcsr-logo.png" class="college-logo" alt="Sri GCSR College Logo">
 <div>
@@ -157,23 +167,23 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
   <p>Training & Placement Cell</p>
 </div>
 </div>
-<div class="hamburger" id="hamburger" role="button" aria-label="Toggle navigation menu" aria-expanded="false" tabindex="0">
+<div class="hamburger" :class="{ active: mobileOpen }" @click="mobileOpen = !mobileOpen" role="button" aria-label="Toggle navigation menu" :aria-expanded="mobileOpen.toString()" tabindex="0">
 <span></span><span></span><span></span>
 </div>
-<nav class="nav-links" id="navLinks" aria-label="Main navigation">
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <div class="dropdown" id="certDropdown">
-    <a href="#" id="certToggle">Certificate Programs <span class="arrow">▾</span></a>
+<nav class="nav-links" :class="{ active: mobileOpen }" aria-label="Main navigation">
+  <a href="index.html" @click="mobileOpen = false">Home</a>
+  <a href="about.html" @click="mobileOpen = false">About</a>
+  <div class="dropdown" :class="{ active: certOpen }" @click.outside="certOpen = false">
+    <a href="#" @click.prevent="certOpen = !certOpen">Certificate Programs <span class="arrow">▾</span></a>
     <div class="dropdown-menu">
       <a href="certifications.html">IBM Certifications</a>
       <a href="certifications.html">ICT Certifications</a>
     </div>
   </div>
-  <a href="placements.html">Placements</a>
-  <a href="mous.html">MoUs</a>
-  <a href="recruiter.html">Recruiters</a>
-  <a href="contact.html" class="active">Contact</a>
+  <a href="placements.html" @click="mobileOpen = false">Placements</a>
+  <a href="mous.html" @click="mobileOpen = false">MoUs</a>
+  <a href="recruiter.html" @click="mobileOpen = false">Recruiters</a>
+  <a href="contact.html" class="active" @click="mobileOpen = false">Contact</a>
   <button id="loginBtn" type="button" class="btn-yellow">Login</button>
   <button id="registerBtn" type="button" class="btn-outline">Register</button>
 </nav>
@@ -189,35 +199,35 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 
   <div class="contact-grid">
     <div class="contact-info-cards">
-      <div class="info-card fade-in">
+      <div class="info-card" data-aos="fade-up">
         <div class="info-icon blue">📍</div>
         <div class="info-content">
           <h3>Visit Us</h3>
           <p>Sri GCSR College, Rajam<br>Vizianagaram District, AP - 532127</p>
         </div>
       </div>
-      <div class="info-card fade-in">
+      <div class="info-card" data-aos="fade-up">
         <div class="info-icon red">📞</div>
         <div class="info-content">
           <h3>Call Us</h3>
           <p><a href="tel:+918639918230">86399 18230</a> • <a href="tel:+918941251336">08941-251336</a></p>
         </div>
       </div>
-      <div class="info-card fade-in">
+      <div class="info-card" data-aos="fade-up">
         <div class="info-icon gold">📧</div>
         <div class="info-content">
           <h3>Email Us</h3>
           <p><a href="mailto:placements@srigcsrcollege.org">placements@srigcsrcollege.org</a></p>
         </div>
       </div>
-      <div class="info-card fade-in">
+      <div class="info-card" data-aos="fade-up">
         <div class="info-icon green">🕐</div>
         <div class="info-content">
           <h3>Office Hours</h3>
           <p>Mon – Sat: 9:00 AM – 5:00 PM<br>Sunday: Closed</p>
         </div>
       </div>
-      <div class="info-card fade-in">
+      <div class="info-card" data-aos="fade-up">
         <div class="info-icon blue">🌐</div>
         <div class="info-content">
           <h3>Website</h3>
@@ -226,28 +236,32 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
       </div>
     </div>
 
-    <div class="contact-form-card fade-in">
+    <div class="contact-form-card" data-aos="fade-up">
       <h2>Send a Message</h2>
       <p class="subtitle">Fill out the form and we'll get back to you within 24 hours</p>
-      <form class="contact-form" id="contactForm">
+      <form class="contact-form" id="contactForm"
+            hx-post="/api/contact-html"
+            hx-target="closest .contact-form-card"
+            hx-swap="innerHTML"
+            hx-indicator="#contactSubmitBtn">
         <div class="form-row">
           <div class="form-group">
             <label for="contactName">Full Name *</label>
-            <input type="text" id="contactName" placeholder="Your name" required>
+            <input type="text" id="contactName" name="name" placeholder="Your name" required>
           </div>
           <div class="form-group">
             <label for="contactEmail">Email *</label>
-            <input type="email" id="contactEmail" placeholder="your@email.com" required>
+            <input type="email" id="contactEmail" name="email" placeholder="your@email.com" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label for="contactPhone">Phone</label>
-            <input type="tel" id="contactPhone" placeholder="Your phone number">
+            <input type="tel" id="contactPhone" name="phone" placeholder="Your phone number">
           </div>
           <div class="form-group">
             <label for="contactSubject">Subject *</label>
-            <select id="contactSubject" required>
+            <select id="contactSubject" name="subject" required>
               <option value="">Select Subject</option>
               <option value="placement">Placement Inquiry</option>
               <option value="recruitment">Recruitment Partnership</option>
@@ -260,9 +274,9 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
         </div>
         <div class="form-group" style="margin-bottom:16px;">
           <label for="contactMessage">Message *</label>
-          <textarea id="contactMessage" placeholder="Write your message here..." required></textarea>
+          <textarea id="contactMessage" name="message" placeholder="Write your message here..." required></textarea>
         </div>
-        <button type="submit">Send Message</button>
+        <button type="submit" id="contactSubmitBtn">Send Message</button>
       </form>
       <div class="form-success" id="formSuccess">
         <div class="success-icon">✅</div>
@@ -274,7 +288,7 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
   </div>
 
   <!-- Team Section -->
-  <section class="team-section fade-in">
+  <section class="team-section" data-aos="fade-up">
     <h2>Our Placement Team</h2>
     <p class="subtitle">Meet the people behind your career success</p>
     <div class="team-grid">
@@ -295,32 +309,32 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
   </section>
 
   <!-- FAQ Section -->
-  <section class="faq-section fade-in">
+  <section class="faq-section" data-aos="fade-up" x-data="{ openFaq: null }">
     <h2>Frequently Asked Questions</h2>
     <p class="subtitle">Quick answers to common placement queries</p>
     <div class="faq-grid">
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">Who is eligible for campus placements? <span class="arrow">▾</span></div>
+      <div class="faq-item" :class="{ open: openFaq === 1 }">
+        <div class="faq-question" @click="openFaq = openFaq === 1 ? null : 1">Who is eligible for campus placements? <span class="arrow">▾</span></div>
         <div class="faq-answer">Students with CGPA ≥ 6.0 and no active backlogs are eligible for campus placement drives. All degree programs are covered.</div>
       </div>
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">How do I register for placement drives? <span class="arrow">▾</span></div>
+      <div class="faq-item" :class="{ open: openFaq === 2 }">
+        <div class="faq-question" @click="openFaq = openFaq === 2 ? null : 2">How do I register for placement drives? <span class="arrow">▾</span></div>
         <div class="faq-answer">Register on the TNPC Portal using your college email. Complete your profile with academic details, and you'll be notified of upcoming drives.</div>
       </div>
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">What companies visit the campus? <span class="arrow">▾</span></div>
+      <div class="faq-item" :class="{ open: openFaq === 3 }">
+        <div class="faq-question" @click="openFaq = openFaq === 3 ? null : 3">What companies visit the campus? <span class="arrow">▾</span></div>
         <div class="faq-answer">50+ companies including TCS, Infosys, Cognizant, Capgemini, Mahindra, GMR Group, Hetero, and many more visit annually for recruitment.</div>
       </div>
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">Are certifications mandatory? <span class="arrow">▾</span></div>
+      <div class="faq-item" :class="{ open: openFaq === 4 }">
+        <div class="faq-question" @click="openFaq = openFaq === 4 ? null : 4">Are certifications mandatory? <span class="arrow">▾</span></div>
         <div class="faq-answer">Yes, IBM SkillBuild and ICT Academy certifications are mandatory for all students. These certifications are essential for enhancing your skills and ensuring you are placement-ready with a competitive edge.</div>
       </div>
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">What is the average package offered? <span class="arrow">▾</span></div>
+      <div class="faq-item" :class="{ open: openFaq === 5 }">
+        <div class="faq-question" @click="openFaq = openFaq === 5 ? null : 5">What is the average package offered? <span class="arrow">▾</span></div>
         <div class="faq-answer">The average CTC ranges from 2.5-3.5 LPA with the highest package being 6.5 LPA. Packages vary by company and role.</div>
       </div>
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">How can recruiters partner with us? <span class="arrow">▾</span></div>
+      <div class="faq-item" :class="{ open: openFaq === 6 }">
+        <div class="faq-question" @click="openFaq = openFaq === 6 ? null : 6">How can recruiters partner with us? <span class="arrow">▾</span></div>
         <div class="faq-answer">Recruiters can reach out via the contact form or email placements@srigcsrcollege.org. We welcome both on-campus and virtual recruitment drives.</div>
       </div>
     </div>
@@ -370,7 +384,8 @@ Affiliated to Dr. B.R. Ambedkar University | NAAC Accredited with B++ | Approved
 
 <script src="js/api.js"></script>
 <script src="js/main.js" defer></script>
-<script src="js/animations.js" defer></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>AOS.init({ duration: 700, once: true, offset: 80 });</script>
 <script>
 function toggleFAQ(el) {
     const item = el.parentElement;
@@ -435,5 +450,13 @@ function resetContactForm() {
 }
 </script>
 <script src="js/pwa.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const phoneEl = document.getElementById('contactPhone');
+    if (phoneEl) {
+      IMask(phoneEl, { mask: '+{91} 00000 00000' });
+    }
+  });
+</script>
 </body>
 </html>

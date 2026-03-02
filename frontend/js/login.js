@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     errorMsg.textContent = result.message || "Login failed. Please try again.";
                     errorMsg.classList.add("show");
                 } else {
-                    alert(result.message || "Login failed");
+                    Swal.fire({ icon: 'error', title: 'Login Failed', text: result.message || 'Please try again.', background: '#0f1b2d', color: '#e0e0e0', confirmButtonColor: '#C62828' });
                 }
             }
         } catch (err) {

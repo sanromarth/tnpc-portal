@@ -22,6 +22,15 @@
     <link rel="stylesheet" href="css/app-loader.css">
     <link rel="stylesheet" href="css/premium-animations.css">
     <link rel="stylesheet" href="css/enterprise-upgrade.css">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/shift-away.css">
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.css">
+<script src="https://cdn.jsdelivr.net/npm/driver.js@1.3.1/dist/driver.js.iife.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 </head>
 <body>
 
@@ -114,6 +123,7 @@
             <button class="sidebar-toggle" onclick="document.getElementById('studentSidebar').classList.toggle('open')" aria-label="Menu">☰</button>
             <h1 class="topbar-title">Student Dashboard</h1>
             <div class="topbar-right">
+                <button class="btn-ghost btn-sm" onclick="startDashboardTour()" data-tippy-content="Take a guided tour" style="font-size:18px;padding:4px 10px;border-radius:50%;cursor:pointer;">❓</button>
                 <div class="notif-bell" onclick="showSection('notifications', document.querySelector('[onclick*=notifications]'))">
                     🔔<span class="notif-badge" id="bellBadge" style="display:none;">0</span>
                 </div>
@@ -138,7 +148,7 @@
                 </div>
 
                 <div class="overview-cards">
-                    <div class="stat-card gradient-blue">
+                    <div class="stat-card gradient-blue" data-tippy-content="How complete your profile is — aim for 100%">
                         <div class="stat-icon">👤</div>
                         <div class="stat-info">
                             <span class="stat-label">Profile Strength</span>
@@ -146,21 +156,21 @@
                         </div>
                         <div class="stat-progress"><div class="stat-progress-bar" id="ovProfileBar" style="width:0%"></div></div>
                     </div>
-                    <div class="stat-card gradient-green">
+                    <div class="stat-card gradient-green" data-tippy-content="Your placement eligibility status based on CGPA and profile">
                         <div class="stat-icon">🎯</div>
                         <div class="stat-info">
                             <span class="stat-label">Eligibility</span>
                             <span class="stat-value" id="ovEligibility">—</span>
                         </div>
                     </div>
-                    <div class="stat-card gradient-gold">
+                    <div class="stat-card gradient-gold" data-tippy-content="Upload your resume to apply for jobs">
                         <div class="stat-icon">📄</div>
                         <div class="stat-info">
                             <span class="stat-label">Resume</span>
                             <span class="stat-value" id="ovResume">Not Uploaded</span>
                         </div>
                     </div>
-                    <div class="stat-card gradient-red">
+                    <div class="stat-card gradient-red" data-tippy-content="Your current CGPA score">
                         <div class="stat-icon">📊</div>
                         <div class="stat-info">
                             <span class="stat-label">CGPA</span>
@@ -813,7 +823,8 @@
                         <option value="modern">Modern Template</option>
                         <option value="minimal">Minimal Template</option>
                     </select>
-                    <button class="btn-primary btn-sm" onclick="printResume()">🖨️ Print / Save as PDF</button>
+                    <button class="btn-primary btn-sm" onclick="printResume()">🖨️ Print</button>
+                    <button class="btn-primary btn-sm" onclick="downloadResumePDF()" style="background:linear-gradient(135deg,#C62828,#e53935);">📥 Download PDF</button>
                 </div>
 
                 <div class="resume-preview-container">
@@ -923,5 +934,27 @@
 <script src="js/app-loader.js"></script>
 <script src="js/micro-interactions.js"></script>
 <script src="js/pwa.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    tippy('[data-tippy-content]', { animation: 'shift-away', theme: 'material', arrow: true, delay: [200, 0] });
+  });
+
+  function startDashboardTour() {
+    const driverObj = window.driver.js.driver({
+      showProgress: true,
+      animate: true,
+      overlayColor: 'rgba(11, 29, 58, 0.75)',
+      steps: [
+        { element: '.overview-cards', popover: { title: '📊 Your Overview', description: 'See your profile strength, eligibility, resume status, and CGPA at a glance.', side: 'bottom' } },
+        { element: '[onclick*="jobs"]', popover: { title: '💼 Browse Jobs', description: 'Explore active job postings. Search, filter, bookmark, and apply directly.', side: 'right' } },
+        { element: '[onclick*="applications"]', popover: { title: '📝 Track Applications', description: 'Monitor your application status — pending, shortlisted, accepted, or rejected.', side: 'right' } },
+        { element: '[onclick*="resume"]', popover: { title: '📄 Resume Builder', description: 'Auto-generate a professional resume from your profile. Download as PDF!', side: 'right' } },
+        { element: '.notif-bell', popover: { title: '🔔 Notifications', description: 'Stay updated with campus announcements and placement alerts.', side: 'left' } },
+        { popover: { title: '🎉 You\'re All Set!', description: 'Explore the dashboard and apply to jobs. Good luck with your placements!' } }
+      ]
+    });
+    driverObj.drive();
+  }
+</script>
 </body>
 </html>
